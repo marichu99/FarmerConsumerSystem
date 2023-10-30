@@ -4,7 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>JspServlet</servlet-name>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>com.mabera.servlet.HelloServlet</servlet-class>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
