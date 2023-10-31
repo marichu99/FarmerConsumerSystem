@@ -8,8 +8,11 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-public class HelloServlet implements Servlet{
+import javax.servlet.annotation.WebServlet;
 
+@WebServlet("HelloServlet")
+
+public class HelloServlet implements Servlet{
     @Override
     public void destroy() {
         // TODO Auto-generated method stub
