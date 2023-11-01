@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/")
+@WebServlet("/this")
 public class Home extends HttpServlet { 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException{
         PrintWriter printWriter = res.getWriter();
@@ -26,5 +26,12 @@ public class Home extends HttpServlet {
         }else{
             printWriter.write("<p>Invalid Login <a href='/farmer-system-app'>Login again</a></p>");
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        PrintWriter printWriter = resp.getWriter();
+        printWriter.write("<B>Welcome</b>");
     }   
 }

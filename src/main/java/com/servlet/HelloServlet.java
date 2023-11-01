@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -41,6 +42,8 @@ public class HelloServlet implements Servlet{
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         // TODO Auto-generated method stub
         PrintWriter printWriter = res.getWriter();
-        printWriter.print("<b>Hello World</b>");
+        // printWriter.print("<b>Hello World</b>");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./login");
+        dispatcher.forward(req, res);
     }    
 }
