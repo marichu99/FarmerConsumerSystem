@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("HelloAgain")
+@WebServlet("/mabera")
 public class HelloAgain extends GenericServlet{
 
     @Override

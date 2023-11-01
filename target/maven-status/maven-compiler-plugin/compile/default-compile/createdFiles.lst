@@ -1,3 +1,6 @@
+com/servlet/index/Home.class
+com/servlet/auth/Login.class
+com/servlet/HelloFinal.class
+com/servlet/home/Home.class
 com/servlet/HelloAgain.class
 com/servlet/HelloServlet.class
-com/servlet/HelloFinal.class

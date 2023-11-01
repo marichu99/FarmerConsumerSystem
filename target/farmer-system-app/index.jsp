@@ -70,7 +70,7 @@ span.psw {
 
 <h2>Accounting Software</h2>
 
-<form action="/action_page.php" method="post">
+<form action="./login" method="post">
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
