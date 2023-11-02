@@ -2,6 +2,7 @@ com/servlet/index/Home.class
 com/servlet/auth/Login.class
 com/servlet/app/bean/ProductBeanI.class
 com/servlet/app/model/Product.class
+com/servlet/auth/Logout.class
 com/servlet/home/Home.class
 com/servlet/app/bean/ProductBean.class
 com/servlet/HelloFinal.class

@@ -1,6 +1,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/HelloAgain.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBeanI.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/auth/Logout.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/App.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/auth/Login.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/HelloFinal.java

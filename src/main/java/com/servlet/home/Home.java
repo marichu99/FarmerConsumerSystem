@@ -17,15 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/home")
 public class Home extends HttpServlet{
-
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext ctx = getServletContext();
         // TODO Auto-generated method stub
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write("<b>Welcome to the Home Page "+ctx.getAttribute("email")+"</b>");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -37,10 +32,15 @@ public class Home extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext ctx = getServletContext();
+        PrintWriter printWriter = resp.getWriter();
         // TODO Auto-generated method stub
         HttpSession httpSession = req.getSession();
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))){
-            resp.sendRedirect("/home");
+        String session = (String) httpSession.getAttribute("loggedInId");
+        if(StringUtils.isNotBlank(session)){
+            printWriter.write("<b>Welcome to the Home Page "+ctx.getAttribute("email")+"</b>+");
+            printWriter.write("\n"+
+            "You can log out here <a href = \"./logout\"> Logout </a>");
         }else{
             resp.sendRedirect("/");
         }

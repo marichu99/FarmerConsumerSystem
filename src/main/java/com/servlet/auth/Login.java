@@ -23,15 +23,16 @@ public class Login extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession httpSession = req.getSession(true);
-        httpSession.setAttribute("loggedInId", new Date().getTime());
+        httpSession.setAttribute("loggedInId", new Date().getTime()+"");
         ServletContext ctx = getServletContext();
         // TODO Auto-generated method stub
         String username = req.getParameter("email");
         String password = req.getParameter("password");
         PrintWriter printWriter = resp.getWriter();
         if(username.equals(ctx.getInitParameter("email")) && password.equals(ctx.getInitParameter("password"))){
-            printWriter.write("Welcome to Accounting");
-            resp.sendRedirect("/home");
+            // let us set the attributes
+            ctx.setAttribute("email", username);
+            resp.sendRedirect("./home");
         }else{
             printWriter.write("Invalid login details <a href=\".\">Login Again</a>");
         }
