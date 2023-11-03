@@ -1,0 +1,253 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.banner{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.75)),url("images/corn.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.navbar{
+    width: 85%;
+    padding: 35px 0;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+.navbar span{
+    font-size: large;
+    padding: 20px;
+    font-weight: bold;
+    color: aliceblue;
+}
+.navbar ul li{
+    text-decoration: none;
+    display: inline;
+    padding: 20px;
+    font-weight: bold;
+    color: aliceblue;
+}
+.navbar ul li:hover{
+    background-color: brown;
+    transition: .5s;
+    border-radius: 20px;
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: aliceblue;
+}
+.content{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: aliceblue;
+}
+.button{
+    width: 150px;
+    margin: 20px 10px;
+    padding: 15px 0;
+    border: 2px solid brown;
+    border-radius: 25px;
+    background: transparent;
+    text-align: center;
+    font-weight: bold;
+    color: aliceblue;
+}
+nav .fa{
+    display: none;
+}
+@media(max-width :700px){
+    .navbar ul li{
+        display: block;
+    }
+    nav #bars{
+        display: block;
+        margin: 20px;
+        font-weight: bold;
+        padding: 15px;
+        color: aliceblue;
+        cursor: pointer;
+        font-size: 22px;
+    }
+    .navlinks{
+        position: absolute;
+        background-color: brown;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
+        overflow: hidden;
+    }
+    nav #times{
+        display: block;
+        margin: 20px;
+        font-weight: bold;
+        padding: 15px;
+        color: aliceblue;
+        cursor: pointer;
+        font-size: 22px;
+    }
+}
+.farm_produce{
+    width: 100%;
+    max-width: 1024px;
+    padding-top: 100px;
+    text-align: center;
+    margin: auto;
+}
+.prod_row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0;
+    flex-wrap: wrap;
+}
+/* .search_produce{
+    width: 80%;
+    border: 2px solid grey;
+    border-radius: 25px;
+    font-size: large;
+    font-weight: bold;
+    height: 50px;
+    text-align: center;
+} */
+.prod_item{
+    flex: 1;
+    gap: 10px;
+    padding: 0;
+    margin: 10px;
+    text-align: start;
+    transition: transform .5s;
+    display: flex;
+    flex-direction: column;
+}
+
+.prod_item:hover{
+    transform: scale(1.1);
+}
+.image_prod{
+    width: 250px;
+    height: 200px;
+    border-radius: 20px;
+}
+.prodName{
+    font-weight: bold;
+    font-size: 20px;
+}
+.prodLocation{
+    font-weight: 300;
+    font-size: 15px;
+    font-size: small;
+}
+.prodPrice{
+    font-weight: bold;
+    font-size: 15px;
+    color: dark-blue;
+}
+.farm_produce h1{
+    font-size: 50px;
+    font-weight: bold;
+    font-style: normal;
+    /* padding: 25px;
+    padding-bottom: 0; */
+}
+.searchContainer{
+    width: 70%;
+    height: 25px;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    border-radius: 15px;
+    border: 5px solid brown;
+    bottom: -100px;
+    flex-wrap: wrap;
+    position: absolute;
+    align-items: center;
+    margin: 60px;
+    margin-left: 165px;
+    background-color: white;
+}
+.searchItem{
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+.search_produce{
+    margin: 0;
+    text-align: center;
+    width: 500px;
+    height:80px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+.foot{
+    width: 100%   ;
+}
+/* nav section */
+.footer{
+    background: #292828;
+    color: #563434;
+    font-size: 14px;
+    padding: 60px 0 20px;
+  }
+  .footer p{
+    color: #8a8a8a;
+  }
+  .footer h3{
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .footer-col-1{
+    flex-basis: 30%;
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  .footer hr{
+    border: none;
+    background: #aa9e9e;
+    height: 1px;
+    margin: 20px 0;
+  }
+  .copyright{
+    text-align: center;
+  }
+/* footer section */
+.footer{
+    background: #292828;
+    color: #563434;
+    font-size: 14px;
+    padding: 60px 0 20px;
+  }
+  .footer p{
+    color: #8a8a8a;
+  }
+  .footer h3{
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .footer-col-1{
+    flex-basis: 30%;
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  .footer hr{
+    border: none;
+    background: #aa9e9e;
+    height: 1px;
+    margin: 20px 0;
+  }
+  .copyright{
+    text-align: center;
+  }
+

@@ -1,4 +1,4 @@
-package com.servlet.app.model;
+package com.servlet.app.model.entity;
 
 import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;

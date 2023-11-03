@@ -3,7 +3,7 @@ package com.servlet.app.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.servlet.app.model.Product;
+import com.servlet.app.model.entity.Product;
 
 public class ProductBeanI implements ProductBean{
      @Override
