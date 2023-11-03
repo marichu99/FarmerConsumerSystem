@@ -23,6 +23,5 @@ public class Logout extends HttpServlet{
             httpSession.invalidate();
             resp.sendRedirect("./");
         }
-    }
-    
+    }    
 }
