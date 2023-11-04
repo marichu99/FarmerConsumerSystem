@@ -6,6 +6,7 @@ com/servlet/view/toolbar/BottomBar.class
 com/servlet/view/toolbar/TopBar.class
 com/servlet/view/toolbar/Menu.class
 com/servlet/action/dashboard/Profile.class
+com/servlet/action/dashboard/Produce.class
 com/servlet/action/dashboard/Track.class
 com/servlet/app/model/entity/User.class
 com/servlet/app/model/view/MenuLink.class
@@ -18,5 +19,6 @@ com/servlet/view/css/AppCss.class
 com/servlet/auth/Logout.class
 com/servlet/app/bean/ProductBean.class
 com/servlet/app/model/view/MenuLinkStatus.class
+com/servlet/action/dashboard/Reports.class
 com/servlet/action/dashboard/Approvals.class
 com/servlet/database/Database.class

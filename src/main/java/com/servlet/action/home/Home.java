@@ -3,7 +3,6 @@ package com.servlet.action.home;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,56 +36,54 @@ public class Home extends HttpServlet {
         PrintWriter printWriter = resp.getWriter();
         // TODO Auto-generated method stub
         HttpSession httpSession = req.getSession();
-        String session = (String) httpSession.getAttribute("loggedInId");
-        if (StringUtils.isNotBlank(session)) {
-            printWriter.write("<b>Welcome to the Home Page " + ctx.getAttribute("email") + "</b>+");
-            printWriter.write("<br/>");
-            printWriter.write("\n" +
-                    "You can log out here <a href = \"./logout\"> Logout </a>");
-            String htmlPage = "<form action=\"products.php\" enctype=\"multipart/form-data\" method=\"POST\">\n" +
-                    "    <div class=\"row\">\n" +
-                    "        <div class=\"col\">\n" +
-                    "            <h3 class=\"title\">Product Details</h3>\n" +
-                    "            <a href=\"customerDash.php\">Dashboard</a>\n" +
-                    "            <div class=\"user\">\n" +
-                    "                <label>Product Name</label>\n" +
-                    "                <input type=\"text\" placeholder=\"E.g. Names...\" name=\"prodName\"/>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"user\">\n" +
-                    "                <label>Product Description:</label>\n" +
-                    "                <input type=\"text-area\" placeholder=\"Please type in a description\" name=\"prodDescription\"/>\n"
-                    +
-                    "            </div>\n" +
-                    "            <div class=\"user\">\n" +
-                    "                <label>Select Image:</label>\n" +
-                    "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"user\">\n" +
-                    "                <label>Product Price Per Kilo:</label>\n" +
-                    "                <input type=\"number\" placeholder=\"Enter Price per product\" name=\"prodPrice\"/>\n"
-                    +
-                    "            </div>\n" +
-                    "            <div class=\"flex\">\n" +
-                    "                <div class=\"user\">\n" +
-                    "                    <label>Country:</label>\n" +
-                    "                    <input type=\"text\" placeholder=\"Kenya\" name=\"prodCountry\"/>\n" +
-                    "                </div>\n" +
-                    "                <div class=\"user\">\n" +
-                    "                    <label>Product Location:</label>\n" +
-                    "                    <input type=\"text\" placeholder=\"E.g. New York\" name=\"prodLocation\"/>\n" +
-                    "                </div>\n" +
-                    "                <div class=\"user\">\n" +
-                    "                    <label>Product Quantity (Kilos):</label>\n" +
-                    "                    <input type=\"number\" placeholder=\"E.g. 20...\" name=\"prodQuantity\"/>\n" +
-                    "                </div>\n" +
-                    "            </div>\n" +
-                    "            <input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n" +
-                    "    </div>\n" +
-                    "</form>";
+        if (httpSession != null) {
+            String session = (String) httpSession.getAttribute("loggedInId");
+            if (StringUtils.isNotBlank(session)) {
+                printWriter.write("<br/>");
+                printWriter.write("\n" +
+                        "You can log out here <a href = \"./logout\"> Logout </a>");
+                String htmlPage = "<form action=\"./produce\" enctype=\"multipart/form-data\" method=\"POST\">\n" +
+                        "    <div class=\"row\">\n" +
+                        "        <div class=\"col\">\n" +
+                        "            <h3 class=\"title\">Product Details</h3>\n" +
+                        "            <a href=\"customerDash.php\">Dashboard</a>\n" +
+                        "            <div class=\"user\">\n" +
+                        "                <label>Product Name</label>\n" +
+                        "                <input type=\"text\" placeholder=\"E.g. Names...\" name=\"prodName\"/>\n" +
+                        "            </div>\n" +
+                        "            <div class=\"user\">\n" +
+                        "                <label>Product Description:</label>\n" +
+                        "                <input type=\"text-area\" placeholder=\"Please type in a description\" name=\"prodDescription\"/>\n"
+                        +
+                        "            </div>\n" +
+                        // "            <div class=\"user\">\n" +
+                        // "                <label>Select Image:</label>\n" +
+                        // "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
+                        // "            </div>\n" +
+                        "            <div class=\"user\">\n" +
+                        "                <label>Product Price Per Kilo:</label>\n" +
+                        "                <input type=\"number\" placeholder=\"Enter Price per product\" name=\"prodPrice\"/>\n"
+                        +
+                        "            </div>\n" +
+                        "            <div class=\"flex\">\n" +
+                        "                </div>\n" +
+                        "                <div class=\"user\">\n" +
+                        "                    <label>Product Quantity (Kilos):</label>\n" +
+                        "                    <input type=\"number\" placeholder=\"E.g. 20...\" name=\"prodQuantity\"/>\n"
+                        +
+                        "                </div>\n" +
+                        "            </div>\n" +
+                        "            <input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n" +
+                        "    </div>\n" +
+                        "</form>";
 
-            new AppPage().renderHtml(req, resp, 0, htmlPage);
-        } else {
-            resp.sendRedirect("/");
+                new AppPage().renderHtml(req, resp, 0, htmlPage);
+            } else {
+                resp.sendRedirect("/");
+            }
+        } else{
+            // if the session is null then redirect them to the login page
+            resp.sendRedirect("./login");
         }
     }
 }

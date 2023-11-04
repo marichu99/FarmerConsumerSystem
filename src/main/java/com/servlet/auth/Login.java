@@ -1,10 +1,9 @@
 package com.servlet.auth;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.servlet.app.model.entity.User;
+import com.servlet.database.Database;
 
 
 @WebServlet(urlPatterns = "/login")
@@ -28,13 +30,16 @@ public class Login extends HttpServlet{
         // TODO Auto-generated method stub
         String username = req.getParameter("email");
         String password = req.getParameter("password");
-        PrintWriter printWriter = resp.getWriter();
-        if(username.equals(ctx.getInitParameter("email")) && password.equals(ctx.getInitParameter("password"))){
-            // let us set the attributes
-            ctx.setAttribute("email", username);
-            resp.sendRedirect("./home");
-        }else{
-            printWriter.write("Invalid login details <a href=\".\">Login Again</a>");
+        // set the id attribute for the context
+        ctx.setAttribute("userId", 1);
+        Database database = Database.getDbInstance();
+        for(User user : database.getUsers()){
+            if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
+                 // let us set the attributes
+                httpSession.setAttribute("loggedInId", new Date().getTime()+"");
+                ctx.setAttribute("email", username);
+                resp.sendRedirect("./home");
+            }
         }
     }
 
@@ -47,8 +52,5 @@ public class Login extends HttpServlet{
             resp.sendRedirect("./home");
         else
             resp.sendRedirect("./");
-    }
-
-
-    
+    }    
 }

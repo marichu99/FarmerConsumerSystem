@@ -10,21 +10,23 @@ public class ProductBeanI implements ProductBean{
     public String productList() {
         List<Product> products = new ArrayList<>();
 
-        products.add(new Product("001", "maize", "yellow", 300, 25, "cereals"));
-        products.add(new Product("002", "beans", "yellow", 200, 20, "cereals"));
-        products.add(new Product("003", "tomato", "sweet tomato", 5000, 25, "fruits"));
-        products.add(new Product("004", "cabbage", "pink", 5000, 25, "vegetables"));
+        products.add(new Product(1, "maize", "yellow", 300, 12));
+        products.add(new Product(2, "beans", "yellow", 200, 12));
+        products.add(new Product(3, "tomato", "sweet tomato", 5000, 13));
+        products.add(new Product(4, "cabbage", "pink", 5000, 15));
+
 
         StringBuilder trBuilder = new StringBuilder();
 
-        trBuilder.append("<div >");
+        trBuilder.append("<section class='farm_produce' id='farms'>");
 
         for (Product product : products)
             trBuilder.append(product.displayProducts());
 
-        trBuilder.append("</div>");
+        trBuilder.append("</section>");
 
         return trBuilder.toString();
+
     }
 
     public Product addOrUpdateAccount(Product product) throws Exception {
@@ -35,4 +37,5 @@ public class ProductBeanI implements ProductBean{
     public void deleteAccount(Product product) {
 
     }
+    
 }

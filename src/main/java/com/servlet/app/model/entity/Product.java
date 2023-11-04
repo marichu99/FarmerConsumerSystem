@@ -4,30 +4,35 @@ import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
 public class Product {
-    private String productId;
+    private int productId;
     private String productName;
     private String productDescription;
     private double price;
-    private int availability;
-    private String category;
+    private int prodQuantity;
+    public int getProdQuantity() {
+        return prodQuantity;
+    }
+
+    public void setProdQuantity(int prodQuantity) {
+        this.prodQuantity = prodQuantity;
+    }
 
     public Product() {
     }
 
-    public Product(String id, String name, String description, double price, int availability, String category) {
+    public Product(int id, String name, String description, double price, int prodQuantity) {
         this.productId = id;
         this.productName = name;
         this.productDescription = description;
         this.price = price;
-        this.availability = availability;
-        this.category = category;
+        this.prodQuantity =prodQuantity;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
@@ -54,32 +59,16 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public int getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(int availability) {
-        this.availability = availability;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String displayProducts() {
         StringBuilder trBuilder = new StringBuilder();
     
-        trBuilder.append("<div class=\\\"product-item\\\">");
-        trBuilder.append("<h3>").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
-        trBuilder.append("<h4>").append(new DecimalFormat("#,###.##").format(getPrice())).append("</h4>");
-        trBuilder.append("<h4>").append(getAvailability()).append("</h4>");
-        trBuilder.append("</div>");    
+        trBuilder.append("<div class=\"prod_item\">");
+        // trBuilder.append("<img src='prodIMG/").append(getProductImageDir()).append("' class=\"image_prod\"/><br/>");
+        trBuilder.append("<span class=\"prodName\">").append(StringUtils.trimToEmpty(getProductName())).append("</span><br/>");
+        trBuilder.append("<span class=\"prodLocation\">").append(getProductDescription()).append("</span><br/>");
+        trBuilder.append("<span class=\"prodPrice\">").append(new DecimalFormat("#,###.##").format(getPrice())).append(" Per Kilogram</span><br/>");
+        trBuilder.append("</div>");
         return trBuilder.toString();
-    }
+    }   
     
 }

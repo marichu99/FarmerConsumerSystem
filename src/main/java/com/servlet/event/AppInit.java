@@ -1,5 +1,6 @@
 package com.servlet.event;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -26,11 +27,10 @@ public class AppInit implements ServletContextListener{
         dbInstance.getUsers().add(new User("njeri", "njeri@gmail.com", "njeri"));
 
         // now let us add some produce
-        dbInstance.getProducts().add(new Product("001", "maize", "yellow", 300, 25, "cereals"));
-        dbInstance.getProducts().add(new Product("002", "beans", "yellow", 200, 20, "cereals"));
-        dbInstance.getProducts().add(new Product("003", "tomato", "sweet tomato", 5000, 25, "fruits"));
-        dbInstance.getProducts().add(new Product("004", "cabbage", "pink", 5000, 25, "vegetables"));
-        
+        dbInstance.getProducts().add(new Product(1, "maize", "yellow", 300, 10));
+        dbInstance.getProducts().add(new Product(2, "beans", "yellow", 200, 20));
+        dbInstance.getProducts().add(new Product(3, "tomato", "sweet tomato", 5000, 10));
+        dbInstance.getProducts().add(new Product(4, "cabbage", "pink", 5000, 15));        
     }
     
 }
