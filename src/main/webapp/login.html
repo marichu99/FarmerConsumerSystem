@@ -16,20 +16,20 @@
         <div id="buttonz"></div>
 
         <button class="toggle-btn" onclick="login()">Login</button>
-        <button class="toggle-btn" onclick="signRedirect()">Sign Up</button>
+        <button class="toggle-btn"><a href="Sign.html">Sign Up</a></button>
       </div>
 
       <form action="./login" method="POST" id="login" class="login-input-group">
         <div class="loginDiv">
           <label class="form-label">Enter your Email:</label>
           <div class="input-detail">
-            <input id="email" placeholder="Enter your Email address" name="email" class="input-box"
+            <input id="email" placeholder="Enter your Email address" type="email" name="email" class="input-box"
               onkeyup="checkFormValidation(event)"><br>
           </div>
           <label class="form-label">Enter your Password:</label>
           <div class="input-detail">
             <input id="password" placeholder="Enter your password" name="password" class="input-box"
-              onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><br><i class="uil uil-eye"
+              onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)" type="password"><br><i class="uil uil-eye"
               id="openPass" onclick="hidePass('password','pass')"></i><i class="uil uil-eye-slash"
               onclick="showPass('password','pass')" id="eyeClosedPass"></i>
           </div>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.servlet.view.css.AppCss;
 import com.servlet.view.html.AppPage;
 
 @WebServlet(urlPatterns = "/home")
@@ -40,29 +41,31 @@ public class Home extends HttpServlet {
             String session = (String) httpSession.getAttribute("loggedInId");
             if (StringUtils.isNotBlank(session)) {
                 printWriter.write("<html>\n");
+                printWriter.write("<head>\n");
+                printWriter.write(new AppCss().getStyle());
+                printWriter.write("</head>\n");
                 printWriter.write("<body>\n");
 
                 printWriter.write("<br/>\n");
-             
+                
 
-                String htmlPage = "<form action=\"./produce\" enctype=\"multipart/form-data\" method=\"POST\">\n" +
+                String htmlPage = "<form action=\"./produce\" method=\"POST\">\n" +
                         "    <div class=\"row\">\n" +
                         "        <div class=\"col\">\n" +
                         "            <h3 class=\"title\">Product Details</h3>\n" +
-                        "            <a href=\"customerDash.php\">Dashboard</a>\n" +
                         "            <div class=\"user\">\n" +
                         "                <label>Product Name</label>\n" +
                         "                <input type=\"text\" placeholder=\"E.g. Names...\" name=\"prodName\"/>\n" +
                         "            </div>\n" +
                         "            <div class=\"user\">\n" +
                         "                <label>Product Description:</label>\n" +
-                        "                <textarea placeholder=\"Please type in a description\" name=\"prodDescription\"></textarea>\n"
+                        "                <input  type=\"text\" placeholder=\"Please type in a description\" name=\"prodDescription\"/>\n"
                         +
                         "            </div>\n" +
-                        "            <div class=\"user\">\n" +
-                        "                <label>Select Image:</label>\n" +
-                        "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
-                        "            </div>\n" +
+                        // "            <div class=\"user\">\n" +
+                        // "                <label>Select Image:</label>\n" +
+                        // "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
+                        // "            </div>\n" +
                         "            <div class=\"user\">\n" +
                         "                <label>Product Price Per Kilo:</label>\n" +
                         "                <input type=\"number\" placeholder=\"Enter Price per product\" name=\"prodPrice\"/>\n"

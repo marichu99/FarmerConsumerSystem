@@ -60,6 +60,14 @@ public class Produce extends HttpServlet {
         // get the existing database instance
         Database dbInstance = Database.getDbInstance();
         // lets access the produce from the database through the same instance
+        PrintWriter printWriter = resp.getWriter();
+        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodName")+"</body></html>");
+        printWriter.write("<html><body><br/></body></html>");
+        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodDescription")+"</body></html>");
+        printWriter.write("<html><body><br/></body></html>");
+        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodPrice")+"</body></html>");
+        printWriter.write("<html><body><br/></body></html>");
+        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodQuantity")+"</body></html>");
         dbInstance.getProducts().add(new Product(1, req.getParameter("prodName"), req.getParameter("prodDescription"),
                 Double.valueOf(req.getParameter("prodPrice")), Integer.parseInt(req.getParameter("prodQuantity"))));
     }

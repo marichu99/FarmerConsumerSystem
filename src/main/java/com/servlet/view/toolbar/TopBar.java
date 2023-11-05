@@ -39,10 +39,9 @@ public class TopBar implements Menu, Serializable {
                     "                <span class=\"link-name\">" + link.getLabel() + "</span>\n" +
                     "            </a></li>\n";
         }
-
         menuBar += "        </ul>\n" +
                 "        <ul>\n" +
-                "            <li><a href=\"logout.php\">\n" +
+                "            <li><a href=\"./logout\">\n" +
                 "            <img src=\"icons/signout.jpg\" class=\"icon\" />\n" +
                 "                <span class=\"link-name\">Log out</span>\n" +
                 "            </a></li>\n" +

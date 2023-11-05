@@ -3,7 +3,8 @@ package com.servlet.view.css;
 import java.io.Serializable;
 
 public class ProductCss implements Serializable{
-    private String styles = ".farm_produce{" +
+    private String styles = "<style>" +
+                     "     .farm_produce{" +
                      "    width: 70%;" +
                      "    padding-top: 10px;" +
                      "    text-align: center;" +
@@ -57,7 +58,9 @@ public class ProductCss implements Serializable{
                      "    font-size: 50px;" +
                      "    font-weight: bold;" +
                      "    font-style: normal;" +
-                     "}";
+                     "};"+
+                     "</style>";
+                     
 
 
     public String getStyles() {

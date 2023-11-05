@@ -144,9 +144,6 @@ function checkFormValidation(e){
   }
 }
 
-function signRedirect(){
-  window.location.href="http://localhost/PROJO/Sign.php"
-}
 
 // functions to show and hide the passwords
 function showPass(type,place){
