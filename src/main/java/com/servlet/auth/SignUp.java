@@ -38,7 +38,6 @@ public class SignUp extends HttpServlet{
                 resp.sendRedirect("./home");
             }else{
                 database.getUsers().add(new User(email, password, username));
-
                 print.write("<html>" +
                             "<body>" +
                             "<script type='text/javascript'>" +
