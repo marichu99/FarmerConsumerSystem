@@ -205,6 +205,78 @@ public class AppCss implements Serializable{
     ".navContainer{" +
     "    width: 20%;" +
     "}" +
+    // CSS FOR THE PRODUCT FORMS
+    ".main{" +
+    "    display: flex;" +
+    "    justify-content: center;" +
+    "    align-items: center;" +
+    "    background: linear-gradient( rgba(88, 88, 88, 0.2),rgba(182, 180, 180, 0.4));" +
+    "    min-height: 100vh;" +
+    "    padding-top: 20px;" +
+    "    padding-bottom: 10px;" +
+    "}" +
+    ".main form{" +
+    "    background-color: white;" +
+    "    border-radius: 20px;" +
+    "    padding: 20px;" +
+    "    width: 500px;" +
+    "}" +
+    ".main form .row{" +
+    "    display: flex;" +
+    "    flex-wrap: wrap;" +
+    "    gap: 15px;" +
+    "}" +
+    ".main form .row .col{" +
+    "    flex: 1 1 250px;" +
+    "}" +
+    ".main form .row .col .title{" +
+    "    font-size: 20px;" +
+    "    color: black;" +
+    "    text-transform: uppercase;" +
+    "}" +
+    ".main form .row .col .user{" +
+    "    margin: 10px 0;" +
+    "    display: flex;" +
+    "    flex-direction: column;" +
+    "    padding: 5px 12px;" +
+    "}" +
+    ".main form .row .col .user label{" +
+    "    margin-bottom: 5px;" +
+    "}" +
+    ".main form .row .col .user input{" +
+    "    width: 100%;" +
+    "    border: 1px solid grey;" +
+    "    padding: 10px 15px;" +
+    "    font-size: 15px;" +
+    "    text-transform: none;" +
+    "    border-radius: 10px;" +
+    "}" +
+    ".main form .row .col .user input:focus{" +
+    "    border: 1px solid black;" +
+    "}" +
+    ".main form .row .col .flex{" +
+    "    display: flex;" +
+    "    justify-content: space-between;" +
+    "}" +
+    ".main form .submit{" +
+    "    width: 100%;" +
+    "    font-size: 17px;" +
+    "    color: white;" +
+    "    cursor: pointer;" +
+    "    background-color: rgb(99, 87, 87);" +
+    "    border-radius: 10px;" +
+    "    height: 34px;" +
+    "    font-family: 'Times New Roman', Times, serif;" +
+    "    text-transform: uppercase;" +
+    "    transition: transform .5s;" +
+    "}" +
+    ".main form .submit:hover{" +
+    "    background-color: rgb(36, 35, 35);" +
+    "    transform: scale(0.9);" +
+    "}" +
+    "input.message{" +
+    "    height: 80px;" +
+    "}" +
     "</style>";
 
     public String getStyle() {

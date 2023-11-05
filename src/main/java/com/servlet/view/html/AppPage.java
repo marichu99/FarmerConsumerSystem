@@ -38,7 +38,7 @@ public class AppPage implements Serializable {
 
             "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +
             "<br/>&nbsp;<br/>" +
-            "<h3>Welcome: " + session.getAttribute("username") + "</h3><br/>");
+            "<h3>Welcome: " + session.getAttribute("email") + "</h3><br/>");
 
         print.write(content);
         print.write("<a href=\"./logout\">Logout</a>" +

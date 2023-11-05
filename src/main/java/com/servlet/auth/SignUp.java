@@ -1,3 +1,4 @@
+
 package com.servlet.auth;
 
 import java.io.IOException;
@@ -19,25 +20,33 @@ import com.servlet.database.Database;
 
 
 @WebServlet(urlPatterns = "/login")
-public class Login extends HttpServlet{
+public class SignUp extends HttpServlet{
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        String username = req.getParameter("email");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String username = req.getParameter("username");
         PrintWriter print = resp.getWriter();
         Database database = Database.getDbInstance();
         for (User user : database.getUsers()) {         
 
-            if (username.equals(user.getEmail()) && password.equals(user.getPassword())) {                
-                HttpSession httpSession = req.getSession(true);
-                print.write("<html><body>An match was found with  username "+username+"</body></html>");                
-                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-
-                httpSession.setAttribute("email", username);
+            if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {                
+                print.write("<html><body>A match was found with  username "+username+"</body></html>");                
+                print.write("<html><body>Kindly try signing up again <a href=\"./app/Sign.html\"> Login again </a></body></html>");
                 resp.sendRedirect("./home");
+            }else{
+                database.getUsers().add(new User(email, password, username));
 
+                print.write("<html>" +
+                            "<body>" +
+                            "<script type='text/javascript'>" +
+                            "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
+                            "    window.location.href = './app/Login.html';" +
+                            "</script>" +
+                            "</body>" +
+                            "</html>");
             }
         }
 
@@ -59,3 +68,4 @@ public class Login extends HttpServlet{
             resp.sendRedirect("./");
     }    
 }
+ 

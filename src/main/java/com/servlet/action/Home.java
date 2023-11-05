@@ -1,4 +1,4 @@
-package com.servlet.action.home;
+package com.servlet.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.view.html.AppPage;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns = "/home")
 public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,9 +39,12 @@ public class Home extends HttpServlet {
         if (httpSession != null) {
             String session = (String) httpSession.getAttribute("loggedInId");
             if (StringUtils.isNotBlank(session)) {
-                printWriter.write("<br/>");
-                printWriter.write("\n" +
-                        "You can log out here <a href = \"./logout\"> Logout </a>");
+                printWriter.write("<html>\n");
+                printWriter.write("<body>\n");
+
+                printWriter.write("<br/>\n");
+             
+
                 String htmlPage = "<form action=\"./produce\" enctype=\"multipart/form-data\" method=\"POST\">\n" +
                         "    <div class=\"row\">\n" +
                         "        <div class=\"col\">\n" +
@@ -53,37 +56,42 @@ public class Home extends HttpServlet {
                         "            </div>\n" +
                         "            <div class=\"user\">\n" +
                         "                <label>Product Description:</label>\n" +
-                        "                <input type=\"text-area\" placeholder=\"Please type in a description\" name=\"prodDescription\"/>\n"
+                        "                <textarea placeholder=\"Please type in a description\" name=\"prodDescription\"></textarea>\n"
                         +
                         "            </div>\n" +
-                        // "            <div class=\"user\">\n" +
-                        // "                <label>Select Image:</label>\n" +
-                        // "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
-                        // "            </div>\n" +
+                        "            <div class=\"user\">\n" +
+                        "                <label>Select Image:</label>\n" +
+                        "                <input type=\"file\" value=\"Select an Image\" name=\"prodImg\"/>\n" +
+                        "            </div>\n" +
                         "            <div class=\"user\">\n" +
                         "                <label>Product Price Per Kilo:</label>\n" +
                         "                <input type=\"number\" placeholder=\"Enter Price per product\" name=\"prodPrice\"/>\n"
                         +
                         "            </div>\n" +
                         "            <div class=\"flex\">\n" +
-                        "                </div>\n" +
-                        "                <div class=\"user\">\n" +
+                        "                <div class \"user\">\n" + 
                         "                    <label>Product Quantity (Kilos):</label>\n" +
                         "                    <input type=\"number\" placeholder=\"E.g. 20...\" name=\"prodQuantity\"/>\n"
                         +
                         "                </div>\n" +
                         "            </div>\n" +
                         "            <input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n" +
+                        "        </div>\n" +
                         "    </div>\n" +
-                        "</form>";
+                        "</form>\n";
+
+
+                printWriter.write("</body>\n");
+                printWriter.write("</html>\n");
 
                 new AppPage().renderHtml(req, resp, 0, htmlPage);
             } else {
                 resp.sendRedirect("/");
             }
-        } else{
+        } else {
             // if the session is null then redirect them to the login page
-            resp.sendRedirect("./login");
+
+            // resp.sendRedirect("./login");
         }
     }
 }
