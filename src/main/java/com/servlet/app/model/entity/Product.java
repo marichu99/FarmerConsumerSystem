@@ -3,6 +3,8 @@ package com.servlet.app.model.entity;
 import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servlet.database.Database;
+
 public class Product {
     private int productId;
     private String productName;
@@ -60,15 +62,18 @@ public class Product {
         this.price = price;
     }
     public String displayProducts() {
-        StringBuilder trBuilder = new StringBuilder();
-    
-        trBuilder.append("<div class=\"prod_item\">");
-        // trBuilder.append("<img src='prodIMG/").append(getProductImageDir()).append("' class=\"image_prod\"/><br/>");
-        trBuilder.append("<span class=\"prodName\">").append(StringUtils.trimToEmpty(getProductName())).append("</span><br/>");
-        trBuilder.append("<span class=\"prodLocation\">").append(getProductDescription()).append("</span><br/>");
-        trBuilder.append("<span class=\"prodPrice\">").append(new DecimalFormat("#,###.##").format(getPrice())).append(" Per Kilogram</span><br/>");
-        trBuilder.append("</div>");
-        return trBuilder.toString();
+        Database dbInstance = Database.getDbInstance();
+        String allProduce =  " ";
+        for (Product product : dbInstance.getProducts()) {        
+
+            allProduce+="<div class='prod_item'>" +
+                    "    <img src='prodIMG/' class='image_prod'/><br/>" +
+                    "    <span class='prodName'>"+product.getProductName()+"</span><br/>" +
+                    "    <span class='prodLocation'>"+product.getProductDescription()+"</span><br/>" +
+                    "    <span class='prodPrice'>"+product.getPrice()+"</span><br/>" +
+                    "</div>";
+        }
+        return allProduce;
     }   
     
 }

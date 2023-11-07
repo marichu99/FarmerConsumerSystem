@@ -27,6 +27,20 @@ public class AppCss implements Serializable {
             "    border-right: 1px solid grey;" +
             "    transition: 1.5s;" +
             "}" +
+            ".bodySection{" +
+            "    display:flex;" +
+            "    flex-direction: column; " +
+            "    width:50%"+
+            "}" +
+            ".prodDetails{" +
+            "    display:flex;" +
+            "    flex-wrap:wrap;"+
+            "}" +
+            ".topSection {" +
+                "display: flex;" +
+                "justify-content: space-between;" +
+                "gap: 40px;" +
+            "}" +
             ".navClose{" +
             "    width: 75px;" +
             "}" +
@@ -209,7 +223,7 @@ public class AppCss implements Serializable {
             "    width: 20%;" +
             "}" +
             // CSS FOR THE PRODUCT FORMS
-            ".main{" +
+            " {" +
             "    display: flex;" +
             "    justify-content: center;" +
             "    align-items: center;" +
@@ -218,35 +232,35 @@ public class AppCss implements Serializable {
             "    padding-top: 20px;" +
             "    padding-bottom: 10px;" +
             "}" +
-            ".main form{" +
+            "  form{" +
             "    background-color: white;" +
             "    border-radius: 20px;" +
             "    padding: 20px;" +
             "    width: 500px;" +
             "}" +
-            ".main form .row{" +
+            "  form .row{" +
             "    display: flex;" +
             "    flex-wrap: wrap;" +
             "    gap: 15px;" +
             "}" +
-            ".main form .row .col{" +
+            "  form .row .col{" +
             "    flex: 1 1 250px;" +
             "}" +
-            ".main form .row .col .title{" +
+            "  form .row .col .title{" +
             "    font-size: 20px;" +
             "    color: black;" +
             "    text-transform: uppercase;" +
             "}" +
-            ".main form .row .col .user{" +
+            "  form .row .col .user{" +
             "    margin: 10px 0;" +
             "    display: flex;" +
             "    flex-direction: column;" +
             "    padding: 5px 12px;" +
             "}" +
-            ".main form .row .col .user label{" +
+            "  form .row .col .user label{" +
             "    margin-bottom: 5px;" +
             "}" +
-            ".main form .row .col .user input{" +
+            "  form .row .col .user input{" +
             "    width: 100%;" +
             "    border: 1px solid grey;" +
             "    padding: 10px 15px;" +
@@ -254,14 +268,14 @@ public class AppCss implements Serializable {
             "    text-transform: none;" +
             "    border-radius: 10px;" +
             "}" +
-            ".main form .row .col .user input:focus{" +
+            "  form .row .col .user input:focus{" +
             "    border: 1px solid black;" +
             "}" +
-            ".main form .row .col .flex{" +
+            "  form .row .col .flex{" +
             "    display: flex;" +
             "    justify-content: space-between;" +
             "}" +
-            ".main form .submit{" +
+            "  form .submit{" +
             "    width: 100%;" +
             "    font-size: 17px;" +
             "    color: white;" +
@@ -273,7 +287,7 @@ public class AppCss implements Serializable {
             "    text-transform: uppercase;" +
             "    transition: transform .5s;" +
             "}" +
-            ".main form .submit:hover{" +
+            "  form .submit:hover{" +
             "    background-color: rgb(36, 35, 35);" +
             "    transform: scale(0.9);" +
             "}" +
@@ -298,6 +312,13 @@ public class AppCss implements Serializable {
             "    display: none;" +
             "    justify-content: space-between;" +
             "    padding-bottom: 0;" +
+            "    flex-wrap: wrap;" +
+            "}" +
+            ".prod_row{" +
+            "    margin-top: 5%;" +
+            "    display: flex;" +
+            "    justify-content: space-between;" +
+            "    flex-direction: column;" +
             "    flex-wrap: wrap;" +
             "}" +
             ".prod_item{" +

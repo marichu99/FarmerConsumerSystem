@@ -32,19 +32,19 @@
             </div>
             <label class="form-label">Enter your Email:</label>
             <div class="input-detail">
-            <input  id="emailSign" placeholder="Enter your Email address" name="email" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><p id="emailSignValid"></p>
+            <input  id="emailSign" placeholder="Enter your Email address" type="email" name="email" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><p id="emailSignValid"></p>
             </div>
             <label class="form-label">Enter your Password:</label>
             <div class="input-detail">
-            <input id="passwordSign" placeholder="Enter your password" name="password" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><i class="uil uil-eye" id="openPass" onclick="hidePass('passwordSign','pass')"></i><i class="uil uil-eye-slash" onclick="showPass('passwordSign','pass')" id="eyeClosedPass"></i><p id="passwordSignValid"></p><p id="specialCharacter"></p>
+            <input id="passwordSign" placeholder="Enter your password" type="password" name="password" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><i class="uil uil-eye" id="openPass" onclick="hidePass('passwordSign','pass')"></i><i class="uil uil-eye-slash" onclick="showPass('passwordSign','pass')" id="eyeClosedPass"></i><p id="passwordSignValid"></p><p id="specialCharacter"></p>
             </div>
             <label class="form-label">Confirm your Password:</label>
             <div class="input-detail">
-            <input id="passwordRe" placeholder="Confirm your password" name="passwordRE" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><i class="uil uil-eye" id="openPassConfirm" onclick="hidePass('passwordRe','passConfirm')"></i><i class="uil uil-eye-slash" onclick="showPass('passwordRe','passConfirm')" id="eyeClosedPassConfirm"></i> <p id="passReValid"></p>
+            <input id="passwordRe" placeholder="Confirm your password" type="password" name="passwordRE" class="input-box" onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)"><i class="uil uil-eye" id="openPassConfirm" onclick="hidePass('passwordRe','passConfirm')"></i><i class="uil uil-eye-slash" onclick="showPass('passwordRe','passConfirm')" id="eyeClosedPassConfirm"></i> <p id="passReValid"></p>
             </div>
             <div class="input-detail">
             <input type="submit" id="submit" class="btn-submit" onclick="formValidation()"><br>
-            <span class="loginLink"><a href="login.html">Login</a></span>
+            <span class="loginLink"><a href="./login">Login</a></span>
             </div>
             
             </div>
@@ -54,6 +54,6 @@
 
         </div>
       </div>
-      <script src="sign.js" type="text/javascript"></script>
+      <script src="js/login.js" type="text/javascript"></script>
 </body>
 </html>

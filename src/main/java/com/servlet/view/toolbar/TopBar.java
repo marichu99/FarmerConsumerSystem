@@ -16,7 +16,7 @@ public class TopBar implements Menu, Serializable {
         links.add(new MenuLink("./produce", "Products", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./sell", "Sell", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./buy", "Buy", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./reports", "Buy", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./reports", "Reports", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./track", "Track my Produce", MenuLinkStatus.NOT_ACTIVE));
 
     }

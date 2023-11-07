@@ -1,4 +1,4 @@
-package com.servlet.auth;
+package com.servlet.action.dashboard;
 
 import java.io.IOException;
 

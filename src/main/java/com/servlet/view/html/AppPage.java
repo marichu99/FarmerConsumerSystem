@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.servlet.view.css.AppCss;
-import com.servlet.view.css.ProductCss;
 import com.servlet.view.toolbar.TopBar;
 
 public class AppPage implements Serializable {
@@ -26,22 +25,21 @@ public class AppPage implements Serializable {
 
         print.write("<!DOCTYPE html>" +
                 "<html>" +
-
                 "<head>" +
                 new AppCss().getStyle() +
-                new ProductCss().getStyles() +
+                "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">"+
                 "</head>" +
-
                 "<body>" +
 
                 new TopBar().menu(activeMenu) +
-                "<div class=\"topSection\">" +
-                "<h3 class =\"headerH3\">" + ctx.getInitParameter("AppName") + "<h3>" +
-                "<br/>&nbsp;<br/>" +
-                "<h3 =\"headerH3\">Welcome: " + session.getAttribute("email") + "</h3><br/>" +
-                "</div>");
-
+                "<div class=\"bodySection\">" +
+                        "<div class=\"topSection\">" +
+                        "<h3 class =\"headerH3\">" + ctx.getInitParameter("AppName") + "<h3>" +
+                        "<br/>&nbsp;<br/>" +
+                        "<h3 class=\"headerH3\">Welcome: " + session.getAttribute("email") + "</h3><br/>" +
+                        "</div>");                      
         print.write(content);
+        print.write("</div>");
         print.write("<a href=\"./logout\">Logout</a>" +
                 "</body>" +
                 "</html>");

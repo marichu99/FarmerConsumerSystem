@@ -1,74 +1,57 @@
 package com.servlet.action.dashboard;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.servlet.app.bean.ProductBean;
+import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
-import com.servlet.view.css.AppCss;
-import com.servlet.view.css.ProductCss;
-import com.servlet.view.toolbar.TopBar;
+import com.servlet.view.html.AppPage;
 
 @WebServlet("/produce")
-public class Produce extends HttpServlet {
+public class Produce extends BaseAction {
+    private Product product = new Product();
+    private ProductBeanI productBean = new ProductBean();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext ctx= getServletContext();
         // TODO Auto-generated method stub
         // get the existing database instance
         Database dbInstance = Database.getDbInstance();
-        PrintWriter printWriter = resp.getWriter();
-        
 
-        String allProduce =  " ";
-        for (Product product : dbInstance.getProducts()) {        
+        String allProduce = "<div class ='prodDetails'>";
+        for (Product product : dbInstance.getProducts()) {
 
-            allProduce+="<div class='prod_item'>" +
-                    "    <img src='prodIMG/' class='image_prod'/><br/>" +
-                    "    <span class='prodName'>"+product.getProductName()+"</span><br/>" +
-                    "    <span class='prodLocation'>"+product.getProductDescription()+"</span><br/>" +
-                    "    <span class='prodPrice'>"+product.getPrice()+"</span><br/>" +
+            allProduce += "<div class='prod_item'>" +
+                    "    <img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dmaize%2Bgrain&psig=AOvVaw2rA6wS_Q_uKw9iBuACnkOJ&ust=1699402854196000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCMDKuI7PsIIDFQAAAAAdAAAAABAE' class='image_prod'/><br/>"
+                    +
+                    "    <span class='prodName'>" + product.getProductName() + "</span><br/>" +
+                    "    <span class='prodLocation'>" + product.getProductDescription() + "</span><br/>" +
+                    "    <span class='prodPrice'>" + product.getPrice() * product.getProdQuantity() + "</span><br/>" +
                     "</div>";
         }
-        printWriter.write("<!DOCTYPE html>" +
-            "<html>" +
+        allProduce += "</div>";
+        new AppPage().renderHtml(req, resp, 0, allProduce);
 
-            "<head>" +
-                new ProductCss().getStyles() +
-            "</head>" +
-
-            "<body>" );
-        printWriter.write(allProduce);
-        printWriter.write("<a href=\"./logout\">Logout</a>" +
-            "</body>" +
-            "</html>");
-          
     }
-      
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
+
         // get the existing database instance
         Database dbInstance = Database.getDbInstance();
-        // lets access the produce from the database through the same instance
-        PrintWriter printWriter = resp.getWriter();
-        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodName")+"</body></html>");
-        printWriter.write("<html><body><br/></body></html>");
-        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodDescription")+"</body></html>");
-        printWriter.write("<html><body><br/></body></html>");
-        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodPrice")+"</body></html>");
-        printWriter.write("<html><body><br/></body></html>");
-        printWriter.write("<html><body>The request parameters are "+req.getParameter("prodQuantity")+"</body></html>");
-        dbInstance.getProducts().add(new Product(1, req.getParameter("prodName"), req.getParameter("prodDescription"),
-                Double.valueOf(req.getParameter("prodPrice")), Integer.parseInt(req.getParameter("prodQuantity"))));
+
+        serializeForm(product, req.getParameterMap());
+
+        // code to upload a file to the images directory
+        // Specify the directory where you want to store the uploaded file
+        resp.sendRedirect("./produce");
     }
 }
