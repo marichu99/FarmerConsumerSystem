@@ -17,15 +17,15 @@ import com.servlet.app.model.entity.User;
 
 @WebServlet(urlPatterns = "/login")
 public class Login extends BaseAction {
-    private AuthBeanI authBean = new AuthBean();
+    AuthBeanI authBean = new AuthBean();
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
         User loginUser = new User();
         serializeForm(loginUser, req.getParameterMap());
-        loginUser.setEmail(req.getParameter("email"));
-        loginUser.setPassword(req.getParameter("password"));
+        // loginUser.setEmail(req.getParameter("email"));
+        // loginUser.setPassword(req.getParameter("password"));
         User userDetails = authBean.authenticatUser(loginUser);
 
         if (userDetails != null) {

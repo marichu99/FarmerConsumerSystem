@@ -1,15 +1,24 @@
 package com.servlet.app.model.entity;
 
-import java.text.DecimalFormat;
-import org.apache.commons.lang3.StringUtils;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import com.servlet.database.Database;
+import com.servlet.view.html.FarmerHtmlForm;
+import com.servlet.view.html.FarmerHtmlFormField;
 
-public class Product {
+@FarmerHtmlForm(label = "Product", action = "./produce")
+public class Product implements Serializable{
+
+    
     private int productId;
+    @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize")
     private String productName;
+    @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description")
     private String productDescription;
+    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
     private double price;
+    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
     public int getProdQuantity() {
         return prodQuantity;
@@ -74,6 +83,6 @@ public class Product {
                     "</div>";
         }
         return allProduce;
-    }   
+    }  
     
 }

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
-// @WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*")
 public class AuthFilter implements Filter {
 
     @Override
@@ -42,7 +42,7 @@ public class AuthFilter implements Filter {
             System.out.println("1.New Session");
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/")) {
+            if (servletPath.equals("/login") || servletPath.equals("/index.html") || servletPath.equals("/css/*") ) {
                 System.out.println("2. Proceed to login...or index.html");
                 filterChain.doFilter(servletRequest, servletResponse);
 

@@ -12,7 +12,6 @@ public class AuthBean implements AuthBeanI,Serializable{
     public User authenticatUser (User loginUser){
         User userDetails =null;
         for (User user : database.getUsers()) {       
-
             if(loginUser.getEmail().equals(user.getEmail()) && loginUser.getPassword().equals(user.getPassword())){
                 userDetails=loginUser;
                 break;

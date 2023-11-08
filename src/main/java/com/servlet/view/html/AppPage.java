@@ -43,6 +43,5 @@ public class AppPage implements Serializable {
         print.write("<a href=\"./logout\">Logout</a>" +
                 "</body>" +
                 "</html>");
-
     }
 }
