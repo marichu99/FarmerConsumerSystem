@@ -9,27 +9,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.networknt.schema.utils.StringUtils;
 import com.servlet.view.css.AppCss;
 import com.servlet.view.toolbar.TopBar;
 
 public class AppPage implements Serializable {
 
     public void renderHtml(HttpServletRequest req, HttpServletResponse resp,
-            int activeMenu, String content) throws IOException {
+            int activeMenu, String content, String optionalCss) throws IOException {
 
         HttpSession session = req.getSession();
 
         ServletContext ctx = req.getServletContext();
 
         PrintWriter print = resp.getWriter();
-
         print.write("<!DOCTYPE html>" +
                 "<html>" +
                 "<head>" +
-                new AppCss().getStyle() +
-                "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">"+
-                "</head>" +
-                "<body>" +
+        
+                new AppCss().getStyle());
+        print.write("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">"+
+                        "</head>" +
+                        "<body>" +
 
                 new TopBar().menu(activeMenu) +
                 "<div class=\"bodySection\">" +

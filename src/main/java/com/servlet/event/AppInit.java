@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebListener;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.database.Database;
+import com.servlet.view.html.UserProfile;
 
 @WebListener
 public class AppInit implements ServletContextListener {

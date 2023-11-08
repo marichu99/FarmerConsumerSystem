@@ -41,6 +41,20 @@ public class AppCss implements Serializable {
                 "justify-content: space-between;" +
                 "gap: 40px;" +
             "}" +
+            ".button {\n" +
+                "  background-color: #04AA6D; /* Green */\n" +
+                "  border-radius: 10px;" +
+                "  color: white;\n" +
+                "  padding: 10px 15px;" +
+                "  text-align: center;\n" +
+                "  text-decoration: none;\n" +
+                "  display: inline-block;\n" +
+                "  font-size: 16px;\n" +
+            "}"+
+            ".button:hover {\n" +
+                "  background-color: #04AA6D; /* Green */\n" +
+                "  color: white;\n" +
+            "}"+
             ".navClose{" +
             "    width: 75px;" +
             "}" +
@@ -222,6 +236,117 @@ public class AppCss implements Serializable {
             ".navContainer{" +
             "    width: 20%;" +
             "}" +
+            // CSS FOR THE ADD TO CART PAGE
+            ".recentContainer{\n" +
+            "    margin-left: 40px;\n" +
+            "    padding: 10px 15px;\n" +
+            "    margin-right: 100px;\n" +
+            "}\n" +
+            ".recentTitle{\n" +
+            "    font-weight: bold;\n" +
+            "    font-size: large;\n" +
+            "    font-family: serif;\n" +
+            "}\n" +
+            ".recent{\n" +
+            "    display: flex;\n" +
+            "    flex-direction: column;\n" +
+            "}\n" +
+            ".recenData{\n" +
+            "    padding: 8px;\n" +
+            "    font-size: 15px;\n" +
+            "}\n" +
+            ".myTable{\n" +
+            "    width: 50%;\n" +
+            "}\n" +
+            ".myTable td{\n" +
+            "    text-align: center;\n" +
+            "    padding: 5px 15px;\n" +
+            "}\n" +
+            ".myTable th{\n" +
+            "    text-align: center;\n" +
+            "    padding: 8px 15px;\n" +
+            "    background-color: rgb(252, 152, 152);\n" +
+            "}\n" +
+            ".image_prod{\n" +
+            "    width: 200px;\n" +
+            "    height: 150px;\n" +
+            "    border-radius: 20px;\n" +
+            "}\n" +
+            ".numQuantity{\n" +
+            "    width: 150px;\n" +
+            "    height: 34px;\n" +
+            "    border-radius: 10px;\n" +
+            "    padding: 8px 14px;\n" +
+            "}\n" +
+            ".myTable i{\n" +
+            "    color: red;\n" +
+            "    font-size: 30px;\n" +
+            "    text-transform: uppercase;\n" +
+            "    transition: transform .5s;\n" +
+            "    cursor: pointer;\n" +
+            "}\n" +
+            ".myTable i:hover{\n" +
+            "    transform: scale(1.1);\n" +
+            "}\n" +
+            ".Container{\n" +
+            "    display: flex;\n" +
+            "    flex-direction: row;\n" +
+            "    flex-wrap: wrap;\n" +
+            "}\n" +
+            ".checkout{\n" +
+            "    display: flex;\n" +
+            "    align-items: center;\n" +
+            "    justify-content: center;\n" +
+            "    flex-direction: column;\n" +
+            "    border-radius: 10px;\n" +
+            "    background-color: bisque;\n" +
+            "    height: 200px;\n" +
+            "    margin: 15px;\n" +
+            "    padding: 8px 10px;\n" +
+            "}\n" +
+            ".submit{\n" +
+            "    width: 100%;\n" +
+            "    font-size: 17px;\n" +
+            "    color: white;\n" +
+            "    cursor: pointer;\n" +
+            "    background-color: rgb(99, 87, 87);\n" +
+            "    border-radius: 10px;\n" +
+            "    text-align: center;\n" +
+            "    height: 34px;\n" +
+            "    font-family: 'Times New Roman', Times, serif;\n" +
+            "    text-transform: uppercase;\n" +
+            "    transition: transform .5s;\n" +
+            "}\n" +
+            ".submit:hover{\n" +
+            "    background-color: rgb(36, 35, 35);\n" +
+            "    transform: scale(0.9);\n" +
+            "}\n" +
+            "#errText{\n" +
+            "    position: relative;\n" +
+            "}\n" +
+            ".priceText{\n" +
+            "    font-size: 30px;\n" +
+            "    font-weight: 700;\n" +
+            "    color: rgb(12, 95, 12);\n" +
+            "    text-align: center;\n" +
+            "    text-transform: uppercase;\n" +
+            "    padding: 15px;\n" +
+            "}\n" +
+            "@media only screen and (max-width: 700px){\n" +
+            "    .myTable{\n" +
+            "        width: 30%;\n" +
+            "    }\n" +
+            "    .image_prod{\n" +
+            "        width: 142px;\n" +
+            "        height: 130px;\n" +
+            "    }\n" +
+            "    .numQuantity {\n" +
+            "        width: 90px;\n" +
+            "    }\n" +
+            "    .recentContainer{\n" +
+            "        margin-left: 3px;\n" +
+            "    }\n" +
+            "}"+
             // CSS FOR THE PRODUCT FORMS
             " {" +
             "    display: flex;" +

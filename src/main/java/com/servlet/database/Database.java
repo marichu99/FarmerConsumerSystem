@@ -1,5 +1,6 @@
 package com.servlet.database;
 
+import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 
@@ -18,6 +19,9 @@ public class Database implements Serializable {
     private List<Product> Products = new ArrayList<>();
 
     private static Database dbInstance;
+
+    private List<CartProduct> cartProducts = new ArrayList<>();
+    
 
     private Database(){}
 
@@ -49,5 +53,21 @@ public class Database implements Serializable {
 
     public String getDatabaseCreateAt() {
         return databaseCreateAt;
+    }
+
+    public void setDatabaseCreateAt(String databaseCreateAt) {
+        this.databaseCreateAt = databaseCreateAt;
+    }
+
+    public static void setDbInstance(Database dbInstance) {
+        Database.dbInstance = dbInstance;
+    }
+
+    public List<CartProduct> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }

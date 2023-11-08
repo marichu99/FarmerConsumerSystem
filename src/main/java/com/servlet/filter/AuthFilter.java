@@ -42,7 +42,7 @@ public class AuthFilter implements Filter {
             System.out.println("1.New Session");
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/index.html") || servletPath.equals("/css/*") ) {
+            if (servletPath.equals("/login") || servletPath.equals("/index.html") || servletPath.contains("/css/") ) {
                 System.out.println("2. Proceed to login...or index.html");
                 filterChain.doFilter(servletRequest, servletResponse);
 

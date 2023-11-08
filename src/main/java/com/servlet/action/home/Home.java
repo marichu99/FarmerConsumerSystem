@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.servlet.app.model.entity.Product;
+import com.servlet.view.css.AllPageCss;
 import com.servlet.view.html.AppPage;
+import com.servlet.view.html.EverythingHtml;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet(urlPatterns = "/home")
 public class Home extends HttpServlet {
+    EverythingHtml allHtml = new EverythingHtml();
+    AllPageCss allCss = new AllPageCss();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
@@ -29,7 +33,9 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {       
 
-        new AppPage().renderHtml(req, resp, 0, HtmlComponents.form(Product.class));
+        new AppPage().renderHtml(req, resp, 0, allHtml.getAllHtml(),allCss.getCssCode());
+
+        // new AppPage().renderHtml(req, resp, 0, HtmlComponents.form(Product.class),"");
 
     }
 }

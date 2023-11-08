@@ -1,13 +1,13 @@
 package com.servlet.action.dashboard;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.bean.ProductBean;
 import com.servlet.app.bean.ProductBeanI;
@@ -27,7 +27,7 @@ public class Produce extends BaseAction {
         // get the existing database instance
         Database dbInstance = Database.getDbInstance();
         
-        new AppPage().renderHtml(req, resp, 0, HtmlComponents.gridView(dbInstance.getProducts()));
+        new AppPage().renderHtml(req, resp, 0, HtmlComponents.gridView(dbInstance.getProducts()),StringUtils.EMPTY);
     }
 
     @Override

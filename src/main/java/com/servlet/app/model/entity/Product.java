@@ -1,9 +1,9 @@
 package com.servlet.app.model.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import com.servlet.database.Database;
+import com.servlet.view.html.FarmerGridView;
 import com.servlet.view.html.FarmerHtmlForm;
 import com.servlet.view.html.FarmerHtmlFormField;
 
@@ -12,14 +12,21 @@ public class Product implements Serializable{
 
     
     private int productId;
+    @FarmerGridView(className = "prodName")
     @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize")
     private String productName;
+
+    @FarmerGridView(className = "prodLocation")
     @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description")
     private String productDescription;
+
+    @FarmerGridView(className = "prodPrice")
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
     private double price;
+
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
+
     public int getProdQuantity() {
         return prodQuantity;
     }

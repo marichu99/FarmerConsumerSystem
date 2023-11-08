@@ -15,7 +15,7 @@ public class TopBar implements Menu, Serializable {
         links.add(new MenuLink("./profile", "Profile", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./produce", "Products", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./sell", "Sell", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./buy", "Buy", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./cart", "Cart Items", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./reports", "Reports", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./track", "Track my Produce", MenuLinkStatus.NOT_ACTIVE));
 
@@ -27,7 +27,7 @@ public class TopBar implements Menu, Serializable {
 
         String menuBar = "<nav class=\"navContainer\">\n" +
                 "    <div class=\"logoName\">\n" +
-                "        <span class=\"logo_name\">Ukulima Bora</span>\n" +
+                "        <span class=\"logo_name\" onclick='window.href.location=\"./\"'>Ukulima Bora</span>\n" +
                 "    </div>\n" +
                 "    <form method=\"post\">\n" +
                 "    <div class=\"menu-items\">\n" +
