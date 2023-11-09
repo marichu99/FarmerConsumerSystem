@@ -2,6 +2,9 @@ package com.servlet.app.model.view;
 
 import java.io.Serializable;
 
+import com.servlet.app.model.entity.User;
+import com.servlet.view.enums.UserType;
+
 public class MenuLink implements Serializable{
     private String url;
     private String label;
@@ -11,6 +14,9 @@ public class MenuLink implements Serializable{
         this.url = url;
         this.label = label;
         this.menuLinkStatus = menuLinkStatus;
+    }
+    public UserType getUserType(User user){
+        return user.getUserType();
     }
     public String getUrl() {
         return url;

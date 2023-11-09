@@ -35,7 +35,6 @@ public class Produce extends BaseAction {
         // TODO Auto-generated method stub
 
         // get the existing database instance
-        Database dbInstance = Database.getDbInstance();
 
         serializeForm(product, req.getParameterMap());
         try {

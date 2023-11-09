@@ -1,5 +1,10 @@
+<%@ page import="com.servlet.utils.Calculator" %>
+<%
+    Calculator calculator = new Calculator();
+    int justAnotherNumber = calculator.addNumbers(300,400);
+%>
 
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="with=device-with, initial scale=1.0">
@@ -28,6 +33,7 @@
         </nav>
             <div class="content">
                 <h1>BUY AND SELL FARM PRODUCE</h1>
+                <%= justAnotherNumber %>
                 <P>Buy or Sell Farm produce in the click of a button</P>
                 <div>
                     

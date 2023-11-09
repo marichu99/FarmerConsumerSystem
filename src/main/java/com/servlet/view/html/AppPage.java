@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.networknt.schema.utils.StringUtils;
 import com.servlet.view.css.AppCss;
 import com.servlet.view.toolbar.TopBar;
 

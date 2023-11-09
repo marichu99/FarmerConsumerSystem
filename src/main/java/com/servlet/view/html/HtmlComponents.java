@@ -1,32 +1,36 @@
 package com.servlet.view.html;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
+
+import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
+import com.servlet.view.css.LoginCss;
 
-public class HtmlComponents implements Serializable {
+public class HtmlComponents extends HttpServlet{
     public static String gridView(List<Product> models) {
+        
         String allProduce = "<div class ='prodDetails'>";
         for (Product product : models){         
             allProduce += "<div class='prod_item'>" +
-                    "    <img src='https://github.com/marichu99/uniProjo/blob/Main/prodIMG/Yellow-beans.jpeg' class='image_prod'/><br/>"                    +
-                    "    <span class='prodName'>" + product.getProductName() + "</span><br/>" +
-                    "    <span class='prodLocation'>" + product.getProductDescription() + "</span><br/>" +
-                    "    <span class='prodPrice'>" + product.getPrice() * product.getProdQuantity() + "</span><br/>" +
-                    "    <button class='button'>Buy</button>"+
-                    "</div>";
+                    "       <img src='https://github.com/marichu99/uniProjo/blob/Main/prodIMG/Yellow-beans.jpeg' class='image_prod'/><br/>"                    +
+                    "       <span class='prodName'>" + product.getProductName() + "</span><br/>" +
+                    "       <span class='prodLocation'>" + product.getProductDescription() + "</span><br/>" +
+                    "       <span class='prodPrice'>" + product.getPrice() * product.getProdQuantity() + "</span><br/>" +
+                    "       <button class='button'>Buy</button>"+
+                    "      </div>";
         } 
         allProduce += "</div>";
+        // lets pass the objects using httpsessions
+        
         // loop though the array of declared fields and add the HTML
 
         return allProduce;
     }
-
     public static String form(Class<?> model) {
         Field[] fields = model.getDeclaredFields();
         String htmlPage = "<form action=\"./produce\" method=\"POST\">\n" +
@@ -99,5 +103,44 @@ public class HtmlComponents implements Serializable {
         "   </div>\n" +
         "</div>\n";
         return shoppinCartHTML;  
+    }
+    public static String loginForm(){
+        String htmlForm = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                new LoginCss().getCssStyles()+
+                "  <link rel=\"stylesheet\" href=\"https://unicons.iconscout.com/release/v4.0.0/css/line.css\">\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "  <div class=\"marichu\">\n" +
+                "    <div class=\"loginContainer\">\n" +
+                "      <div class=\"button-box\">\n" +
+                "        <div id=\"buttonz\"></div>\n" +
+                "        <button class=\"toggle-btn\" onclick=\"login()\">Login</button>\n" +
+                "        <button class=\"toggle-btn\"><a href=\"./sign\">Sign Up</a></button>\n" +
+                "      </div>\n" +
+                "      <form action=\"./login\" method=\"POST\" id=\"login\" class=\"login-input-group\">\n" +
+                "        <div class=\"loginDiv\">\n" +
+                "          <label class=\"form-label\">Enter your Email:</label>\n" +
+                "          <div class=\"input-detail\">\n" +
+                "            <input id=\"email\" placeholder=\"Enter your Email address\" type=\"email\" name=\"email\" class=\"input-box\" onkeyup=\"checkFormValidation(event)\"><br>\n" +
+                "          </div>\n" +
+                "          <label class=\"form-label\">Enter your Password:</label>\n" +
+                "          <div class=\"input-detail\">\n" +
+                "            <input id=\"password\" placeholder=\"Enter your password\" name=\"password\" class=\"input-box\" onchange=\"checkFormValidation(event)\" onkeyup=\"checkFormValidation(event)\" type=\"password\"><br><i class=\"uil uil-eye\" id=\"openPass\" onclick=\"hidePass('password','pass')\"></i><i class=\"uil uil-eye-slash\" onclick=\"showPass('password','pass')\" id=\"eyeClosedPass\"></i>\n" +
+                "          </div>\n" +
+                "          <input type=\"submit\" id=\"submit\" class=\"btn-submit\"><br>\n" +
+                "          <p onclick=\"window.location.href='forgotPass.php'\" class=\"forgotPass\">Forgot Password</p>\n" +
+                "          <p id=\"emailValidation\"></p>\n" +
+                "          <p id=\"passwordValidation\"></p>\n" +
+                "        </div>\n" +
+                "      </form>\n" +
+                "    </div>\n" +
+                "  </div>\n" +
+                "  <script src=\"js/login.js\" type=\"text/javascript\"></script>\n" +
+                "</body>\n" +
+                "</html>";
+        return htmlForm;
     }
 }

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import com.servlet.app.bean.AuthBean;
 import com.servlet.app.bean.AuthBeanI;
 import com.servlet.app.model.entity.User;
 import com.servlet.view.css.AllPageCss;
+import com.servlet.view.enums.UserType;
 import com.servlet.view.html.UserProfile;
 
 @WebServlet(urlPatterns = "/login")
@@ -29,19 +29,20 @@ public class Login extends BaseAction {
         PrintWriter print = resp.getWriter();
         User loginUser = new User();
         serializeForm(loginUser, req.getParameterMap());
-        // loginUser.setEmail(req.getParameter("email"));
-        // loginUser.setPassword(req.getParameter("password"));
+        loginUser.setEmail(req.getParameter("email"));
+        loginUser.setPassword(req.getParameter("password"));
         User userDetails = authBean.authenticatUser(loginUser);
-        ServletContext ctx = req.getServletContext();
+        
         
         if (userDetails != null) {
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+            // get the userType of the authenticated user
+            UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", loginUser.getEmail());
-            // let us set some objects that are widely used in the servlet context
-            ctx.setAttribute("userProfile", userProfile);
-            ctx.setAttribute("allPageCss", allPageCss);
-            resp.sendRedirect("./home");
+            httpSession.setAttribute("userType",userType);
+            resp.sendRedirect("./home");        
+            
 
         }
         print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
@@ -51,7 +52,7 @@ public class Login extends BaseAction {
     @Override
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("./login.html");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./login.jsp");
         dispatcher.forward(req, resp);
     }
 }

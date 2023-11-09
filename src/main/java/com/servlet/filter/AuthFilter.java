@@ -39,11 +39,9 @@ public class AuthFilter implements Filter {
         System.out.println("context URI: " + httpRequest.getRequestURI());
 
         if (httpSession.isNew()) {
-            System.out.println("1.New Session");
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/index.html") || servletPath.contains("/css/") ) {
-                System.out.println("2. Proceed to login...or index.html");
+            if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.contains("/css/") || servletPath.contains("/images/") ) {
                 filterChain.doFilter(servletRequest, servletResponse);
 
             } else {
@@ -57,13 +55,12 @@ public class AuthFilter implements Filter {
                 httpResponse.addHeader("AuthTime", DateFormat.getDateTimeInstance().format(new Date()));
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                if(servletPath.equals("/")){
+                if(servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/")){
                     filterChain.doFilter(servletRequest, servletResponse);
                 }else{
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
                     servletResponse.getWriter().flush();
                 }
-
             }
         }
 

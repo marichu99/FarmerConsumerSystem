@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.servlet.app.bean.UserBean;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.User;
+import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/sign")
 public class SignUp extends BaseAction {
@@ -21,7 +22,7 @@ public class SignUp extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         PrintWriter print = resp.getWriter();
-        User user = new User();
+        User user = new User(UserType.USER);
         serializeForm(user,req.getParameterMap());
         userBean.registerUser(user);
         print.write("<html>" +

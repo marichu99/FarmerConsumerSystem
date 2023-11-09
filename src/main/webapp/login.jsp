@@ -33,6 +33,13 @@
               id="openPass" onclick="hidePass('password','pass')"></i><i class="uil uil-eye-slash"
               onclick="showPass('password','pass')" id="eyeClosedPass"></i>
           </div>
+          <div class="input-detail">
+            <label for="" class="form-label">Select the type of user to login</label><br/>
+            <label for="user">User: </label>
+            <input type="radio" name="userType" value="USER"/>
+            <label for="admin">Admin: </label>
+            <input type="radio" name="userType" value="ADMIN"/>
+          </div>
           <input type="submit" id="submit" class="btn-submit"><br>
           <p onclick="window.location.href='forgotPass.php'" class="forgotPass">Forgot Password</p>
 
