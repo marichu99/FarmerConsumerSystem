@@ -40,8 +40,15 @@ public class Login extends BaseAction {
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", loginUser.getEmail());
-            httpSession.setAttribute("userType",userType);
-            resp.sendRedirect("./home");        
+            
+            if(userType == UserType.USER){
+                httpSession.setAttribute("userType","user");
+                resp.sendRedirect("./app/index.jsp");
+            }else if(userType == UserType.ADMIN){
+                httpSession.setAttribute("userType","admin");
+                resp.sendRedirect("./app/index.jsp");
+            }
+                    
             
 
         }

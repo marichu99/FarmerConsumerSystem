@@ -32,7 +32,18 @@ public class ProductBean implements ProductBeanI{
 
     public Product addOrUpdateProduct(Product product) throws Exception {
         Database database = Database.getDbInstance();
-        database.getProducts().add(product);
+        // check to see whether the product exists and needs to be updated
+        for(Product product1 : database.getProducts()){
+            if(product1.getProductId() == product.getProductId()){
+                // lets update the product then
+                database.getProducts().remove(product1);
+                // and replace it with the new product
+                database.getProducts().add(product);
+            }else{
+                // otherwise just add the products
+                database.getProducts().add(product);
+            }            
+        }
         return product;
     }
 

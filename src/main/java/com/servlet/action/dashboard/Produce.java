@@ -45,6 +45,6 @@ public class Produce extends BaseAction {
         }
         // code to upload a file to the images directory
         // Specify the directory where you want to store the uploaded file
-        resp.sendRedirect("./produce");
+        resp.sendRedirect("./app/produce.jsp");
     }
 }

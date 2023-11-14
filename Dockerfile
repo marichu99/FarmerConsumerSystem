@@ -1,24 +1,33 @@
-# Use an official Maven runtime as a parent image
+# Use a base image with Maven for building and WildFly for runtime
 FROM maven:3.8.4-openjdk-11 AS build
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the pom.xml and src files to the container
+# Copy the POM file to the container
 COPY pom.xml .
+
+# Download the dependencies and plugins
+RUN mvn dependency:go-offline
+
+# Copy the source code to the container
 COPY src ./src
 
-# Build the Maven project and package it as a JAR file
-RUN mvn package
+# Build the application
+RUN mvn package -DskipTests
 
-# Use a lightweight Alpine-based image for the final runtime image
-FROM openjdk:11-jre-slim
+# Use the official WildFly base image for runtime
+FROM jboss/wildfly:latest
 
-# Set the working directory for the runtime image
-WORKDIR /app
+# Set environment variables
+ENV WILDFLY_USER=mabera \
+    WILDFLY_PASSWORD=mabera
 
-# Copy the WAR file from the build image to the runtime image
-COPY --from=build /app/target/farmer-system-app.war ./farmer-system-app.war
+# Copy the .war file from the build stage to the WildFly deployment directory
+COPY --from=build /app/target/farmer-system-app.war /opt/jboss/wildfly/standalone/deployments/
 
-# Specify the command to run your Java application
-CMD ["mvn", "clean compile package wildfly:deploy"]
+# Expose the ports needed by WildFly
+EXPOSE 8080 9990
+
+# Start WildFly in standalone mode
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
