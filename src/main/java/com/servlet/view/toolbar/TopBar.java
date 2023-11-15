@@ -11,13 +11,13 @@ public class TopBar implements Menu, Serializable {
     private final List<MenuLink> links = new ArrayList<>();
     // initializer block
     {
-        links.add(new MenuLink("./approvals", "Approval Status", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./profile", "Profile", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./produce", "Products", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/approvals.jsp", "Approval Status", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/profile.jsp", "Profile", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/produce.jsp", "Products", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./sell", "Sell", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./cart", "Cart Items", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./reports", "Reports", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./track", "Track my Produce", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/cart.jsp", "Cart Items", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/reports.jsp", "Reports", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./app/track.jsp", "Track my Produce", MenuLinkStatus.NOT_ACTIVE));
 
     }
 

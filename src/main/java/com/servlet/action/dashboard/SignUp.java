@@ -13,23 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.servlet.app.bean.UserBean;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.User;
-import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/sign")
 public class SignUp extends BaseAction {
     UserBeanI userBean = new UserBean();
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         PrintWriter print = resp.getWriter();
-        User user = new User(UserType.USER);
-        serializeForm(user,req.getParameterMap());
+        User user = serializeForm(User.class,req.getParameterMap());        
         userBean.registerUser(user);
         print.write("<html>" +
                 "<body>" +
                 "<script type='text/javascript'>" +
                 "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
-                "    window.location.href = './login.html';" +
+                "    window.location.href = './login';" +
                 "</script>" +
                 "</body>" +
                 "</html>");

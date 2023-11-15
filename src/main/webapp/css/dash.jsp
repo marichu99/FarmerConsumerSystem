@@ -309,6 +309,8 @@
         flex-wrap: wrap;
     }
     .prod_item{
+        display:flex;
+        flex-direction:column;
         flex: 1;
         gap: 10px;
         padding: 0;
@@ -379,6 +381,16 @@
     .priceController{
         display: flex;
         flex-direction: column;
+    }
+    .button { 
+        background-color: #04AA6D; /* Green */
+        border-radius: 10px;
+        color: white;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
     }
     /* code for the export button */
     .export{

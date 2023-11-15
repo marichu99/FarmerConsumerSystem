@@ -5,17 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.servlet.view.enums.UserType;
+
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FarmerHtmlFormField {
-    String labelName() default "";
-
-    String className() default "user";
-
-    String placeHolder() default "";
-
-    String formName() default "";
-
-    String formType() default "";
-
+public @interface AuthFormsAnnot {
+    UserType userType() default UserType.USER;
 }

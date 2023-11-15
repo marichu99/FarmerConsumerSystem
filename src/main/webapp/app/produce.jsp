@@ -25,40 +25,45 @@
                 Database dbInstance = Database.getDbInstance();     
                 for (Product product : dbInstance.getProducts()){     
                 %>    
-                    <div class="prod_item">                            
-                        <img src='./images/corn.jpg' class="image_prod"/><br/>
-                        <span class="prodName"><%=product.getProductName()%></span><br/>
-                        <span class="prodLocation"><%= product.getProductDescription()%></span><br/>
-                        <span class="prodPrice"><% product.getPrice();%></span><br/>
-                        <div class="innerButtons">
-                            <button class='button'>Remove</button>
-                            <button class="open-button" onclick="openForm()">Edit</button>
-                        </div>
+                    <div class="prod_item">      
+                        <div class="imgDiv">
+                            <img src='../images/corn.jpg' class="image_prod"/><br/>
+                        </div>                      
+                        <div class="deetsDiv">
+                            <span class="prodName"><%=product.getProductName()%></span><br/>
+                            <span class="prodLocation"><%= product.getProductDescription()%></span><br/>
+                            <span class="prodPrice"><%=product.getPrice()%></span><br/>
+                            <div class="innerButtons">
+                                <button class='buttonRemove' onclick="window.location.href='../produce?type=product&productID=<%= product.getProductId()%>&mode=remove'">Remove</button>
+                                <button class="buttonEdit" onclick="openForm(<%= product.getProductId()%>)">Edit</button>
+                                <button class='button' onclick="window.location.href='../cart?mode=add&productId=<%= product.getProductId()%>'">Buy</button>
+                            </div>
+                        </div>                        
                     </div>
                 <%
                 }
                 %>    
                  <!-- A button to open the popup form -->
-                <
-
                 <!-- The form -->
                 <div class="form-popup" id="myForm">
                 <form action="../produce" class="form-container" method="POST">
-                    <h1>Login</h1>
-
+                    <h2>Edit Details</h2>
+                    <input type="hidden" id="hiddenId"  name="productId">
+                    <input type="hidden" value="update" name="product">
                     <label for="email"><b>Product Name</b></label>
-                    <input type="text" placeholder="Enter product name" name="prodname" required>
+                    <input type="text" placeholder="Enter product name" name="productName" required>
 
                     <label for="psw"><b>Product Description</b></label>
-                    <input type="text" placeholder="Enter product description" name="prodescription" required>
+                    <input type="text" placeholder="Enter product description" name="productDescription" required>
 
                     <label for="email"><b>Product Quantity</b></label>
-                    <input type="text" placeholder="Enter desired quantity" name="prodQuantity" required>
+                    <input type="number" placeholder="Enter desired quantity" name="prodQuantity" required>
 
                     <label for="psw"><b>Price</b></label>
-                    <input type="text" placeholder="Enter desired price per Quantity" name="prodprice" required>
+                    <input type="number" placeholder="Enter desired price per Quantity" name="price" required>
 
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn">Edit</button>
+                    
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </form>
                 </div>             
@@ -67,8 +72,9 @@
     </div>    
 </body>
 <script type="text/javascript">
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
+        function openForm(productId) {
+            document.getElementById("myForm").style.display = "flex";
+            document.getElementById("hiddenId").value = productId;
         }
 
         function closeForm() {

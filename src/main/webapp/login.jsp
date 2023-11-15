@@ -22,30 +22,34 @@
       <form action="./login" method="POST" id="login" class="login-input-group">
         <div class="loginDiv">
           <jsp:useBean id="LoginForm" class="com.servlet.app.bean.LoginForm" scope="page" />
-              <label class="form-label">Enter your Email:</label>
-              <div class="input-detail">
-                <input id="email" placeholder="<jsp:getProperty name='LoginForm' property='usernamePLaceholder' />" type="email" name="email" class="input-box"
-                  onkeyup="checkFormValidation(event)"><br>
-              </div>
-              <label class="form-label">Enter your Password:</label>
-              <div class="input-detail">
-                <input id="password" placeholder="Enter your password" name="password" class="input-box"
-                  onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)" type="password"><br><i class="uil uil-eye"
-                  id="openPass" onclick="hidePass('password','pass')"></i><i class="uil uil-eye-slash"
-                  onclick="showPass('password','pass')" id="eyeClosedPass"></i>
-              </div>
-              <div class="input-detail">
-                <label for="" class="form-label">Select the type of user to login</label><br/>
-                <label for="user">User: </label>
-                <input type="radio" name="userType" value="USER"/>
-                <label for="admin">Admin: </label>
-                <input type="radio" name="userType" value="ADMIN"/>
-              </div>
-              <input type="submit" id="submit" class="btn-submit"><br>
-              <p onclick="window.location.href='forgotPass.php'" class="forgotPass">Forgot Password</p>
+          <label class="form-label">Enter your Email:</label>
+          <div class="input-detail">
+            <input id="email" placeholder="<jsp:getProperty name='LoginForm' property='usernamePLaceholder' />"
+              type="email" name="email" class="input-box" onkeyup="checkFormValidation(event)"><br>
+          </div>
+          <label class="form-label">Enter your Password:</label>
+          <div class="input-detail">
+            <input id="password" placeholder="Enter your password" name="password" class="input-box"
+              onchange="checkFormValidation(event)" onkeyup="checkFormValidation(event)" type="password"><br><i
+              class="uil uil-eye" id="openPass" onclick="hidePass('password','pass')"></i><i class="uil uil-eye-slash"
+              onclick="showPass('password','pass')" id="eyeClosedPass"></i>
+          </div>
+          <div class="input-detailLast">
+            <div class="label">
+              <label for="" class="form-label">Select the type of user to create</label><br />
+            </div>
+            <div class="lablContent">
+              <label for="user">User: </label>
+              <input type="radio" name="userType" value="USER" />
+              <label for="admin">Admin: </label>
+              <input type="radio" name="userType" value="ADMIN"/>
+            </div>
+          </div>
+          <input type="submit" id="submit" class="btn-submit"><br>
+          <p onclick="window.location.href='forgotPass.php'" class="forgotPass">Forgot Password</p>
 
-              <p id="emailValidation"></p>
-              <p id="passwordValidation"></p>
+          <p id="emailValidation"></p>
+          <p id="passwordValidation"></p>
 
         </div>
       </form>

@@ -8,5 +8,7 @@ public interface ProductBeanI {
 
     Product addOrUpdateProduct(Product product) throws Exception;
 
-    void deleteAccount(Product product);
+    void deleteProduct(int productID);
+
+    void updateByID(int productID, Product product);
 }

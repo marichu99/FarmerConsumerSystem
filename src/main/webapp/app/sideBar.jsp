@@ -33,7 +33,7 @@
                 </a></li>
                 <li><a href="#">
                 <img src="icons/angle-double-down.jpg"class="icon"/>
-                    <span class="link-name" onclick="window.location.href='./sell.jsp'">Sell</span>
+                    <span class="link-name" onclick="window.location.href='../sell'">Sell</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-fly.jpg"class="icon" />
@@ -41,7 +41,7 @@
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-arrival.jpg" class="icon" />
-                    <span class="link-name" onclick="window.location.href='./cart.jsp'">Cart Items</span><span class="approvals"> <?php echo $rowsApprovals?></span>
+                    <span class="link-name" onclick="window.location.href='../cart'">Cart Items</span><span class="approvals"> <?php echo $rowsApprovals?></span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-arrival.jpg" class="icon" />

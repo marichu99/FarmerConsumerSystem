@@ -7,6 +7,7 @@ import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
 
 public class ProductBean implements ProductBeanI{
+    private Database database = Database.getDbInstance();
      @Override
     public String productList() {
         List<Product> products = new ArrayList<>();
@@ -32,23 +33,35 @@ public class ProductBean implements ProductBeanI{
 
     public Product addOrUpdateProduct(Product product) throws Exception {
         Database database = Database.getDbInstance();
-        // check to see whether the product exists and needs to be updated
-        for(Product product1 : database.getProducts()){
-            if(product1.getProductId() == product.getProductId()){
-                // lets update the product then
-                database.getProducts().remove(product1);
-                // and replace it with the new product
-                database.getProducts().add(product);
-            }else{
-                // otherwise just add the products
-                database.getProducts().add(product);
-            }            
-        }
+        database.getProducts().add(product);
         return product;
     }
+    public void updateByID(int productID,Product productUpdate){        
+        for(Product product: database.getProducts()){
+            if(productID == product.getProductId()){
+                // lets update the product then
+                database.getProducts().remove(product);
+                // and replace it with the new product
+                database.getProducts().add(productUpdate);
+                break;
+            }else{
+                // otherwise continue
+                continue;
+            } 
+        }
+    }
 
-    public void deleteAccount(Product product) {
-
+    public void deleteProduct(int productID) {
+        for(Product product: database.getProducts()){
+            if(productID == product.getProductId()){
+                // lets update the product then
+                database.getProducts().remove(product);
+                break;
+            }else{
+                // otherwise continue
+                continue;
+            } 
+        }
     }
     
 }

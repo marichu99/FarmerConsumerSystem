@@ -1,3 +1,5 @@
+<%@ page import="com.servlet.database.Database" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,36 +14,38 @@
     <jsp:include page="./sideBar.jsp" />
     <div class="navDeets">
         <div class="main">        
-            <form action="./produce" enctype="multipart/form-data" method="POST" >
+            <form action="../produce" enctype="multipart/form-data" method="POST" >
                 <div class="row">
                     <div class="col">
-                        <h3 class="title">Product Details</h3>                        <a href="customerDash.php">Dashboard</a>
+                        <h3 class="title">Product Details</h3><a href="customerDash.php">Dashboard</a>
         
                         <div class="user">
                             <label>Product Name</label>
-                            <input type="text" placeholder="E.g. Names..." name="prodName"/>
+                            <input type="text" placeholder="E.g. Names..." name="productName"/>
                         </div>
                         <div class="user">
                             <label>Product Description:</label>
-                            <input type="text-area" placeholder="Please type in a description" name="prodDescription"/>
+                            <input type="text-area" placeholder="Please type in a description" name="productDescription"/>
                         </div>
-                        <div class="user">
+                        <%-- <div class="user">
                             <label>Select Image:</label>
                             <input type="file"  value="Select an Image" name="prodImg"/>
-                        </div>
+                        </div> --%>
                         <div class="user">
                             <label>Product Price Per Kilo:</label>
-                            <input type="number" placeholder="Enter Price per product" name="prodPrice"/>
+                            <input type="number" placeholder="Enter Price per product" name="price"/>
                         </div>
                         <div class="flex">
-                            <div class="user">
+                            <%-- <div class="user">
                                 <label>Country:</label>
                                 <input type="text" placeholder="Kenya" name="prodCountry"/>
                             </div>
                             <div class="user">
                                 <label>Product Location:</label>
                                 <input type="text" placeholder="E.g. New York" name="prodLocation"/>
-                            </div>
+                            </div> --%>
+                            <% Database dbInstance = Database.getDbInstance();%>
+                            <input type="hidden" name="productId" value=<%= (dbInstance.getProducts().size())+1 %>/>
                             <div class="user">
                                 <label>Product Quantity (Kilos):</label>
                                 <input type="number" placeholder="E.g. 20..." name="prodQuantity"/>

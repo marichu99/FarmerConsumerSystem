@@ -27,6 +27,8 @@ public class Product implements Serializable{
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
 
+    
+
     public int getProdQuantity() {
         return prodQuantity;
     }
@@ -90,6 +92,8 @@ public class Product implements Serializable{
                     "</div>";
         }
         return allProduce;
-    }  
+    }
+
+
     
 }

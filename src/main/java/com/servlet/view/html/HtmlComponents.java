@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
+import com.servlet.database.Database;
 import com.servlet.view.css.LoginCss;
 
 public class HtmlComponents extends HttpServlet{
@@ -17,7 +18,7 @@ public class HtmlComponents extends HttpServlet{
         String allProduce = "<div class ='prodDetails'>";
         for (Product product : models){         
             allProduce += "<div class='prod_item'>" +
-                    "       <img src='https://github.com/marichu99/uniProjo/blob/Main/prodIMG/Yellow-beans.jpeg' class='image_prod'/><br/>"                    +
+                    "       <img src='./images/barley.jpg' class='image_prod'/><br/>"                    +
                     "       <span class='prodName'>" + product.getProductName() + "</span><br/>" +
                     "       <span class='prodLocation'>" + product.getProductDescription() + "</span><br/>" +
                     "       <span class='prodPrice'>" + product.getPrice() * product.getProdQuantity() + "</span><br/>" +
@@ -32,8 +33,9 @@ public class HtmlComponents extends HttpServlet{
         return allProduce;
     }
     public static String form(Class<?> model) {
+        Database database = Database.getDbInstance();
         Field[] fields = model.getDeclaredFields();
-        String htmlPage = "<form action=\"./produce\" method=\"POST\">\n" +
+        String htmlPage = "<form action=\"./produce\"  enctype='multipart/form-data' method=\"POST\">\n" +
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\">Product Details</h3>\n" +
@@ -58,6 +60,9 @@ public class HtmlComponents extends HttpServlet{
                     + "\" placeholder=\""
                     + (StringUtils.isBlank(formField.placeHolder()) ? fieldName : formField.placeHolder())
                     + "\" name=\"" + fieldName + "\"/>\n" +
+                    "<label>Select Image:</label>"+
+                            // "<input type='file'  value='Select an Image' name='prodImg'/>"+
+                     " <input type=\"hidden\" value=\""+(database.getProducts().size()+1)+"\" class=\"submit\" name=\"productId\"/>\n"+
                     "     </div>\n";
         }
         htmlPage += "<input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n";
@@ -66,7 +71,7 @@ public class HtmlComponents extends HttpServlet{
                 "</form>\n";
         return htmlPage;
     }
-    public static String cartItems(List<CartProduct> models){
+     public static String cartItems(List<CartProduct> models){
         String shoppinCartHTML = "<div class=\"Container\">\n" +
         "   <div class=\"recentContainer\">\n" +
         "       <table class=\"myTable\">\n"+
@@ -80,7 +85,7 @@ public class HtmlComponents extends HttpServlet{
         for(CartProduct cartProduct : models){
             shoppinCartHTML+="<tr id=\"\">\n" +
                 "\n" +
-                "                   <td><img src='prodIMG/' class=\"image_prod\" /><br /></td>\n" +
+                "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
                 "\n" +
                 "                   <td id=\"prodQuantity\"><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  />/ <span id=\"totalQuantity\">"+cartProduct.getProdQuantity()+"</span></td>\n" +
                 "\n" +
@@ -88,7 +93,7 @@ public class HtmlComponents extends HttpServlet{
                 "\n" +
                 "                   <td id=\"\"> Total Price "+cartProduct.getProdQuantity()*cartProduct.getProdPrice()+"</td>\n" +
                 "\n" +
-                "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href=''\"></i></td>\n";
+                "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="+cartProduct.getProductId()+"'\"></i></td>\n";
             sumProducts+=cartProduct.getProdPrice()*cartProduct.getProdQuantity();
         }
 
@@ -142,5 +147,59 @@ public class HtmlComponents extends HttpServlet{
                 "</body>\n" +
                 "</html>";
         return htmlForm;
+    }
+       public static String table(List<?> dataList, Class<?> dataClass) {
+
+        if (!dataClass.isAnnotationPresent(HtmlTable.class))
+            return StringUtils.EMPTY;
+
+        // HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
+
+        StringBuilder trBuilder = new StringBuilder();
+        trBuilder.append("<a class=\"linkBtn\" href=\"")
+            // .append(htmlTable.addUrl()).append("\">Add</a><br/>")
+            .append("<table><tr>");
+
+        Field[] fields = dataClass.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (!field.isAnnotationPresent(HtmlTableColHeader.class))
+                continue;
+
+            trBuilder.append("<th>")
+                .append(field.getAnnotation(HtmlTableColHeader.class).header())
+                .append("</th>");
+        }
+
+        trBuilder.append("</tr>");
+
+        if (dataList != null && !dataList.isEmpty()){
+
+            for (Object data : dataList) {
+
+                trBuilder.append("<tr>");
+                for (Field field : fields) {
+                    if (!field.isAnnotationPresent(HtmlTableColHeader.class))
+                        continue;
+
+                    try {
+                        field.setAccessible(true);
+                        trBuilder.append("<td>").append(field.get(data)).append("</td>");
+
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+
+                    }
+                }
+
+                trBuilder.append("<tr>");
+
+            }
+        }
+
+        trBuilder.append("</table>");
+
+        return trBuilder.toString();
+
     }
 }

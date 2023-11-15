@@ -124,23 +124,12 @@ i{
  {box-sizing: border-box;}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
-}
+
 
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
-  position: fixed;
+  position: relative;
   bottom: 0;
   right: 15px;
   border: 3px solid #f1f1f1;
@@ -174,7 +163,26 @@ i{
   margin-bottom:10px;
   opacity: 0.8;
 }
-
+.buttonRemove{
+    background-color: red;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+.buttonEdit{
+    background-color: green;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 /* Add a red background color to the cancel button */
 .form-container .cancel {
   background-color: red;
@@ -206,6 +214,7 @@ i{
     display:flex;
     flex-direction:row;
     justify-content:space-between;
+    margin-right:100px;
 }
 @media only screen and(max-width:600px){
     .profileHeader{

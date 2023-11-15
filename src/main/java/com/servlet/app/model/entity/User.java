@@ -1,11 +1,13 @@
 package com.servlet.app.model.entity;
 
 import com.servlet.view.enums.UserType;
+import com.servlet.view.html.AuthFormsAnnot;
 
 public class User {
     private String email;
     private String password;
     private String username;
+    @AuthFormsAnnot()
     private UserType userType;
     
     public User(String email, String password, String username, UserType userType) {

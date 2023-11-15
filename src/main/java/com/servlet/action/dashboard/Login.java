@@ -27,11 +27,8 @@ public class Login extends BaseAction {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
-        User loginUser = new User();
-        serializeForm(loginUser, req.getParameterMap());
-        loginUser.setEmail(req.getParameter("email"));
-        loginUser.setPassword(req.getParameter("password"));
-        User userDetails = authBean.authenticatUser(loginUser);
+        User loginUser2= serializeForm(User.class, req.getParameterMap());
+        User userDetails = authBean.authenticatUser(loginUser2);
         
         
         if (userDetails != null) {
@@ -39,12 +36,12 @@ public class Login extends BaseAction {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
-            httpSession.setAttribute("email", loginUser.getEmail());
+            httpSession.setAttribute("email", loginUser2.getEmail());
             
-            if(userType == UserType.USER){
+            if(userType == UserType.USER && loginUser2.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");
                 resp.sendRedirect("./app/index.jsp");
-            }else if(userType == UserType.ADMIN){
+            }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
                 resp.sendRedirect("./app/index.jsp");
             }
@@ -52,7 +49,8 @@ public class Login extends BaseAction {
             
 
         }
-        print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
+        print.write("<html><body>Invalid login details <a href=\"./login\"> Login again </a></body></html>");
+
 
     }
 
