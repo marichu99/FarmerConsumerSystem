@@ -36,7 +36,7 @@
           </div>
           <div class="input-detailLast">
             <div class="label">
-              <label for="" class="form-label">Select the type of user to create</label><br />
+              <label for="" class="form-label">Select the type of user </label><br />
             </div>
             <div class="lablContent">
               <label for="user">User: </label>
@@ -48,16 +48,13 @@
           <input type="submit" id="submit" class="btn-submit"><br>
           <p onclick="window.location.href='forgotPass.php'" class="forgotPass">Forgot Password</p>
 
-          <p id="emailValidation"></p>
-          <p id="passwordValidation"></p>
-
         </div>
       </form>
 
 
     </div>
   </div>
-  <script src="js/login.js" type="text/javascript"></script>
+  <script src="../js/login.js" type="text/javascript"></script>
 
 </body>
 

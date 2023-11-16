@@ -16,6 +16,7 @@ import com.servlet.app.bean.AuthBeanI;
 import com.servlet.app.model.entity.User;
 import com.servlet.view.css.AllPageCss;
 import com.servlet.view.enums.UserType;
+import com.servlet.view.html.HtmlComponents;
 import com.servlet.view.html.UserProfile;
 
 @WebServlet(urlPatterns = "/login")
@@ -40,10 +41,10 @@ public class Login extends BaseAction {
             
             if(userType == UserType.USER && loginUser2.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");
-                resp.sendRedirect("./app/index.jsp");
+                renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
             }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
-                resp.sendRedirect("./app/index.jsp");
+                renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
             }
                     
             
@@ -59,5 +60,6 @@ public class Login extends BaseAction {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("./login.jsp");
         dispatcher.forward(req, resp);
+        // new AppPage().renderHtml(req, resp, 0, HtmlComponents.loginForm(), "");
     }
 }

@@ -29,11 +29,11 @@
                 </a></li>
                 <li><a href="#">
                 <img src="icons/user-circle.jpg"class="icon"/>
-                    <span class="link-name" onclick="window.location.href='./produce.jsp'">My Products</span>
+                    <span class="link-name" onclick="window.location.href='./produce'">My Products</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/angle-double-down.jpg"class="icon"/>
-                    <span class="link-name" onclick="window.location.href='../sell'">Sell</span>
+                    <span class="link-name" onclick="window.location.href='./sell'">Sell</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-fly.jpg"class="icon" />
@@ -41,7 +41,7 @@
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-arrival.jpg" class="icon" />
-                    <span class="link-name" onclick="window.location.href='../cart'">Cart Items</span><span class="approvals"> <?php echo $rowsApprovals?></span>
+                    <span class="link-name" onclick="window.location.href='./cart'">Cart Items</span><span class="approvals"> <%=0%></span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-arrival.jpg" class="icon" />
@@ -64,7 +64,7 @@
                         </a></li>
                         <li><a href="#">
                             <img src="icons/user-circle.jpg"class="icon"/>
-                            <span class="link-name" onclick="window.location.href='./index.jsp'">Users</span>
+                            <span class="link-name" onclick="window.location.href='./profile?get=all'">Users</span>
                         </a></li>
                         <li><a href="#">
                             <img src="icons/plane-fly.jpg"class="icon" />
@@ -79,7 +79,7 @@
             <% }%>
 
             <ul>
-                <li><a href="../logout">
+                <li><a href="./logout">
                 <img src="icons/signout.jpg" class="icon" />
                     <span class="link-name">Log out</span>
                 </a></li>

@@ -9,6 +9,12 @@ import com.servlet.database.Database;
 public class ProductBean implements ProductBeanI{
     private Database database = Database.getDbInstance();
      @Override
+    public List<Product> list() {
+        return database.getProducts();
+        // TODO Auto-generated method stub
+    }
+
+    @Override
     public String productList() {
         List<Product> products = new ArrayList<>();
 

@@ -1,8 +1,12 @@
 package com.servlet.app.bean;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class GenericBeanI<T> implements Serializable{
+public interface GenericBeanI<T> {
+    List<T> list();
 
+     T addOrUpdateProduct(T entity);
+
+    void deleteProduct(T entity);
     
-}
+} 

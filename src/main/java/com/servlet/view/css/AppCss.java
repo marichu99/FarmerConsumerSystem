@@ -51,6 +51,21 @@ public class AppCss implements Serializable {
                 "  display: inline-block;\n" +
                 "  font-size: 16px;\n" +
             "}"+
+            "table {\n" +
+                  "    font-family: arial, sans-serif;\n" +
+                  "    border-collapse: collapse;\n" +
+                  "    width: 100%;\n" +
+                  "}\n" +
+                  "\n" +
+                  "td, th {\n" +
+                  "    border: 1px solid #dddddd;\n" +
+                  "    text-align: left;\n" +
+                  "    padding: 8px;\n" +
+                  "}\n" +
+                  "\n" +
+                  "tr:nth-child(even) {\n" +
+                  "    background-color: #dddddd;\n" +
+                  "}"+
             ".button:hover {\n" +
                 "  background-color: #04AA6D; /* Green */\n" +
                 "  color: white;\n" +
@@ -236,251 +251,9 @@ public class AppCss implements Serializable {
             ".navContainer{" +
             "    width: 20%;" +
             "}" +
-            // CSS FOR THE ADD TO CART PAGE
-            ".recentContainer{\n" +
-            "    margin-left: 40px;\n" +
-            "    padding: 10px 15px;\n" +
-            "    margin-right: 100px;\n" +
-            "}\n" +
-            ".recentTitle{\n" +
-            "    font-weight: bold;\n" +
-            "    font-size: large;\n" +
-            "    font-family: serif;\n" +
-            "}\n" +
-            ".recent{\n" +
-            "    display: flex;\n" +
-            "    flex-direction: column;\n" +
-            "}\n" +
-            ".recenData{\n" +
-            "    padding: 8px;\n" +
-            "    font-size: 15px;\n" +
-            "}\n" +
-            ".myTable{\n" +
-            "    width: 50%;\n" +
-            "}\n" +
-            ".myTable td{\n" +
-            "    text-align: center;\n" +
-            "    padding: 5px 15px;\n" +
-            "}\n" +
-            ".myTable th{\n" +
-            "    text-align: center;\n" +
-            "    padding: 8px 15px;\n" +
-            "    background-color: rgb(252, 152, 152);\n" +
-            "}\n" +
-            ".image_prod{\n" +
-            "    width: 200px;\n" +
-            "    height: 150px;\n" +
-            "    border-radius: 20px;\n" +
-            "}\n" +
-            ".numQuantity{\n" +
-            "    width: 150px;\n" +
-            "    height: 34px;\n" +
-            "    border-radius: 10px;\n" +
-            "    padding: 8px 14px;\n" +
-            "}\n" +
-            ".myTable i{\n" +
-            "    color: red;\n" +
-            "    font-size: 30px;\n" +
-            "    text-transform: uppercase;\n" +
-            "    transition: transform .5s;\n" +
-            "    cursor: pointer;\n" +
-            "}\n" +
-            ".myTable i:hover{\n" +
-            "    transform: scale(1.1);\n" +
-            "}\n" +
-            ".Container{\n" +
-            "    display: flex;\n" +
-            "    flex-direction: row;\n" +
-            "    flex-wrap: wrap;\n" +
-            "}\n" +
-            ".checkout{\n" +
-            "    display: flex;\n" +
-            "    align-items: center;\n" +
-            "    justify-content: center;\n" +
-            "    flex-direction: column;\n" +
-            "    border-radius: 10px;\n" +
-            "    background-color: bisque;\n" +
-            "    height: 200px;\n" +
-            "    margin: 15px;\n" +
-            "    padding: 8px 10px;\n" +
-            "}\n" +
-            ".submit{\n" +
-            "    width: 100%;\n" +
-            "    font-size: 17px;\n" +
-            "    color: white;\n" +
-            "    cursor: pointer;\n" +
-            "    background-color: rgb(99, 87, 87);\n" +
-            "    border-radius: 10px;\n" +
-            "    text-align: center;\n" +
-            "    height: 34px;\n" +
-            "    font-family: 'Times New Roman', Times, serif;\n" +
-            "    text-transform: uppercase;\n" +
-            "    transition: transform .5s;\n" +
-            "}\n" +
-            ".submit:hover{\n" +
-            "    background-color: rgb(36, 35, 35);\n" +
-            "    transform: scale(0.9);\n" +
-            "}\n" +
-            "#errText{\n" +
-            "    position: relative;\n" +
-            "}\n" +
-            ".priceText{\n" +
-            "    font-size: 30px;\n" +
-            "    font-weight: 700;\n" +
-            "    color: rgb(12, 95, 12);\n" +
-            "    text-align: center;\n" +
-            "    text-transform: uppercase;\n" +
-            "    padding: 15px;\n" +
-            "}\n" +
-            "@media only screen and (max-width: 700px){\n" +
-            "    .myTable{\n" +
-            "        width: 30%;\n" +
-            "    }\n" +
-            "    .image_prod{\n" +
-            "        width: 142px;\n" +
-            "        height: 130px;\n" +
-            "    }\n" +
-            "    .numQuantity {\n" +
-            "        width: 90px;\n" +
-            "    }\n" +
-            "    .recentContainer{\n" +
-            "        margin-left: 3px;\n" +
-            "    }\n" +
-            "}"+
+            
             // CSS FOR THE PRODUCT FORMS
-            " {" +
-            "    display: flex;" +
-            "    justify-content: center;" +
-            "    align-items: center;" +
-            "    background: linear-gradient( rgba(88, 88, 88, 0.2),rgba(182, 180, 180, 0.4));" +
-            "    min-height: 100vh;" +
-            "    padding-top: 20px;" +
-            "    padding-bottom: 10px;" +
-            "}" +
-            "  form{" +
-            "    background-color: white;" +
-            "    border-radius: 20px;" +
-            "    padding: 20px;" +
-            "    width: 500px;" +
-            "}" +
-            "  form .row{" +
-            "    display: flex;" +
-            "    flex-wrap: wrap;" +
-            "    gap: 15px;" +
-            "}" +
-            "  form .row .col{" +
-            "    flex: 1 1 250px;" +
-            "}" +
-            "  form .row .col .title{" +
-            "    font-size: 20px;" +
-            "    color: black;" +
-            "    text-transform: uppercase;" +
-            "}" +
-            "  form .row .col .user{" +
-            "    margin: 10px 0;" +
-            "    display: flex;" +
-            "    flex-direction: column;" +
-            "    padding: 5px 12px;" +
-            "}" +
-            "  form .row .col .user label{" +
-            "    margin-bottom: 5px;" +
-            "}" +
-            "  form .row .col .user input{" +
-            "    width: 100%;" +
-            "    border: 1px solid grey;" +
-            "    padding: 10px 15px;" +
-            "    font-size: 15px;" +
-            "    text-transform: none;" +
-            "    border-radius: 10px;" +
-            "}" +
-            "  form .row .col .user input:focus{" +
-            "    border: 1px solid black;" +
-            "}" +
-            "  form .row .col .flex{" +
-            "    display: flex;" +
-            "    justify-content: space-between;" +
-            "}" +
-            "  form .submit{" +
-            "    width: 100%;" +
-            "    font-size: 17px;" +
-            "    color: white;" +
-            "    cursor: pointer;" +
-            "    background-color: rgb(99, 87, 87);" +
-            "    border-radius: 10px;" +
-            "    height: 34px;" +
-            "    font-family: 'Times New Roman', Times, serif;" +
-            "    text-transform: uppercase;" +
-            "    transition: transform .5s;" +
-            "}" +
-            "  form .submit:hover{" +
-            "    background-color: rgb(36, 35, 35);" +
-            "    transform: scale(0.9);" +
-            "}" +
-            "input.message{" +
-            "    height: 80px;" +
-            "}" +
-            ".farm_produce{" +
-            "    width: 70%;" +
-            "    padding-top: 10px;" +
-            "    text-align: center;" +
-            "    margin: 10px;" +
-            "}" +
-            ".users{" +
-            "    width: 60%;" +
-            "    padding-top: 10px;" +
-            "    text-align: center;" +
-            "    margin: auto;" +
-            "    display:none;" +
-            "}" +
-            ".prod_row{" +
-            "    margin-top: 5%;" +
-            "    display: none;" +
-            "    justify-content: space-between;" +
-            "    padding-bottom: 0;" +
-            "    flex-wrap: wrap;" +
-            "}" +
-            ".prod_row{" +
-            "    margin-top: 5%;" +
-            "    display: flex;" +
-            "    justify-content: space-between;" +
-            "    flex-direction: column;" +
-            "    flex-wrap: wrap;" +
-            "}" +
-            ".prod_item{" +
-            "    flex: 1;" +
-            "    gap: 10px;" +
-            "    padding: 0;" +
-            "    margin: 10px;" +
-            "    text-align: start;" +
-            "    transition: transform .5s;" +
-            "}" +
-            ".prod_item:hover{" +
-            "    transform: scale(1.1);" +
-            "}" +
-            ".image_prod{" +
-            "    width: 200px;" +
-            "    height: 150px;" +
-            "    border-radius: 20px;" +
-            "}" +
-            ".prodName{" +
-            "    font-weight: bold;" +
-            "    font-size: 20px;" +
-            "}" +
-            ".prodLocation{" +
-            "    font-weight: 300;" +
-            "    font-size: 15px;" +
-            "    font-size: small;" +
-            "}" +
-            ".prodPrice{" +
-            "    font-weight: bold;" +
-            "    font-size: 15px;" +
-            "    color: dark-blue;" +
-            "}" +
-            ".farm_produce h1{" +
-            "    font-size: 50px;" +
-            "    font-weight: bold;" +
-            "    font-style: normal;" +
-            "}" +
+            
 
             "</style>";
 

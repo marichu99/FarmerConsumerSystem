@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.bean.CartBean;
 import com.servlet.app.bean.CartBeanI;
-import com.servlet.view.html.AppPage;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet(urlPatterns = "/cart")
@@ -29,10 +28,11 @@ public class CartAction extends BaseAction{
             int productId = Integer.parseInt(req.getParameter("productId"));
             boolean isItemAdded = cartBean.addToCart(productId);
             if(isItemAdded){
-                new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()), "");
+                renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()));
             }
         }else{
-            new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()), "");
+            renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()));
+            // new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()), "");
         }       
 
     }

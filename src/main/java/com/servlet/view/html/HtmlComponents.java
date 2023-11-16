@@ -10,39 +10,82 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
-import com.servlet.view.css.LoginCss;
 
-public class HtmlComponents extends HttpServlet{
+public class HtmlComponents extends HttpServlet {
     public static String gridView(List<Product> models) {
-        
+
         String allProduce = "<div class ='prodDetails'>";
-        for (Product product : models){         
-            allProduce += "<div class='prod_item'>" +
-                    "       <img src='./images/barley.jpg' class='image_prod'/><br/>"                    +
-                    "       <span class='prodName'>" + product.getProductName() + "</span><br/>" +
-                    "       <span class='prodLocation'>" + product.getProductDescription() + "</span><br/>" +
-                    "       <span class='prodPrice'>" + product.getPrice() * product.getProdQuantity() + "</span><br/>" +
-                    "       <button class='button'>Buy</button>"+
-                    "      </div>";
-        } 
+        for (Product product : models) {
+            allProduce += "<div class=\"prod_item\">\n" +
+                    "    <div class=\"imgDiv\">\n" +
+                    "        <img src='./images/corn.jpg' class=\"image_prod\"/><br/>\n" +
+                    "    </div>\n" +
+                    "    <div class=\"deetsDiv\">\n" +
+                    "        <span class=\"prodName\">" + product.getProductName() + "</span><br/>\n" +
+                    "        <span class=\"prodLocation\">" + product.getProductDescription() + "</span><br/>\n" +
+                    "        <span class=\"prodPrice\">" + product.getPrice() + "</span><br/>\n" +
+                    "        <div class=\"innerButtons\">\n" +
+                    "            <button class='buttonRemove' onclick=\"window.location.href='./produce?type=product&productID="
+                    + product.getProductId() + "&mode=remove'\">Remove</button>\n" +
+                    "            <button class=\"buttonEdit\" onclick=\"openForm(" + product.getProductId()
+                    + ")\">Edit</button>\n" +
+                    "            <button class='button' onclick=\"window.location.href='./cart?mode=add&productId="
+                    + product.getProductId() + "'\">Buy</button>\n" +
+                    "        </div>\n" +
+                    "    </div>\n" +
+                    "</div>";
+        }
         allProduce += "</div>";
+        allProduce += "<div class=\"form-popup\" id=\"myForm\">\n" +
+                "    <form action=\"./produce\" class=\"form-container\" method=\"POST\">\n" +
+                "        <h2>Edit Details</h2>\n" +
+                "        <input type=\"hidden\" id=\"hiddenId\" name=\"productId\">\n" +
+                "        <input type=\"hidden\" value=\"update\" name=\"product\">\n" +
+                "        <label for=\"email\"><b>Product Name</b></label>\n" +
+                "        <input type=\"text\" placeholder=\"Enter product name\" name=\"productName\" required>\n" +
+                "        <label for=\"psw\"><b>Product Description</b></label>\n" +
+                "        <input type=\"text\" placeholder=\"Enter product description\" name=\"productDescription\" required>\n"
+                +
+                "        <label for=\"email\"><b>Product Quantity</b></label>\n" +
+                "        <input type=\"number\" placeholder=\"Enter desired quantity\" name=\"prodQuantity\" required>\n"
+                +
+                "        <label for=\"psw\"><b>Price</b></label>\n" +
+                "        <input type=\"number\" placeholder=\"Enter desired price per Quantity\" name=\"price\" required>\n"
+                +
+                "        <button type=\"submit\" class=\"btn\">Edit</button>\n" +
+                "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
+                "    </form>\n" +
+                "</div>";
+        allProduce += "<script type=\"text/javascript\">\n" +
+                "    function openForm(productId) {\n" +
+                "        document.getElementById(\"myForm\").style.display = \"flex\";\n" +
+                "        document.getElementById(\"hiddenId\").value = productId;\n" +
+                "    }\n\n" +
+                "    function closeForm() {\n" +
+                "        document.getElementById(\"myForm\").style.display = \"none\";\n" +
+                "    }\n" +
+                "</script>";
         // lets pass the objects using httpsessions
-        
+
         // loop though the array of declared fields and add the HTML
 
         return allProduce;
     }
+
     public static String form(Class<?> model) {
         Database database = Database.getDbInstance();
         Field[] fields = model.getDeclaredFields();
-        String htmlPage = "<form action=\"./produce\"  enctype='multipart/form-data' method=\"POST\">\n" +
+        String htmlPage = "    <div class='main'>" +
+                " <form action=\"./produce\"  method=\"POST\">\n" ;
+        htmlPage+= " <input type=\"hidden\" value=\"" + (database.getProducts().size() + 1)
+                + "\" class=\"submit\" name=\"productId\"/>\n"+
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\">Product Details</h3>\n" +
                 "               <form action=\"./produce\" method=\"POST\">\n";
-                // "    <div class=\"row\">\n" +
-                // "        <div class=\"col\">\n" +
-                // "            <h3 class=\"title\">Product Details</h3>\n";
+        // " <div class=\"row\">\n" +
+        // " <div class=\"col\">\n" +
+        // " <h3 class=\"title\">Product Details</h3>\n";
         for (Field field : fields) {
             String fieldName = field.getName();
             // lets check if there is an anotation for this field
@@ -60,105 +103,68 @@ public class HtmlComponents extends HttpServlet{
                     + "\" placeholder=\""
                     + (StringUtils.isBlank(formField.placeHolder()) ? fieldName : formField.placeHolder())
                     + "\" name=\"" + fieldName + "\"/>\n" +
-                    "<label>Select Image:</label>"+
-                            // "<input type='file'  value='Select an Image' name='prodImg'/>"+
-                     " <input type=\"hidden\" value=\""+(database.getProducts().size()+1)+"\" class=\"submit\" name=\"productId\"/>\n"+
                     "     </div>\n";
         }
         htmlPage += "<input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n";
         htmlPage += "</div>\n" +
                 "    </div>\n" +
-                "</form>\n";
+                "</form>\n" +
+                "    </div>\n";
         return htmlPage;
     }
-     public static String cartItems(List<CartProduct> models){
+
+    public static String cartItems(List<CartProduct> models) {
         String shoppinCartHTML = "<div class=\"Container\">\n" +
-        "   <div class=\"recentContainer\">\n" +
-        "       <table class=\"myTable\">\n"+
-        "               <tr>\n" +
-        "                    <th>Product</th>\n" +
-        "                    <th>Product Quantity</th>\n" +
-        "                    <th>Product Price</th>\n" +
-        "                    <th>Total Price</th>\n" +
-        "               </tr>\n";
+                "   <div class=\"recentContainer\">\n" +
+                "       <table class=\"myTable\">\n" +
+                "               <tr>\n" +
+                "                    <th>Product</th>\n" +
+                "                    <th>Product Quantity</th>\n" +
+                "                    <th>Product Price</th>\n" +
+                "                    <th>Total Price</th>\n" +
+                "               </tr>\n";
         Double sumProducts = 0.0;
-        for(CartProduct cartProduct : models){
-            shoppinCartHTML+="<tr id=\"\">\n" +
-                "\n" +
-                "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
-                "\n" +
-                "                   <td id=\"prodQuantity\"><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  />/ <span id=\"totalQuantity\">"+cartProduct.getProdQuantity()+"</span></td>\n" +
-                "\n" +
-                "                   <td>"+cartProduct.getProdPrice()+" Kshs</td>\n" +
-                "\n" +
-                "                   <td id=\"\"> Total Price "+cartProduct.getProdQuantity()*cartProduct.getProdPrice()+"</td>\n" +
-                "\n" +
-                "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="+cartProduct.getProductId()+"'\"></i></td>\n";
-            sumProducts+=cartProduct.getProdPrice()*cartProduct.getProdQuantity();
+        for (CartProduct cartProduct : models) {
+            shoppinCartHTML += "<tr id=\"\">\n" +
+                    "\n" +
+                    "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
+                    "\n" +
+                    "                   <td id=\"prodQuantity\"><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  />/ <span id=\"totalQuantity\">"
+                    + cartProduct.getProdQuantity() + "</span></td>\n" +
+                    "\n" +
+                    "                   <td>" + cartProduct.getProdPrice() + " Kshs</td>\n" +
+                    "\n" +
+                    "                   <td id=\"\"> Total Price "
+                    + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</td>\n" +
+                    "\n" +
+                    "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
+                    + cartProduct.getProductId() + "'\"></i></td>\n";
+            sumProducts += cartProduct.getProdPrice() * cartProduct.getProdQuantity();
         }
 
-        shoppinCartHTML +=        
-        "       </table>\n" +
-        "   </div>\n" +
-        "   <div class=\"checkout\">\n" +
-        "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: "+sumProducts+"</h3>\n" +
-        "       <input type=\"hidden\" value=\"\" id=\"numIterations\"/>\n" +
-        "       <span class=\"priceText\"></span>\n" +
-        "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
-        "   </div>\n" +
-        "</div>\n";
-        return shoppinCartHTML;  
+        shoppinCartHTML += "       </table>\n" +
+                "   </div>\n" +
+                "   <div class=\"checkout\">\n" +
+                "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: " + sumProducts + "</h3>\n" +
+                "       <input type=\"hidden\" value=\"\" id=\"numIterations\"/>\n" +
+                "       <span class=\"priceText\"></span>\n" +
+                "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
+                "   </div>\n" +
+                "</div>\n";
+        return shoppinCartHTML;
     }
-    public static String loginForm(){
-        String htmlForm = "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                new LoginCss().getCssStyles()+
-                "  <link rel=\"stylesheet\" href=\"https://unicons.iconscout.com/release/v4.0.0/css/line.css\">\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "  <div class=\"marichu\">\n" +
-                "    <div class=\"loginContainer\">\n" +
-                "      <div class=\"button-box\">\n" +
-                "        <div id=\"buttonz\"></div>\n" +
-                "        <button class=\"toggle-btn\" onclick=\"login()\">Login</button>\n" +
-                "        <button class=\"toggle-btn\"><a href=\"./sign\">Sign Up</a></button>\n" +
-                "      </div>\n" +
-                "      <form action=\"./login\" method=\"POST\" id=\"login\" class=\"login-input-group\">\n" +
-                "        <div class=\"loginDiv\">\n" +
-                "          <label class=\"form-label\">Enter your Email:</label>\n" +
-                "          <div class=\"input-detail\">\n" +
-                "            <input id=\"email\" placeholder=\"Enter your Email address\" type=\"email\" name=\"email\" class=\"input-box\" onkeyup=\"checkFormValidation(event)\"><br>\n" +
-                "          </div>\n" +
-                "          <label class=\"form-label\">Enter your Password:</label>\n" +
-                "          <div class=\"input-detail\">\n" +
-                "            <input id=\"password\" placeholder=\"Enter your password\" name=\"password\" class=\"input-box\" onchange=\"checkFormValidation(event)\" onkeyup=\"checkFormValidation(event)\" type=\"password\"><br><i class=\"uil uil-eye\" id=\"openPass\" onclick=\"hidePass('password','pass')\"></i><i class=\"uil uil-eye-slash\" onclick=\"showPass('password','pass')\" id=\"eyeClosedPass\"></i>\n" +
-                "          </div>\n" +
-                "          <input type=\"submit\" id=\"submit\" class=\"btn-submit\"><br>\n" +
-                "          <p onclick=\"window.location.href='forgotPass.php'\" class=\"forgotPass\">Forgot Password</p>\n" +
-                "          <p id=\"emailValidation\"></p>\n" +
-                "          <p id=\"passwordValidation\"></p>\n" +
-                "        </div>\n" +
-                "      </form>\n" +
-                "    </div>\n" +
-                "  </div>\n" +
-                "  <script src=\"js/login.js\" type=\"text/javascript\"></script>\n" +
-                "</body>\n" +
-                "</html>";
-        return htmlForm;
-    }
-       public static String table(List<?> dataList, Class<?> dataClass) {
+
+    public static String table(List<?> dataList, Class<?> dataClass) {
 
         if (!dataClass.isAnnotationPresent(HtmlTable.class))
             return StringUtils.EMPTY;
 
-        // HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
+        HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
 
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<a class=\"linkBtn\" href=\"")
-            // .append(htmlTable.addUrl()).append("\">Add</a><br/>")
-            .append("<table><tr>");
+                .append(htmlTable.addUrl()).append("\">Add</a><br/>")
+                .append("<table><tr>");
 
         Field[] fields = dataClass.getDeclaredFields();
 
@@ -167,13 +173,13 @@ public class HtmlComponents extends HttpServlet{
                 continue;
 
             trBuilder.append("<th>")
-                .append(field.getAnnotation(HtmlTableColHeader.class).header())
-                .append("</th>");
+                    .append(field.getAnnotation(HtmlTableColHeader.class).header())
+                    .append("</th>");
         }
 
         trBuilder.append("</tr>");
 
-        if (dataList != null && !dataList.isEmpty()){
+        if (dataList != null && !dataList.isEmpty()) {
 
             for (Object data : dataList) {
 
@@ -201,5 +207,57 @@ public class HtmlComponents extends HttpServlet{
 
         return trBuilder.toString();
 
+    }
+
+    public static String getCustomerDash() {
+        String htmlContent = "<div class=\"navDeets\">\n" +
+                "    <div class=\"header-deets\">\n" +
+                "        <div class=\"acc-details\">\n" +
+                "            <span class=\"acc-span-deets\">Sold:</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS 3000</span>\n" +
+                "        </div>\n" +
+                "        <div class=\"acc-details\">\n" +
+                "            <span class=\"acc-span-deets\">Bought:</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS 5000</span>\n" +
+                "        </div>\n" +
+                "        <div class=\"acc-details\">\n" +
+                "            <span class=\"acc-span-deets\">Totals:</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS -2000</span>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"sectionDeets\">\n" +
+                "        <h3>Recent Activity</h3>\n" +
+                "        <select class=\"logFilters\" onchange=\"getFeature(this,'logsUser')\">\n" +
+                "            <option>Choose   </option>\n" +
+                "            <option>Login</option>\n" +
+                "            <option>Log Out</option>\n" +
+                "            <option>Sell</option>\n" +
+                "            <option>Buy</option>\n" +
+                "            <option>Seller Approval</option>\n" +
+                "            <option>Password Change</option>\n" +
+                "        </select>\n" +
+                "        <h3 class=\"export\" onclick=\"window.location.href='export.php?logReport=user&username=<?php echo $userName;?>'\">Export Report</h3>\n"
+                +
+                "    </div>\n" +
+                "    <table class=\"myTable\">\n" +
+                "        <tr class=\"key\">\n" +
+                "            <th>Log ID</th>\n" +
+                "            <th>User Name</th>\n" +
+                "            <th>Email</th>\n" +
+                "            <th>Action</th>\n" +
+                "            <th>TimeStamp</th>\n" +
+                "            <th>IP Address</th>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td></td>\n" +
+                "            <td></td>\n" +
+                "            <td></td>\n" +
+                "            <td></td>\n" +
+                "            <td></td>\n" +
+                "            <td></td>\n" +
+                "        </tr>\n" +
+                "    </table>\n" +
+                "</div>";
+        return htmlContent;
     }
 }

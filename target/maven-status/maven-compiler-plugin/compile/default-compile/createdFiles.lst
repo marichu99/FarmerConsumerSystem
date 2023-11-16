@@ -11,7 +11,6 @@ com/servlet/view/html/AppPage.class
 com/servlet/app/bean/AuthBean.class
 com/servlet/view/enums/UserType.class
 com/servlet/database/Database.class
-com/servlet/view/css/LoginCss.class
 com/servlet/app/bean/GenericBean.class
 com/servlet/view/toolbar/Menu.class
 com/servlet/utils/UserTypeConverter.class

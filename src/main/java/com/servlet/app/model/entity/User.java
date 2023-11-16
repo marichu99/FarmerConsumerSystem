@@ -2,10 +2,16 @@ package com.servlet.app.model.entity;
 
 import com.servlet.view.enums.UserType;
 import com.servlet.view.html.AuthFormsAnnot;
+import com.servlet.view.html.HtmlTable;
+import com.servlet.view.html.HtmlTableColHeader;
 
+
+@HtmlTable(addUrl = "./profile?action=add")
 public class User {
+    @HtmlTableColHeader(header = "Customer Email")
     private String email;
     private String password;
+    @HtmlTableColHeader(header = "Customer Name")
     private String username;
     @AuthFormsAnnot()
     private UserType userType;

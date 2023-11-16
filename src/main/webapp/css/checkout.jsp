@@ -122,6 +122,138 @@ i{
     flex-direction: column;
 }
  {box-sizing: border-box;}
+<%-- chekout css --%>
+.recentContainer {
+    margin-left: 40px;
+    padding: 10px 15px;
+    margin-right: 100px;
+}
+
+.recentTitle {
+    font-weight: bold;
+    font-size: large;
+    font-family: serif;
+}
+
+.recent {
+    display: flex;
+    flex-direction: column;
+}
+
+.recenData {
+    padding: 8px;
+    font-size: 15px;
+}
+
+.myTable {
+    width: 50%;
+}
+
+.myTable td {
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.myTable th {
+    text-align: center;
+    padding: 8px 15px;
+    background-color: rgb(252, 152, 152);
+}
+
+.image_prod {
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.numQuantity {
+    width: 150px;
+    height: 34px;
+    border-radius: 10px;
+    padding: 8px 14px;
+}
+
+.myTable i {
+    color: red;
+    font-size: 30px;
+    text-transform: uppercase;
+    transition: transform .5s;
+    cursor: pointer;
+}
+
+.myTable i:hover {
+    transform: scale(1.1);
+}
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.checkout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: bisque;
+    height: 200px;
+    margin: 15px;
+    padding: 8px 10px;
+}
+
+.submit {
+    width: 100%;
+    font-size: 17px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(99, 87, 87);
+    border-radius: 10px;
+    text-align: center;
+    height: 34px;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    transition: transform .5s;
+}
+
+.submit:hover {
+    background-color: rgb(36, 35, 35);
+    transform: scale(0.9);
+}
+
+#errText {
+    position: relative;
+}
+
+.priceText {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(12, 95, 12);
+    text-align: center;
+    text-transform: uppercase;
+    padding: 15px;
+}
+
+@media only screen and (max-width: 700px) {
+    .myTable {
+        width: 30%;
+    }
+
+    .image_prod {
+        width: 142px;
+        height: 130px;
+    }
+
+    .numQuantity {
+        width: 90px;
+    }
+
+    .recentContainer {
+        margin-left: 3px;
+    }
+}
+
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 
@@ -150,6 +282,13 @@ i{
   margin: 5px 0 22px 0;
   border: none;
   background: #f1f1f1;
+}
+.navDeets{
+    width:80%;
+}
+.prodDetails{
+    width:80%;
+    display:flex;
 }
 
 /* Set a style for the submit/login button */

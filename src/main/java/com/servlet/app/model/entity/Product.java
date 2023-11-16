@@ -24,7 +24,7 @@ public class Product implements Serializable{
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
     private double price;
 
-    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "Enter amount")    
+    @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
 
     

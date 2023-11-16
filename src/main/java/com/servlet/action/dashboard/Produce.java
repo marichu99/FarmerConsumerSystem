@@ -16,6 +16,7 @@ import com.servlet.app.bean.ProductBean;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
+import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
@@ -42,7 +43,7 @@ public class Produce extends BaseAction {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                resp.sendRedirect("./app/produce.jsp");
+                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
             }
         }else if(type.equals("cart") && mode.equals("remove")){
             // get the id
@@ -52,13 +53,13 @@ public class Produce extends BaseAction {
             printWriter.write("<html>" +
                 "<body>" +
                 "<script type='text/javascript'>" +
-                "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
+                "    alert('Item has been removed successfully');" +
                 "    window.location.href = './produce';" +
                 "</script>" +
                 "</body>" +
                 "</html>");
-            resp.sendRedirect("./app/produce.jsp");
         }
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
       
     }
 
@@ -82,15 +83,19 @@ public class Produce extends BaseAction {
         } else {
             // if no update then create a new product
             Product product = serializeForm(Product.class, req.getParameterMap());
+            // PrintWriter printWriter= resp.getWriter();
             try {
-                // database.getProducts().add(product);
+                database.getProducts().add(product);
                 productBean.addOrUpdateProduct(product);
+                // 
+                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
         // Specify the directory where you want to store the uploaded file
-        resp.sendRedirect("./app/produce.jsp");
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
     }
 }

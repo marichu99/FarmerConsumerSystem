@@ -68,6 +68,8 @@
                 }
             }            
         %> --%>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -83,7 +85,8 @@
     <jsp:include page="./sideBar.jsp" />
 
     <div class="navDeets">
-    <jsp:include page="./customerDashMain.jsp" />
+    <%-- <jsp:include page="./customerDashMain.jsp" /> --%>
+    ${requestScope.content}
     <!-- include the customerDash nav -->
 
     </div>
@@ -106,21 +109,6 @@
                             
         <script type="text/javascript">
             // get the div elements
-           
-            function showPage(type) {      
-                if(type .equals= "approvals"){
-                    window.location.href='customerDash.php?mode=approvals';                
-                }else if(type .equals= "profile"){
-                    window.location.href='customerDash.php?mode=profile';
-                }else if(type .equals= "produce"){
-                    window.location.href='customerDash.php?mode=produce';
-                }else if(type .equals= "reports"){
-                    window.location.href='customerDash.php?mode=reports';
-                }else if(type .equals= "PurchaseApprovals"){
-                    window.location.href='customerDash.php?mode=PurchaseApprovals';
-                }
-                
-            }
             function rejectApprove(type,person){
                 console.log(type,person)
                 
