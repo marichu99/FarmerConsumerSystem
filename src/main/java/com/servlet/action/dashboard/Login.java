@@ -45,14 +45,10 @@ public class Login extends BaseAction {
             }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
                 renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
-            }
-                    
-            
+            }                           
 
         }
         print.write("<html><body>Invalid login details <a href=\"./login\"> Login again </a></body></html>");
-
-
     }
 
     @Override

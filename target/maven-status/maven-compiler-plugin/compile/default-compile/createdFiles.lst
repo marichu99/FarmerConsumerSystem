@@ -11,6 +11,7 @@ com/servlet/view/html/AppPage.class
 com/servlet/app/bean/AuthBean.class
 com/servlet/view/enums/UserType.class
 com/servlet/database/Database.class
+com/servlet/database/MysqlDataBase.class
 com/servlet/app/bean/GenericBean.class
 com/servlet/view/toolbar/Menu.class
 com/servlet/utils/UserTypeConverter.class
@@ -19,6 +20,7 @@ com/servlet/view/html/ApprovalHtml.class
 com/servlet/action/dashboard/SignUp.class
 com/servlet/app/bean/ProductBeanI.class
 com/servlet/app/bean/CartBeanI.class
+com/servlet/database/helper/DbTableColumn.class
 com/servlet/view/html/FarmerHtmlForm.class
 com/servlet/view/toolbar/TopBar.class
 com/servlet/action/dashboard/Logout.class
@@ -46,6 +48,7 @@ com/servlet/action/dashboard/Sell.class
 com/servlet/action/home/Home.class
 com/servlet/view/toolbar/BottomBar.class
 com/servlet/app/model/entity/CartProduct.class
+com/servlet/database/helper/DbTable.class
 com/servlet/view/html/HtmlComponents.class
 com/servlet/view/html/AuthFormsAnnot.class
 com/servlet/app/model/entity/Product.class

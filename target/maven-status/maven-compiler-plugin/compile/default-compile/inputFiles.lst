@@ -15,6 +15,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserType.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBeanI.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/MysqlDataBase.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/FarmerHtmlForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Reports.java
@@ -26,6 +27,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/css/AppCss.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/CartProduct.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTableColumn.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/Home.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/Database.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBean.java
@@ -38,6 +40,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/UserProfile.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/event/EnumConverterListern.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Produce.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTable.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/Product.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/CartAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Buy.java

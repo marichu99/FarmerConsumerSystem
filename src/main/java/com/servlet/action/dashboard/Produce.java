@@ -13,14 +13,13 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.bean.CartBean;
 import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBean;
-import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
-    private ProductBeanI productBean = new ProductBean();
+    private ProductBean productBean = new ProductBean();
     private CartBeanI cartBean = new CartBean();
     Database database = Database.getDbInstance();
 
@@ -35,8 +34,12 @@ public class Produce extends BaseAction {
         if (type.equals("product") && mode.equals("remove")) {
             // get the id that has been passed
             if (StringUtils.isNotBlank(req.getParameter("productID"))) {
+                int productID = Integer.parseInt(req.getParameter("productID"));
                 // remove by the id
-                productBean.deleteProduct(Integer.parseInt(req.getParameter("productID")));
+                // get the product by ID
+                Product product = productBean.getProductByID(productID);
+
+                productBean.deleteProduct(product);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

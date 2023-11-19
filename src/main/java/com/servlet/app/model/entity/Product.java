@@ -3,27 +3,35 @@ package com.servlet.app.model.entity;
 import java.io.Serializable;
 
 import com.servlet.database.Database;
+import com.servlet.database.helper.DbTable;
+import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.html.FarmerGridView;
 import com.servlet.view.html.FarmerHtmlForm;
 import com.servlet.view.html.FarmerHtmlFormField;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
+@DbTable(name = "products")
 public class Product implements Serializable{
 
-    
+    @DbTableColumn(colName = "productId", colDescription = "INT(11)")
     private int productId;
+
+    @DbTableColumn(colName = "productName", colDescription = "VARCHAR(255)")
     @FarmerGridView(className = "prodName")
     @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize")
     private String productName;
 
+    @DbTableColumn(colName = "productDescription", colDescription = "VARCHAR(255)")
     @FarmerGridView(className = "prodLocation")
     @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description")
     private String productDescription;
 
+    @DbTableColumn(colName="price", colDescription = "INT(11)")
     @FarmerGridView(className = "prodPrice")
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
     private double price;
 
+    @DbTableColumn(colName = "productQuantity", colDescription = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
 
@@ -75,6 +83,7 @@ public class Product implements Serializable{
     public double getPrice() {
         return price;
     }
+   
 
     public void setPrice(double price) {
         this.price = price;

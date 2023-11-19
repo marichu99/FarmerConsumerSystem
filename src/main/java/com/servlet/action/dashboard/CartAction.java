@@ -28,10 +28,10 @@ public class CartAction extends BaseAction{
             int productId = Integer.parseInt(req.getParameter("productId"));
             boolean isItemAdded = cartBean.addToCart(productId);
             if(isItemAdded){
-                renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()));
+                renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.list()));
             }
         }else{
-            renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()));
+            renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.list()));
             // new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()), "");
         }       
 

@@ -21,15 +21,15 @@ public class SignUp extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
         User user = serializeForm(User.class,req.getParameterMap());        
-        userBean.registerUser(user);
-        print.write("<html>" +
-                "<body>" +
-                "<script type='text/javascript'>" +
-                "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
-                "    window.location.href = './login';" +
-                "</script>" +
-                "</body>" +
-                "</html>");
+        if(userBean.registerUser(user))
+            print.write("<html>" +
+                    "<body>" +
+                    "<script type='text/javascript'>" +
+                    "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
+                    "    window.location.href = './login';" +
+                    "</script>" +
+                    "</body>" +
+                    "</html>");
     }
 
     @Override

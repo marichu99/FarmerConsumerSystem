@@ -1,19 +1,12 @@
 package com.servlet.app.bean;
 
-import java.util.List;
-
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
 
-public class CartBean implements CartBeanI{
+public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
 private  Database database = Database.getDbInstance();
-    @Override
-    public List<CartProduct> getAllCarts() {
-       
-        // TODO Auto-generated method stub
-        return database.getCartProducts();
-    }
+
 
     @Override
     public boolean addToCart(int productID) {
