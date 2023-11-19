@@ -191,13 +191,10 @@
     .myTable{
         width: 100%;
     }
-    .myTable td{
-        text-align: left;    
-    }
-    .myTable th{
-        text-align: left;  
-        background-color: rgb(252, 152, 152);
-    
+    tr:nth-child(even) {background-color: #f2f2f2;}
+
+    .myTable th, td {
+        border-bottom: 1px solid #ddd;
     }
     .myTable .key{
         border-radius: 12px;

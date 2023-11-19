@@ -146,7 +146,7 @@ i{
 }
 
 .myTable {
-    width: 50%;
+    width: 100%;
 }
 
 .myTable td {

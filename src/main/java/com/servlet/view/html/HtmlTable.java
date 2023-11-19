@@ -11,5 +11,7 @@ public @interface HtmlTable{
     String name() default "";
 
     String addUrl() default "";
+
+    String className() default "myTable";
 }
  

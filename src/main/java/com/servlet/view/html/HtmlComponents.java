@@ -162,9 +162,7 @@ public class HtmlComponents extends HttpServlet {
         HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
 
         StringBuilder trBuilder = new StringBuilder();
-        trBuilder.append("<a class=\"linkBtn\" href=\"")
-                .append(htmlTable.addUrl()).append("\">Add</a><br/>")
-                .append("<table><tr>");
+        trBuilder.append("<table class="+htmlTable.className()+"><tr>");
 
         Field[] fields = dataClass.getDeclaredFields();
 
@@ -191,10 +189,8 @@ public class HtmlComponents extends HttpServlet {
                     try {
                         field.setAccessible(true);
                         trBuilder.append("<td>").append(field.get(data)).append("</td>");
-
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
-
                     }
                 }
 
@@ -229,35 +225,14 @@ public class HtmlComponents extends HttpServlet {
                 "        <h3>Recent Activity</h3>\n" +
                 "        <select class=\"logFilters\" onchange=\"getFeature(this,'logsUser')\">\n" +
                 "            <option>Choose   </option>\n" +
-                "            <option>Login</option>\n" +
-                "            <option>Log Out</option>\n" +
-                "            <option>Sell</option>\n" +
-                "            <option>Buy</option>\n" +
-                "            <option>Seller Approval</option>\n" +
-                "            <option>Password Change</option>\n" +
+                "            <option>Cereals</option>\n" +
+                "            <option>Fruits</option>\n" +
+                "            <option>Vegetables</option>\n" +
+                "            <option>Animal Produce</option>\n" +
                 "        </select>\n" +
-                "        <h3 class=\"export\" onclick=\"window.location.href='export.php?logReport=user&username=<?php echo $userName;?>'\">Export Report</h3>\n"
+                "        <h3 class=\"export\" onclick=\"window.location.href=''\">Export Report</h3>\n"
                 +
-                "    </div>\n" +
-                "    <table class=\"myTable\">\n" +
-                "        <tr class=\"key\">\n" +
-                "            <th>Log ID</th>\n" +
-                "            <th>User Name</th>\n" +
-                "            <th>Email</th>\n" +
-                "            <th>Action</th>\n" +
-                "            <th>TimeStamp</th>\n" +
-                "            <th>IP Address</th>\n" +
-                "        </tr>\n" +
-                "        <tr>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "        </tr>\n" +
-                "    </table>\n" +
-                "</div>";
+                "    </div>\n";
         return htmlContent;
     }
 }

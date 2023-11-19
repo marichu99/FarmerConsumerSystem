@@ -15,7 +15,6 @@ import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBean;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
-import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
@@ -46,7 +45,8 @@ public class Produce extends BaseAction {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                renderSpecific(req, resp, Product.class, productBean.list());
             }
         }else if(type.equals("cart") && mode.equals("remove")){
             // get the id
@@ -62,7 +62,8 @@ public class Produce extends BaseAction {
                 "</body>" +
                 "</html>");
         }
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+        // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+        renderSpecific(req, resp, Product.class, productBean.list());
       
     }
 
@@ -91,7 +92,8 @@ public class Produce extends BaseAction {
                 database.getProducts().add(product);
                 productBean.addOrUpdateProduct(product);
                 // 
-                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                renderSpecific(req, resp, Product.class, productBean.list());
                 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -99,6 +101,7 @@ public class Produce extends BaseAction {
             }
         }
         // Specify the directory where you want to store the uploaded file
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+        // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+        renderSpecific(req, resp, Product.class, productBean.list());
     }
 }

@@ -18,16 +18,17 @@ public class AuthBean implements AuthBeanI, Serializable {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = database.getConnection()
-                    .prepareStatement("select username,password from user where username=? and password=? limit=1");
-            preparedStatement.setString(0, loginUser.getUsername());
-            preparedStatement.setString(0, loginUser.getPassword());
+                                .prepareStatement("select * from users where email=? and password=?");
+            preparedStatement.setString(1, loginUser.getEmail());
+            preparedStatement.setString(2, loginUser.getPassword());
 
+            System.out.println(preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             User user = new User();
             while (resultSet.next()) {
-                user.setEmail(resultSet.getString("username"));
-                user.setUsername(resultSet.getString("password"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
                 user.setUserType(Enum.valueOf(UserType.class,resultSet.getString("usertype")));
             }
             return user;
@@ -36,7 +37,5 @@ public class AuthBean implements AuthBeanI, Serializable {
             e.printStackTrace();
         }
         return null;
-
     }
-
 }

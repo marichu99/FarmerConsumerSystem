@@ -13,16 +13,22 @@ import javax.servlet.http.HttpSession;
 
 import com.servlet.app.bean.AuthBean;
 import com.servlet.app.bean.AuthBeanI;
+import com.servlet.app.bean.ProductBean;
+import com.servlet.app.bean.ProductBeanI;
+import com.servlet.app.bean.UserBean;
+import com.servlet.app.bean.UserBeanI;
+import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.view.css.AllPageCss;
 import com.servlet.view.enums.UserType;
-import com.servlet.view.html.HtmlComponents;
 import com.servlet.view.html.UserProfile;
 
 @WebServlet(urlPatterns = "/login")
 public class Login extends BaseAction {
     AuthBeanI authBean = new AuthBean();
+    ProductBeanI productBean = new ProductBean();
     UserProfile userProfile = new UserProfile();
+    UserBeanI userBean = new UserBean();
     AllPageCss allPageCss = new AllPageCss();
 
     @Override
@@ -41,10 +47,12 @@ public class Login extends BaseAction {
             
             if(userType == UserType.USER && loginUser2.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");
-                renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
+                // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
+                renderSpecific(req, resp, Product.class, productBean.list());
             }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
-                renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
+                // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
+                renderSpecific(req, resp, User.class, userBean.list());
             }                           
 
         }
