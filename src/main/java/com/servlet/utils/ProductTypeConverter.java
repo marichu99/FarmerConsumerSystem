@@ -3,16 +3,16 @@ package com.servlet.utils;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 
-import com.servlet.view.enums.UserType;
+import com.servlet.view.enums.ProductCategory;
 
-public class UserTypeConverter implements Converter{
+public class ProductTypeConverter implements Converter{
     @SuppressWarnings("unchecked")
      @Override
     public <T> T convert(Class<T> tClass, Object o) {
         String enumValName = (String) o;
-        UserType[] enumConstants = (UserType[]) tClass.getEnumConstants();
+        ProductCategory[] enumConstants = (ProductCategory[]) tClass.getEnumConstants();
 
-        for (UserType enumConstant : enumConstants) {
+        for (ProductCategory enumConstant : enumConstants) {
             if (enumConstant.name().equals(enumValName)) {
                 return (T) enumConstant;
             }

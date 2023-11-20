@@ -1,4 +1,3 @@
-<%@ page import="com.servlet.utils.Calculator" %>
 <!DOCTYPE html>
 <html>
     <head>

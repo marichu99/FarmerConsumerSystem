@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
+import com.servlet.view.enums.ProductCategory;
 
 public class HtmlComponents extends HttpServlet {
     public static String gridView(List<Product> models) {
@@ -86,18 +87,29 @@ public class HtmlComponents extends HttpServlet {
         // " <div class=\"row\">\n" +
         // " <div class=\"col\">\n" +
         // " <h3 class=\"title\">Product Details</h3>\n";
+        
+        
         for (Field field : fields) {
             String fieldName = field.getName();
             // lets check if there is an anotation for this field
             if (!field.isAnnotationPresent(FarmerHtmlFormField.class))
                 continue;
+            String optionString = "";
+            if(fieldName.equals("productCategory")){
+                optionString =  "<select id="+fieldName+" name=\""+fieldName+"\">\n";
+                for(ProductCategory category:ProductCategory.values()){
+                    optionString+=  "<option value=\""+category.name()+"\">"+category.name().toLowerCase()+"</option>\n";
+                }
+                optionString+="</select>";
+            }
             // if the annotation is present then we get the various annotations for the
             // various forms present
             FarmerHtmlFormField formField = field.getAnnotation(FarmerHtmlFormField.class);
             htmlPage += "<div class=\""
                     + (StringUtils.isBlank(formField.className()) ? fieldName : formField.className()) + "\">\n" +
                     "                <label>"
-                    + (StringUtils.isBlank(formField.labelName()) ? fieldName : formField.labelName()) + "</label>\n" +
+                    + (StringUtils.isBlank(formField.labelName()) ? fieldName : formField.labelName()) + "</label>\n" 
+                    + ((fieldName.equals("productCategory")) ? optionString: StringUtils.EMPTY)+
                     "                <input type=\""
                     + (StringUtils.isBlank(formField.formType()) ? fieldName : formField.formType())
                     + "\" placeholder=\""

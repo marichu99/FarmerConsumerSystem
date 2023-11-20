@@ -1,7 +1,6 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Sell.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/FarmerGridView.java
-/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/Calculator.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UserProfileAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/toolbar/Menu.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/filter/AuthFilter.java
@@ -13,7 +12,6 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/LoginForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserType.java
-/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/MysqlDataBase.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeConverter.java
@@ -24,6 +22,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/FarmerHtmlFormField.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Approvals.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/AppPage.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/css/AppCss.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/CartProduct.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBean.java
@@ -48,6 +47,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/UserTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/EverythingHtml.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Profile.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/ProductTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlTable.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/toolbar/BottomBar.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBeanI.java

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.servlet.database.Database;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.html.FarmerGridView;
 import com.servlet.view.html.FarmerHtmlForm;
 import com.servlet.view.html.FarmerHtmlFormField;
@@ -42,6 +43,13 @@ public class Product implements Serializable{
     @DbTableColumn(colName = "productQuantity", colDescription = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
+
+    @HtmlTableColHeader(header = "Product Category")
+    @DbTableColumn(colName = "productCategory", colDescription = "VARCHAR(255)")
+    @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
+    private ProductCategory productCategory;
+
+    
 
     
 
@@ -109,6 +117,14 @@ public class Product implements Serializable{
                     "    </div>";
         }
         return allProduce;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
 
