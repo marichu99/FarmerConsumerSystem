@@ -49,10 +49,6 @@ public class Product implements Serializable{
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
     private ProductCategory productCategory;
 
-    
-
-    
-
     public int getProdQuantity() {
         return prodQuantity;
     }
@@ -70,6 +66,14 @@ public class Product implements Serializable{
         this.productDescription = description;
         this.price = price;
         this.prodQuantity =prodQuantity;
+    }
+    public Product(int id, String name, String description, double price, int prodQuantity, ProductCategory productCategory) {
+        this.productId = id;
+        this.productName = name;
+        this.productDescription = description;
+        this.price = price;
+        this.prodQuantity =prodQuantity;
+        this.productCategory=productCategory;
     }
 
     public int getProductId() {

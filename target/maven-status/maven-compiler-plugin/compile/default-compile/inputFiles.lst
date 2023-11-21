@@ -7,6 +7,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/view/MenuLinkStatus.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/dao/GenericDao.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/ApprovalHtml.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/view/MenuLink.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/LoginForm.java
@@ -54,5 +55,6 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/event/AppInit.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Track.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlComponents.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/dao/GenericDaoI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlTableColHeader.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/User.java

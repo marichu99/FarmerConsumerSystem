@@ -287,7 +287,7 @@ i{
     width:80%;
 }
 .prodDetails{
-    width:80%;
+    width:35%;
     display:flex;
 }
 
@@ -352,7 +352,7 @@ i{
 .innerButtons{
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:space-evenly;
     margin-right:100px;
 }
 @media only screen and(max-width:600px){

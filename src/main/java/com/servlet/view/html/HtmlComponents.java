@@ -96,7 +96,7 @@ public class HtmlComponents extends HttpServlet {
                 continue;
             String optionString = "";
             if(fieldName.equals("productCategory")){
-                optionString =  "<select id="+fieldName+" name=\""+fieldName+"\">\n";
+                optionString =  "<select class="+fieldName+" id="+fieldName+" name=\""+fieldName+"\">\n";
                 for(ProductCategory category:ProductCategory.values()){
                     optionString+=  "<option value=\""+category.name()+"\">"+category.name().toLowerCase()+"</option>\n";
                 }
@@ -105,15 +105,17 @@ public class HtmlComponents extends HttpServlet {
             // if the annotation is present then we get the various annotations for the
             // various forms present
             FarmerHtmlFormField formField = field.getAnnotation(FarmerHtmlFormField.class);
+            // we come up with an options field to check whether the annotated field is an option so as not to give it an input field
+            boolean isOptionField = fieldName.equals("productCategory");
             htmlPage += "<div class=\""
-                    + (StringUtils.isBlank(formField.className()) ? fieldName : formField.className()) + "\">\n" +
+                    + (StringUtils.isBlank(formField.className()) && !isOptionField ? fieldName : formField.className()) + "\">\n" +
                     "                <label>"
-                    + (StringUtils.isBlank(formField.labelName()) ? fieldName : formField.labelName()) + "</label>\n" 
+                    + (StringUtils.isBlank(formField.labelName()) && !isOptionField ? fieldName : formField.labelName()) + "</label>\n" 
                     + ((fieldName.equals("productCategory")) ? optionString: StringUtils.EMPTY)+
                     "                <input type=\""
-                    + (StringUtils.isBlank(formField.formType()) ? fieldName : formField.formType())
+                    + (StringUtils.isBlank(formField.formType()) && !isOptionField ? fieldName : formField.formType())
                     + "\" placeholder=\""
-                    + (StringUtils.isBlank(formField.placeHolder()) ? fieldName : formField.placeHolder())
+                    + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName : formField.placeHolder())
                     + "\" name=\"" + fieldName + "\"/>\n" +
                     "     </div>\n";
         }

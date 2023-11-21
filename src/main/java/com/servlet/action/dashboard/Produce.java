@@ -14,14 +14,15 @@ import com.servlet.app.bean.CartBean;
 import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBean;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.Database;
+import com.servlet.database.MysqlDataBase;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
     private ProductBean productBean = new ProductBean();
     private CartBeanI cartBean = new CartBean();
-    Database database = Database.getDbInstance();
+    // Database database = Database.getDbInstance();
+    MysqlDataBase database  = MysqlDataBase.getInstance();
 
 
     @Override
@@ -87,10 +88,17 @@ public class Produce extends BaseAction {
             }
         } else {
             // if no update then create a new product
+            PrintWriter printWriter= resp.getWriter();
+            // Get all parameter names
+            java.util.Enumeration<String> parameterNames = req.getParameterNames();
+            while (parameterNames.hasMoreElements()) {
+                String paramName = parameterNames.nextElement();
+                printWriter.write("<html><body><p>"+paramName+"</p></body></html>");
+            }            
             Product product = serializeForm(Product.class, req.getParameterMap());
-            // PrintWriter printWriter= resp.getWriter();
+            
             try {
-                database.getProducts().add(product);
+                database.insert(product);
                 productBean.addOrUpdateProduct(product);
                 // 
                 resp.sendRedirect("./produce");
@@ -102,6 +110,6 @@ public class Produce extends BaseAction {
             }
         }
         // Specify the directory where you want to store the uploaded file
-        resp.sendRedirect("./produce");
+        // resp.sendRedirect("./produce");
     }
 }

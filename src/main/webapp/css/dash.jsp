@@ -423,6 +423,11 @@
         display: flex;
         flex-direction: row;
     }
+    .productCategory{
+        width: 70%;
+        padding: 10px 5px;
+        margin: 10px;
+    }
     /* parameters for the sales reports */
     .salesExport{
         display: none;
