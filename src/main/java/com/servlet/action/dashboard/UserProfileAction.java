@@ -29,7 +29,7 @@ public class UserProfileAction extends BaseAction{
             // lets render a table that has all the users in the system
 
             // new AppPage().renderHtml(req, resp, 0, HtmlComponents.table(userBean.list(), User.class), "");
-            renderPage(req, resp, 0, HtmlComponents.table(userBean.list(), User.class));
+            renderPage(req, resp, 0, HtmlComponents.table(userBean.list(new User()), User.class));
         }else{
         // TODO Auto-generated method stub
             // new AppPage().renderHtml(req, resp, 0, userProfile.getUserProfile(),StringUtils.EMPTY);

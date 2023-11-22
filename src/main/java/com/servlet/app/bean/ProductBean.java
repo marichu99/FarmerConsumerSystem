@@ -1,10 +1,21 @@
 package com.servlet.app.bean;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.Database;
 
+@Stateless
+@Remote
 public class ProductBean extends GenericBean<Product> implements ProductBeanI{
     private Database database = Database.getDbInstance();
+
+    @PostConstruct
+    public void init(){
+        System.out.println("A bean has been created");
+    }
 
     public void updateByID(int productID,Product productUpdate){        
         for(Product product: database.getProducts()){

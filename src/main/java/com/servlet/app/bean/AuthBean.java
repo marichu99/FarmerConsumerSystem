@@ -18,7 +18,7 @@ public class AuthBean implements AuthBeanI, Serializable {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = database.getConnection()
-                                .prepareStatement("select * from users where email=? and password=?");
+                                .prepareStatement("select * from user where email=? and password=?");
             preparedStatement.setString(1, loginUser.getEmail());
             preparedStatement.setString(2, loginUser.getPassword());
 

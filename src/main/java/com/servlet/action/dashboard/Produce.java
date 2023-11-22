@@ -3,6 +3,7 @@ package com.servlet.action.dashboard;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +13,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.bean.CartBean;
 import com.servlet.app.bean.CartBeanI;
-import com.servlet.app.bean.ProductBean;
+import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.MysqlDataBase;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
-    private ProductBean productBean = new ProductBean();
+    @EJB
+    private ProductBeanI productBean;
     private CartBeanI cartBean = new CartBean();
     // Database database = Database.getDbInstance();
     MysqlDataBase database  = MysqlDataBase.getInstance();
@@ -40,14 +42,14 @@ public class Produce extends BaseAction {
                 // get the product by ID
                 Product product = productBean.getProductByID(productID);
 
-                productBean.deleteProduct(product);
+                productBean.delete(product,productID);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list(new Product())));
                 // renderSpecific(req, resp, Product.class, productBean.list());
             }
         }else if(type.equals("cart") && mode.equals("remove")){
@@ -64,7 +66,7 @@ public class Produce extends BaseAction {
                 "</body>" +
                 "</html>");
         }
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list()));
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list(new Product())));
         // renderSpecific(req, resp, Product.class, productBean.list());
       
     }
@@ -98,8 +100,7 @@ public class Produce extends BaseAction {
             Product product = serializeForm(Product.class, req.getParameterMap());
             
             try {
-                database.insert(product);
-                productBean.addOrUpdateProduct(product);
+                productBean.addOrUpdate(product);
                 // 
                 resp.sendRedirect("./produce");
                 // renderSpecific(req, resp, Product.class, productBean.list());

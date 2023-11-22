@@ -20,6 +20,8 @@ public class CartProduct implements Serializable{
 
     private String prodDescription;
 
+    public CartProduct() {
+    }
     public String getProdDescription() {
         return prodDescription;
     }

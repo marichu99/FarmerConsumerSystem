@@ -21,7 +21,7 @@ public class SignUp extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
         User user = serializeForm(User.class,req.getParameterMap());        
-        if(userBean.registerUser(user))
+        if(userBean.addOrUpdate(user) != null)
             print.write("<html>" +
                     "<body>" +
                     "<script type='text/javascript'>" +

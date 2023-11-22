@@ -1,58 +1,32 @@
-package dao;
+package com.servlet.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.servlet.app.model.entity.Product;
-import com.servlet.app.model.entity.User;
-import com.servlet.database.Database;
+import com.servlet.database.MysqlDataBase;
 
-public class GenericDao<T> implements GenericDaoI<T>{
+@SuppressWarnings({ "unchecked", "rawtypes" })
+public class GenericDao<T> implements GenericDaoI<T> {
 
-    @SuppressWarnings({"unchecked","rawtypes"})
     @Override
-    public List<T> list() {
-        Class clazz = ((Class<T>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0]);
+    public List<T> list(Object entity) {
 
-        System.out.println("List class " + clazz);
-        if (clazz.equals(Product.class))
-            return (List<T>) Database.getDbInstance().getProducts();
+        Class clazz = entity.getClass();
+        // the select returns the unknown object and is thereby casted into the list of unknown
+        return (List<T>) MysqlDataBase.select(clazz);
 
-        if (clazz.equals(User.class))
-            return (List<T>) Database.getDbInstance().getUsers();
-
-        return  new ArrayList<>();
     }
 
     @Override
     public T addOrUpdate(T entity) {
-        Database database = Database.getDbInstance();
-
         Class clazz = entity.getClass();
         System.out.println(clazz.getName());
-
-        if (entity instanceof Product)
-            database.getProducts().add((Product) entity);
-
-        else if (entity instanceof User)
-            database.getUsers().add((User) entity);
-
-        else if (entity instanceof User)
-            database.getUsers().add((User) entity);
-    
-
+        MysqlDataBase.insert(entity);
         return entity;
     }
 
     @Override
-    public void delete(T entity) {
-        Database database = Database.getDbInstance();
-        if (entity instanceof Product)
-            database.getProducts().remove((Product) entity);
-        if (entity instanceof User)
-            database.getUsers().remove((User) entity);
+    public void delete(T entity, int entityID) {
+        // code to remove an object from the database
+        MysqlDataBase.delete(entity, entityID);
     }
 }
-

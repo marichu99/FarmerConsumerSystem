@@ -2,8 +2,10 @@ package com.servlet.database;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +20,8 @@ import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
-import com.servlet.view.enums.ProductCategory;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public class MysqlDataBase implements Serializable{
     private Connection connection;
     private static MysqlDataBase database;
@@ -82,6 +84,62 @@ public class MysqlDataBase implements Serializable{
             }
         }
     }
+    public static <T> List<T> select(Class<T> filter) {
+    try {
+        Class<?> clazz = filter;
+        System.out.println();
+        System.out.println("Clazz>>>>>>>>>>" + clazz.getName());
+
+        if (!clazz.isAnnotationPresent(DbTable.class))
+            return new ArrayList<>();
+
+        DbTable dbTable = clazz.getAnnotation(DbTable.class);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT * FROM ")
+                .append(dbTable.name()).append(";");
+        Connection conn = MysqlDataBase.getInstance().getConnection();
+        System.out.println("###############################"+stringBuilder.toString());
+        PreparedStatement preparedStatement = conn.prepareStatement(stringBuilder.toString());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<T> result = new ArrayList<>();
+
+        while (resultSet.next()) {
+            T object = (T) clazz.getDeclaredConstructor().newInstance();
+
+            for (Field field : clazz.getDeclaredFields()) {
+                DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
+                if (dbColumn != null) {
+                    String columnName = dbColumn.colName();
+
+                    Object value = resultSet.getObject(columnName);
+                    // Convert java.sql.Date to java.time.LocalDate if needed
+                    if (value instanceof java.sql.Date && field.getType().equals(java.time.LocalDate.class)) {
+                        value = ((java.sql.Date) value).toLocalDate();
+                    }
+
+                    // Convert java.sql.Time to java.time.LocalTime if needed
+                    if (value instanceof java.sql.Time && field.getType().equals(java.time.LocalTime.class)) {
+                        value = ((java.sql.Time) value).toLocalTime();
+                    }
+                    // convert the value to enum if needed
+                    if(field.getType().isEnum() && value instanceof String){
+                        value = Enum.valueOf((Class<Enum>) field.getType(), (String) value);
+                    }
+                    field.setAccessible(true);
+                    field.set(object, value);
+                }
+            }
+
+            result.add(object);
+        }
+        return result;
+
+    } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException |
+             NoSuchMethodException ex) {
+        throw new RuntimeException(ex);
+    }
+}
 
     public static void insert(Object entity){
         try{
@@ -137,11 +195,43 @@ public class MysqlDataBase implements Serializable{
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        Product product = new Product(1, "Mabera", "mabera mabera", 25.0, 12,ProductCategory.CEREALS);
-        insert(product);
-    }
 
+    public static void delete(Object entity,int productID){
+        try{
+            Class<?> clazz = entity.getClass();
+            if(!clazz.isAnnotationPresent(DbTable.class))
+                return;
+
+            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+            List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+            String columnID ="";
+            for(Field field : fields){
+                if(!field.isAnnotationPresent(DbTableColumn.class))
+                    continue;
+                field.setAccessible(true);
+                if(field.get(entity) == null)
+                    continue;                
+                DbTableColumn dbTableColumn = field.getAnnotation(DbTableColumn.class);
+                // get the column that has id in it
+                if(dbTableColumn.colName().contains("Id")){
+                    columnID=dbTableColumn.colName();
+                }
+            }
+            String queryBuilder = "DELETE * FROM "+
+                    dbTable.name()+" WHERE "+
+                    columnID+" ="+
+                    productID;
+            
+            System.out.println("Query####################: "+ queryBuilder);
+            PreparedStatement preparedStatement = MysqlDataBase.getInstance().getConnection().prepareStatement(queryBuilder);
+            preparedStatement.executeUpdate();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public Connection getConnection() {
         return connection;
     }

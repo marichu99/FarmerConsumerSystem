@@ -202,6 +202,8 @@
     }
     .navContainer{
         width: 20%;
+        background-color:rgb(210 210 233);
+        margin-right:50px;
     }
 
 

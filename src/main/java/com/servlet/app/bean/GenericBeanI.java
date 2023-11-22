@@ -1,12 +1,7 @@
 package com.servlet.app.bean;
 
-import java.util.List;
+import com.servlet.dao.GenericDaoI;
 
-public interface GenericBeanI<T> {
-    List<T> list();
-
-     T addOrUpdateProduct(T entity);
-
-    void deleteProduct(T entity);
+public interface GenericBeanI<T> extends GenericDaoI<T>{
     
 } 

@@ -48,11 +48,11 @@ public class Login extends BaseAction {
             if(userType == UserType.USER && loginUser2.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
-                renderSpecific(req, resp, Product.class, productBean.list());
+                renderSpecific(req, resp, Product.class, productBean.list(new Product()));
             }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
-                renderSpecific(req, resp, User.class, userBean.list());
+                renderSpecific(req, resp, User.class, userBean.list(new User()));
             }                           
 
         }
