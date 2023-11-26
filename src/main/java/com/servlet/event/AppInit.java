@@ -4,7 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.servlet.database.MysqlDataBase;
 import com.servlet.utils.EnumTypeConverter;
 
 @WebListener
@@ -12,7 +11,6 @@ public class AppInit implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        MysqlDataBase.updateSchema();
         // let us initialize the enumConverters into strings
         EnumTypeConverter.registerEnumConverters();
 

@@ -3,16 +3,19 @@ package com.servlet.view.html;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.Database;
+import com.servlet.database.MysqlDataBase;
 import com.servlet.view.enums.ProductCategory;
 
 public class HtmlComponents extends HttpServlet {
+    @EJB
+    private MysqlDataBase database;
     public static String gridView(List<Product> models) {
 
         String allProduce = "<div class ='prodDetails'>";
@@ -74,13 +77,10 @@ public class HtmlComponents extends HttpServlet {
     }
 
     public static String form(Class<?> model) {
-        Database database = Database.getDbInstance();
         Field[] fields = model.getDeclaredFields();
         String htmlPage = "    <div class='main'>" +
                 " <form action=\"./produce\"  method=\"POST\">\n" ;
-        htmlPage+= " <input type=\"hidden\" value=\"" + (database.getProducts().size() + 1)
-                + "\" class=\"submit\" name=\"productId\"/>\n"+
-                "    <div class=\"row\">\n" +
+        htmlPage+="<div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\">Product Details</h3>\n" +
                 "               <form action=\"./produce\" method=\"POST\">\n";

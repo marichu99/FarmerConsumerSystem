@@ -4,24 +4,25 @@ package com.servlet.action.dashboard;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servlet.app.bean.UserBean;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.User;
 
 @WebServlet(urlPatterns = "/sign")
 public class SignUp extends BaseAction {
-    UserBeanI userBean = new UserBean();
+    @EJB
+    UserBeanI userBean;
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
         User user = serializeForm(User.class,req.getParameterMap());        
-        if(userBean.addOrUpdate(user) != null)
+        if(userBean.registerUser(user))
             print.write("<html>" +
                     "<body>" +
                     "<script type='text/javascript'>" +

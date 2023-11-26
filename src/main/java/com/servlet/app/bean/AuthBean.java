@@ -5,13 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import com.servlet.app.model.entity.User;
 import com.servlet.database.MysqlDataBase;
 import com.servlet.view.enums.UserType;
 
+@Stateless
+@Local
 public class AuthBean implements AuthBeanI, Serializable {
-
-    MysqlDataBase database = MysqlDataBase.getInstance();
+    @EJB
+    MysqlDataBase database;
 
     public User authenticatUser(User loginUser) {
 

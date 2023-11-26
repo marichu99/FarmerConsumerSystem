@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,25 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.servlet.app.bean.AuthBean;
 import com.servlet.app.bean.AuthBeanI;
-import com.servlet.app.bean.ProductBean;
 import com.servlet.app.bean.ProductBeanI;
-import com.servlet.app.bean.UserBean;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
-import com.servlet.view.css.AllPageCss;
 import com.servlet.view.enums.UserType;
-import com.servlet.view.html.UserProfile;
 
 @WebServlet(urlPatterns = "/login")
 public class Login extends BaseAction {
-    AuthBeanI authBean = new AuthBean();
-    ProductBeanI productBean = new ProductBean();
-    UserProfile userProfile = new UserProfile();
-    UserBeanI userBean = new UserBean();
-    AllPageCss allPageCss = new AllPageCss();
+    @EJB
+    AuthBeanI authBean;
+    @EJB
+    ProductBeanI productBean;
+    @EJB
+    UserBeanI userBean;
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,13 +40,13 @@ public class Login extends BaseAction {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
-            httpSession.setAttribute("email", loginUser2.getEmail());
+            httpSession.setAttribute("email", userDetails.getEmail());
             
-            if(userType == UserType.USER && loginUser2.getUserType() == UserType.USER){
+            if(userType == UserType.USER && userDetails.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
                 renderSpecific(req, resp, Product.class, productBean.list(new Product()));
-            }else if(userType == UserType.ADMIN && loginUser2.getUserType() == UserType.ADMIN){
+            }else if(userType == UserType.ADMIN && userDetails.getUserType() == UserType.ADMIN){
                 httpSession.setAttribute("userType","admin");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
                 renderSpecific(req, resp, User.class, userBean.list(new User()));

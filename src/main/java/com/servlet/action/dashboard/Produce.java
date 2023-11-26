@@ -24,7 +24,7 @@ public class Produce extends BaseAction {
     private ProductBeanI productBean;
     private CartBeanI cartBean = new CartBean();
     // Database database = Database.getDbInstance();
-    MysqlDataBase database  = MysqlDataBase.getInstance();
+    MysqlDataBase database;
 
 
     @Override
@@ -41,6 +41,7 @@ public class Produce extends BaseAction {
                 // remove by the id
                 // get the product by ID
                 Product product = productBean.getProductByID(productID);
+                System.out.println("############## Product Name "+product.getProductName());
 
                 productBean.delete(product,productID);
                 try {
@@ -49,8 +50,6 @@ public class Produce extends BaseAction {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list(new Product())));
-                // renderSpecific(req, resp, Product.class, productBean.list());
             }
         }else if(type.equals("cart") && mode.equals("remove")){
             // get the id

@@ -1,23 +1,29 @@
 package com.servlet.app.model.entity;
 
-import java.io.Serializable;
-
+import com.servlet.database.helper.DbTable;
+import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.html.HtmlTable;
 import com.servlet.view.html.HtmlTableColHeader;
 
 @HtmlTable(name = "Cart")
-public class CartProduct implements Serializable{
+@DbTable(name ="CartItem")
+public class CartProduct extends Product{
+    @DbTableColumn(colName = "productId",colDescription = "INT")
     private int productId;
     
     @HtmlTableColHeader(header = "Product Name")
+    @DbTableColumn(colName = "productName", colDescription = "VARCHAR(255)")
     private String prodName;
 
     @HtmlTableColHeader(header = "Price")
+    @DbTableColumn(colName = "Price",colDescription = "INT(11)")
     private Double prodPrice;
 
+    @DbTableColumn(colName = "productQuantity", colDescription = "INT(11)")
     @HtmlTableColHeader(header = "Quantity")
     private int prodQuantity;
 
+    @DbTableColumn(colName = "productDescription",colDescription = "VARCHAR(255)")
     private String prodDescription;
 
     public CartProduct() {

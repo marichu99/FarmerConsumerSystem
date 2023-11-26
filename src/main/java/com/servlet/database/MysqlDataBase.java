@@ -11,46 +11,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
 
+@Singleton
+@Startup()
 @SuppressWarnings({"rawtypes","unchecked"})
 public class MysqlDataBase implements Serializable{
     private Connection connection;
-    private static MysqlDataBase database;
 
-    private MysqlDataBase() throws SQLException, NamingException {
-        Context ctx = new InitialContext();
+    @PostConstruct
+    public void init() throws SQLException, NamingException{
+        Context ctx =new InitialContext();
         DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/farmer-system-app");
-        connection = dataSource.getConnection();
-    }
+        connection=dataSource.getConnection();
+        this.updateSchema();
 
-    public static MysqlDataBase getInstance(){
-        if(database == null){
-            try {
-                database= new MysqlDataBase();
-            } catch (SQLException | NamingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return database;
     }
-
-    public static void updateSchema(){
+    public void updateSchema(){
         System.out.println("*************** Initializing database *************");
-
-        Connection connection = MysqlDataBase.getInstance().getConnection();
         List<Class<?>> allClasses = new ArrayList<>();
         allClasses.add(User.class);
         allClasses.add(Product.class);
+        allClasses.add(CartProduct.class);
 
         for(Class clazz : allClasses){
             if(!clazz.isAnnotationPresent(DbTable.class))
@@ -59,7 +54,7 @@ public class MysqlDataBase implements Serializable{
             DbTable dbTable = (DbTable) clazz.getAnnotation(DbTable.class);
 
             StringBuilder sqlStatement = new StringBuilder();
-
+            String auto_incrementString =" INT NOT NULL AUTO_INCREMENT PRIMARY KEY ";
             sqlStatement.append("create table if not exists ").append(dbTable.name()).append("(");
 
             // check if we have the DataBase annotation in that specific class
@@ -72,10 +67,11 @@ public class MysqlDataBase implements Serializable{
                 // make the field accessible
                 field.setAccessible(true);
                 DbTableColumn dtTableColumn = field.getAnnotation(DbTableColumn.class);
-                sqlStatement.append(dtTableColumn.colName()).append(" ").append(dtTableColumn.colDescription()).append(",");
+                boolean hasID = dtTableColumn.colName().contains("Id");
+                sqlStatement.append((hasID)?dtTableColumn.colName().concat(auto_incrementString): dtTableColumn.colName()).append(" ").append((!hasID)?dtTableColumn.colDescription(): "").append(",");
             }
             sqlStatement.append(")");
-            System.out.println(sqlStatement.toString());
+            System.out.println(sqlStatement.toString().replace(",)", ")"));
             try {
                 connection.prepareStatement(sqlStatement.toString().replace(",)", ")")).executeUpdate();                
             } catch (SQLException e) {
@@ -84,7 +80,7 @@ public class MysqlDataBase implements Serializable{
             }
         }
     }
-    public static <T> List<T> select(Class<T> filter) {
+    public <T> List<T> select(Class<T> filter) {
     try {
         Class<?> clazz = filter;
         System.out.println();
@@ -97,9 +93,8 @@ public class MysqlDataBase implements Serializable{
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("SELECT * FROM ")
                 .append(dbTable.name()).append(";");
-        Connection conn = MysqlDataBase.getInstance().getConnection();
         System.out.println("###############################"+stringBuilder.toString());
-        PreparedStatement preparedStatement = conn.prepareStatement(stringBuilder.toString());
+        PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
 
         ResultSet resultSet = preparedStatement.executeQuery();
         List<T> result = new ArrayList<>();
@@ -141,7 +136,7 @@ public class MysqlDataBase implements Serializable{
     }
 }
 
-    public static void insert(Object entity){
+    public  void insert(Object entity){
         try{
             Class<?> clazz = entity.getClass();
             if(!clazz.isAnnotationPresent(DbTable.class))
@@ -177,7 +172,7 @@ public class MysqlDataBase implements Serializable{
             
             String query = queryBuilder.replace(",)", ")");
             System.out.println("Query####################: "+ query);
-            PreparedStatement preparedStatement = MysqlDataBase.getInstance().getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             int paramIdx=1;
             for(Object param : parameters){     
                 System.out.println(param);           
@@ -196,11 +191,11 @@ public class MysqlDataBase implements Serializable{
         }
     }
 
-    public static void delete(Object entity,int productID){
+    public boolean delete(Object entity,int productID){
         try{
             Class<?> clazz = entity.getClass();
             if(!clazz.isAnnotationPresent(DbTable.class))
-                return;
+                return false;
 
             DbTable dbTable = clazz.getAnnotation(DbTable.class);
             List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
@@ -219,18 +214,20 @@ public class MysqlDataBase implements Serializable{
                     columnID=dbTableColumn.colName();
                 }
             }
-            String queryBuilder = "DELETE * FROM "+
+            String queryBuilder = "DELETE FROM "+
                     dbTable.name()+" WHERE "+
                     columnID+" ="+
                     productID;
             
             System.out.println("Query####################: "+ queryBuilder);
-            PreparedStatement preparedStatement = MysqlDataBase.getInstance().getConnection().prepareStatement(queryBuilder);
-            preparedStatement.executeUpdate();
-
+            PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder);
+            if(preparedStatement.executeUpdate()>0){
+                return true;
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
+        return false;
     }
     public Connection getConnection() {
         return connection;
@@ -239,13 +236,15 @@ public class MysqlDataBase implements Serializable{
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
+     @PreDestroy
+    public void closeConnection(){
+        try {
+            if (connection != null)
+                connection.close();
 
-    public static MysqlDataBase getDatabase() {
-        return database;
-    }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
-    public static void setDatabase(MysqlDataBase database) {
-        MysqlDataBase.database = database;
     }
-    
 }

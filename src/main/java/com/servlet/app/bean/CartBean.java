@@ -1,22 +1,28 @@
 package com.servlet.app.bean;
 
+import javax.ejb.EJB;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.Database;
+import com.servlet.database.MysqlDataBase;
 
+@Stateless
+@Remote
 public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
-private  Database database = Database.getDbInstance();
-
-
+    @EJB
+    MysqlDataBase dataBase;
     @Override
     public boolean addToCart(int productID) {
         // loop through all the products
-        for(Product product: database.getProducts()){
+        for(Product product: dataBase.select(Product.class)){
             if(product.getProductId() == productID){
                 // remove the product from the products list
-                database.getProducts().remove(product);
+                dataBase.delete(product, productID);
                 // then add it to the cart products list
-                database.getCartProducts().add(new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(),product.getProductDescription()));
+                CartProduct cartProduct = (CartProduct)product;
+                dataBase.insert(cartProduct);
                 return true;
             }else{
                 continue;
@@ -27,12 +33,13 @@ private  Database database = Database.getDbInstance();
 
     @Override
     public boolean removeByID(int productId) {
-        for(CartProduct cartProduct:database.getCartProducts()){
+        for(CartProduct cartProduct: dataBase.select(CartProduct.class)){
             if(cartProduct.getProductId() == productId){
                 // remove the matching element
-                database.getCartProducts().remove(cartProduct);
+                dataBase.delete(cartProduct, productId);
                 // then add it back to the products list
-                database.getProducts().add(new Product(cartProduct.getProductId(),cartProduct.getProdName(),cartProduct.getProdDescription(),cartProduct.getProdPrice(),cartProduct.getProdQuantity()));
+                Product product = (Product)cartProduct;
+                dataBase.insert(product);;
                 return true;
             }
         }

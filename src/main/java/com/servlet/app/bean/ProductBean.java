@@ -1,29 +1,23 @@
 package com.servlet.app.bean;
 
-import javax.annotation.PostConstruct;
+import java.util.List;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.Database;
 
 @Stateless
 @Remote
 public class ProductBean extends GenericBean<Product> implements ProductBeanI{
-    private Database database = Database.getDbInstance();
-
-    @PostConstruct
-    public void init(){
-        System.out.println("A bean has been created");
-    }
 
     public void updateByID(int productID,Product productUpdate){        
-        for(Product product: database.getProducts()){
+        for(Product product: getGenericDao().getDatabase().select(Product.class)){
             if(productID == product.getProductId()){
                 // lets update the product then
-                database.getProducts().remove(product);
+                database.delete(productUpdate, productID);
                 // and replace it with the new product
-                database.getProducts().add(productUpdate);
+                database.insert(productUpdate);
                 break;
             }else{
                 // otherwise continue
@@ -32,7 +26,8 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
         }
     }
      public Product getProductByID(int productID){
-        for(Product product: Database.getDbInstance().getProducts()){
+        List<Product> products = database.select(Product.class);
+        for(Product product: products){
             if(product.getProductId() == productID){
                 return product;
             }
@@ -41,16 +36,15 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
     }
 
     public void deleteProduct(int productID) {
-        for(Product product: database.getProducts()){
+        for(Product product: database.select(Product.class)){
             if(productID == product.getProductId()){
                 // lets update the product then
-                database.getProducts().remove(product);
+                database.delete(product, productID);
                 break;
             }else{
                 // otherwise continue
                 continue;
             } 
         }
-    }
-    
+    }    
 }

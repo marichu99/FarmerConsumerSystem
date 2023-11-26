@@ -2,7 +2,6 @@ package com.servlet.app.model.entity;
 
 import java.io.Serializable;
 
-import com.servlet.database.Database;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.enums.ProductCategory;
@@ -48,6 +47,9 @@ public class Product implements Serializable{
     @DbTableColumn(colName = "productCategory", colDescription = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
     private ProductCategory productCategory;
+
+    @DbTableColumn(colName = "productOwner",colDescription = "VARCHAR(255)")
+    private String productOwner;
 
     public int getProdQuantity() {
         return prodQuantity;
@@ -108,21 +110,6 @@ public class Product implements Serializable{
     public void setPrice(double price) {
         this.price = price;
     }
-    public String displayProducts() {
-        Database dbInstance = Database.getDbInstance();
-        String allProduce =  " ";
-        for (Product product : dbInstance.getProducts()) {        
-
-            allProduce+="<div class='prod_item'>" +
-                    "       <img src='prodIMG/' class='image_prod'/><br/>" +
-                    "       <span class='prodName'>"+product.getProductName()+"</span><br/>" +
-                    "       <span class='prodLocation'>"+product.getProductDescription()+"</span><br/>" +
-                    "       <span class='prodPrice'>"+product.getPrice()+"</span><br/>" +
-                    "    </div>";
-        }
-        return allProduce;
-    }
-
     public ProductCategory getProductCategory() {
         return productCategory;
     }

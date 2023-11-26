@@ -1,0 +1,32 @@
+version: '3'
+services:
+  # mysql service
+  farmerdb:
+    image: mysql:latest
+    container_name: farmer-system
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE = root
+    expose:
+      - 3306
+    networks:
+      - database
+    
+  farmer-app:
+    image: mabera/farmersystem:latest
+    expose:
+      - 8080
+    networks:
+      - database
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=mabera
+
+networks:
+  database:
+    # bridge: database
+    # external: true
+
