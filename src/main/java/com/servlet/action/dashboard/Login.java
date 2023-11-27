@@ -37,6 +37,7 @@ public class Login extends BaseAction {
         PrintWriter print = resp.getWriter();
         User loginUser2= serializeForm(User.class, req.getParameterMap());
         User userDetails = authBean.authenticatUser(loginUser2);
+        System.out.println(userDetails.getEmail());
         
         
         if (userDetails != null) {

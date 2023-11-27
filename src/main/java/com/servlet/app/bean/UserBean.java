@@ -12,6 +12,7 @@ import com.servlet.utils.HashText;
 public class UserBean<T> extends GenericBean<User> implements UserBeanI{
     @Inject
     HashText hashText;
+
     @Override
     public boolean registerUser(User user) {
         // check if the user already exists

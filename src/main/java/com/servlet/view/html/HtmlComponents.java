@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.MysqlDataBase;
+import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.ProductCategory;
 
 public class HtmlComponents extends HttpServlet {

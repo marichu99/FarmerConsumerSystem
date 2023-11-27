@@ -17,6 +17,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/FarmerHtmlForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Reports.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/GlobalBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Login.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/toolbar/TopBar.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/FarmerHtmlFormField.java
@@ -29,10 +30,11 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTableColumn.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/Home.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/PurchaseStatus.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/css/AllPageCss.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBeanI.java
-/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GlobalBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/AuthFormsAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Logout.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/BaseAction.java
@@ -51,6 +53,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlTable.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/toolbar/BottomBar.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBeanI.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/HashText.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/event/AppInit.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Track.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlComponents.java

@@ -3,6 +3,7 @@ com/servlet/app/bean/UserBeanI.class
 com/servlet/action/dashboard/Produce.class
 com/servlet/filter/AuthFilter.class
 com/servlet/view/html/UserProfile.class
+com/servlet/view/enums/PurchaseStatus.class
 com/servlet/view/html/FarmerGridView.class
 com/servlet/event/AppInit.class
 com/servlet/utils/EnumTypeConverter.class
@@ -23,6 +24,7 @@ com/servlet/app/bean/CartBeanI.class
 com/servlet/view/enums/ProductCategory.class
 com/servlet/database/helper/DbTableColumn.class
 com/servlet/dao/GenericDaoI.class
+com/servlet/utils/GlobalBean.class
 com/servlet/view/html/FarmerHtmlForm.class
 com/servlet/view/toolbar/TopBar.class
 com/servlet/action/dashboard/Logout.class
@@ -38,6 +40,7 @@ com/servlet/app/bean/GenericBeanI.class
 com/servlet/view/html/FarmerHtmlFormField.class
 com/servlet/action/dashboard/Login.class
 com/servlet/view/css/AppCss.class
+com/servlet/utils/HashText.class
 com/servlet/app/bean/ProductBean.class
 com/servlet/app/model/view/MenuLinkStatus.class
 com/servlet/action/dashboard/UserProfileAction.class
@@ -46,7 +49,6 @@ com/servlet/view/html/HtmlTable.class
 com/servlet/event/EnumConverterListern.class
 com/servlet/app/bean/LoginForm.class
 com/servlet/action/dashboard/Sell.class
-com/servlet/app/bean/GlobalBean.class
 com/servlet/action/home/Home.class
 com/servlet/view/toolbar/BottomBar.class
 com/servlet/app/model/entity/CartProduct.class
@@ -57,5 +59,6 @@ com/servlet/view/html/AuthFormsAnnot.class
 com/servlet/app/model/entity/Product.class
 com/servlet/view/html/EverythingHtml.class
 com/servlet/action/dashboard/CartAction.class
+com/servlet/view/enums/UserCategory.class
 com/servlet/action/dashboard/Reports.class
 com/servlet/action/dashboard/Approvals.class

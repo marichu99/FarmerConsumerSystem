@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.enums.ProductCategory;
+import com.servlet.view.enums.PurchaseStatus;
 import com.servlet.view.html.FarmerGridView;
 import com.servlet.view.html.FarmerHtmlForm;
 import com.servlet.view.html.FarmerHtmlFormField;
@@ -51,9 +52,13 @@ public class Product implements Serializable{
     @DbTableColumn(colName = "productOwner",colDescription = "VARCHAR(255)")
     private String productOwner;
 
+    @DbTableColumn(colName = "purchaseStatus",colDescription = "VARCHAR(255)")
+    private PurchaseStatus purchaseStatus;
+
     public int getProdQuantity() {
         return prodQuantity;
     }
+
 
     public void setProdQuantity(int prodQuantity) {
         this.prodQuantity = prodQuantity;
@@ -77,6 +82,7 @@ public class Product implements Serializable{
         this.prodQuantity =prodQuantity;
         this.productCategory=productCategory;
     }
+    
 
     public int getProductId() {
         return productId;
@@ -116,6 +122,26 @@ public class Product implements Serializable{
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+
+    public String getProductOwner() {
+        return productOwner;
+    }
+
+
+    public void setProductOwner(String productOwner) {
+        this.productOwner = productOwner;
+    }
+
+
+    public PurchaseStatus getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+
+    public void setPurchaseStatus(PurchaseStatus purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
     }
 
 

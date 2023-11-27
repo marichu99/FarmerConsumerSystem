@@ -2,6 +2,7 @@ package com.servlet.app.model.entity;
 
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.view.enums.UserCategory;
 import com.servlet.view.enums.UserType;
 import com.servlet.view.html.AuthFormsAnnot;
 import com.servlet.view.html.HtmlTable;
@@ -26,6 +27,9 @@ public class User {
     @DbTableColumn(colName = "usertype",colDescription = "VARCHAR(255)")
     @AuthFormsAnnot()
     private UserType userType;
+
+    @DbTableColumn(colName = "userCategory",colDescription = "VARCHAR(255)")
+    private UserCategory userCategory;
     
     public User(String email, String password, String username, UserType userType) {
         this.email = email;
@@ -70,6 +74,16 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+
+    public UserCategory getUserCategory() {
+        return userCategory;
+    }
+
+
+    public void setUserCategory(UserCategory userCategory) {
+        this.userCategory = userCategory;
     }
 
     

@@ -1,12 +1,11 @@
 package com.servlet.app.bean;
 
-import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,8 +15,8 @@ import com.servlet.utils.HashText;
 import com.servlet.view.enums.UserType;
 
 @Stateless
-@Local
-public class AuthBean implements AuthBeanI, Serializable {
+@Remote
+public class AuthBean implements AuthBeanI{
     @EJB
     MysqlDataBase database;
     @Inject
@@ -25,7 +24,8 @@ public class AuthBean implements AuthBeanI, Serializable {
     public User authenticatUser(User loginUser) {
 
         try{
-            loginUser.setPassword(hashText.hash(loginUser.getPassword()));
+            if(loginUser.getUserType() == UserType.USER)
+                loginUser.setPassword(hashText.hash(loginUser.getPassword()));
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
@@ -45,7 +45,10 @@ public class AuthBean implements AuthBeanI, Serializable {
                 user.setPassword(resultSet.getString("password"));
                 user.setUserType(Enum.valueOf(UserType.class,resultSet.getString("usertype")));
             }
+            System.out.println(user.getEmail());
+            System.out.println(user.getUserType());
             return user;
+            
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

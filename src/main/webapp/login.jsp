@@ -40,9 +40,9 @@
             </div>
             <div class="lablContent">
               <label for="user">User: </label>
-              <input type="radio" name="userType" value="USER" />
+              <input type="radio" name="usertype" value="USER" />
               <label for="admin">Admin: </label>
-              <input type="radio" name="userType" value="ADMIN"/>
+              <input type="radio" name="usertype" value="ADMIN"/>
             </div>
           </div>
           <input type="submit" id="submit" class="btn-submit"><br>
