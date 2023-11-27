@@ -88,14 +88,7 @@ public class Produce extends BaseAction {
                 productBean.updateByID(productID, product);
             }
         } else {
-            // if no update then create a new product
-            PrintWriter printWriter= resp.getWriter();
-            // Get all parameter names
-            java.util.Enumeration<String> parameterNames = req.getParameterNames();
-            while (parameterNames.hasMoreElements()) {
-                String paramName = parameterNames.nextElement();
-                printWriter.write("<html><body><p>"+paramName+"</p></body></html>");
-            }            
+            // if no update then create a new product    
             Product product = serializeForm(Product.class, req.getParameterMap());
             
             try {

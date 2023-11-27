@@ -39,7 +39,7 @@ public class Product implements Serializable{
     private double price;
 
     @HtmlTableColHeader(header = "Product Quantity")
-    @DbTableColumn(colName = "productQuantity", colDescription = "VARCHAR(255)")
+    @DbTableColumn(colName = "productQuantity", colDescription = "INT(11)")
     @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
 

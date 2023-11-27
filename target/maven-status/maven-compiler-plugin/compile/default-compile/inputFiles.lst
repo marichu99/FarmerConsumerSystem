@@ -32,6 +32,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/css/AllPageCss.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBeanI.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GlobalBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/AuthFormsAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Logout.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/BaseAction.java

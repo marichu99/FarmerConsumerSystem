@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
+import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/login")
@@ -27,6 +29,8 @@ public class Login extends BaseAction {
     ProductBeanI productBean;
     @EJB
     UserBeanI userBean;
+    @Inject
+    GlobalBean globalBean;
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,6 +45,7 @@ public class Login extends BaseAction {
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", userDetails.getEmail());
+            globalBean.setUserEmail(userDetails.getEmail());
             
             if(userType == UserType.USER && userDetails.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");

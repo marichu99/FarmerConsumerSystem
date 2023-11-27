@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import com.servlet.app.model.entity.User;
 import com.servlet.database.MysqlDataBase;
+import com.servlet.utils.HashText;
 import com.servlet.view.enums.UserType;
 
 @Stateless
@@ -18,9 +20,15 @@ import com.servlet.view.enums.UserType;
 public class AuthBean implements AuthBeanI, Serializable {
     @EJB
     MysqlDataBase database;
-
+    @Inject
+    HashText hashText;
     public User authenticatUser(User loginUser) {
 
+        try{
+            loginUser.setPassword(hashText.hash(loginUser.getPassword()));
+        }catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
         PreparedStatement preparedStatement;
         try {
             preparedStatement = database.getConnection()

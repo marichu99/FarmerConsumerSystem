@@ -10,6 +10,7 @@ com/servlet/view/html/HtmlTableColHeader.class
 com/servlet/view/html/AppPage.class
 com/servlet/app/bean/AuthBean.class
 com/servlet/view/enums/UserType.class
+META-INF/sisu/javax.inject.Named
 com/servlet/database/MysqlDataBase.class
 com/servlet/app/bean/GenericBean.class
 com/servlet/view/toolbar/Menu.class
@@ -45,6 +46,7 @@ com/servlet/view/html/HtmlTable.class
 com/servlet/event/EnumConverterListern.class
 com/servlet/app/bean/LoginForm.class
 com/servlet/action/dashboard/Sell.class
+com/servlet/app/bean/GlobalBean.class
 com/servlet/action/home/Home.class
 com/servlet/view/toolbar/BottomBar.class
 com/servlet/app/model/entity/CartProduct.class

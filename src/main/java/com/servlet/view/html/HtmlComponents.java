@@ -4,10 +4,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.MysqlDataBase;
@@ -16,6 +18,8 @@ import com.servlet.view.enums.ProductCategory;
 public class HtmlComponents extends HttpServlet {
     @EJB
     private MysqlDataBase database;
+    @Inject
+    private static GlobalBean globalBean;
     public static String gridView(List<Product> models) {
 
         String allProduce = "<div class ='prodDetails'>";
@@ -77,6 +81,11 @@ public class HtmlComponents extends HttpServlet {
     }
 
     public static String form(Class<?> model) {
+        Class<?> clazz = model;
+        String owner ="";
+        if(clazz.equals(Product.class)){
+           owner = globalBean.getUserEmail();
+        }
         Field[] fields = model.getDeclaredFields();
         String htmlPage = "    <div class='main'>" +
                 " <form action=\"./produce\"  method=\"POST\">\n" ;
@@ -115,7 +124,8 @@ public class HtmlComponents extends HttpServlet {
                     "                <input type=\""
                     + (StringUtils.isBlank(formField.formType()) && !isOptionField ? fieldName : formField.formType())
                     + "\" placeholder=\""
-                    + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName : formField.placeHolder())
+                    + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName : formField.placeHolder())+
+                    (StringUtils.isNotBlank(owner)?new String("<input type=\"hidden\" value=\""+owner+"\"  name=\"productOwner\"/>\n"): "")
                     + "\" name=\"" + fieldName + "\"/>\n" +
                     "     </div>\n";
         }
