@@ -2,6 +2,7 @@ package com.servlet.app.model.entity;
 
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.database.helper.DbTableID;
 import com.servlet.view.html.HtmlTable;
 import com.servlet.view.html.HtmlTableColHeader;
 
@@ -9,6 +10,7 @@ import com.servlet.view.html.HtmlTableColHeader;
 @DbTable(name ="CartItem")
 public class CartProduct extends Product{
     @DbTableColumn(colName = "productId",colDescription = "INT")
+    @DbTableID
     private int productId;
     
     @HtmlTableColHeader(header = "Product Name")

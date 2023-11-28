@@ -2,13 +2,13 @@ package com.servlet.app.bean;
 
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import com.servlet.app.model.entity.Product;
 
 @Stateless
-@Remote
+@Local
 public class ProductBean extends GenericBean<Product> implements ProductBeanI{
 
     public void updateByID(int productID,Product productUpdate){        

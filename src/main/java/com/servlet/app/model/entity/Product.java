@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.PurchaseStatus;
+import com.servlet.view.html.FarmerEnumAnnot;
 import com.servlet.view.html.FarmerGridView;
 import com.servlet.view.html.FarmerHtmlForm;
 import com.servlet.view.html.FarmerHtmlFormField;
@@ -19,6 +21,7 @@ public class Product implements Serializable{
 
     @HtmlTableColHeader(header = "Product ID")
     @DbTableColumn(colName = "productId", colDescription = "INT(11)")
+    @DbTableID
     private int productId;
 
     @HtmlTableColHeader(header = "Product Name")
@@ -47,12 +50,14 @@ public class Product implements Serializable{
     @HtmlTableColHeader(header = "Product Category")
     @DbTableColumn(colName = "productCategory", colDescription = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
+    @FarmerEnumAnnot
     private ProductCategory productCategory;
 
     @DbTableColumn(colName = "productOwner",colDescription = "VARCHAR(255)")
     private String productOwner;
 
     @DbTableColumn(colName = "purchaseStatus",colDescription = "VARCHAR(255)")
+    @FarmerEnumAnnot
     private PurchaseStatus purchaseStatus;
 
     public int getProdQuantity() {

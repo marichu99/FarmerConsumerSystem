@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.servlet.app.bean.AuthBeanI;
+import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
-import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/login")
@@ -37,7 +37,6 @@ public class Login extends BaseAction {
         PrintWriter print = resp.getWriter();
         User loginUser2= serializeForm(User.class, req.getParameterMap());
         User userDetails = authBean.authenticatUser(loginUser2);
-        System.out.println(userDetails.getEmail());
         
         
         if (userDetails != null) {
@@ -46,7 +45,7 @@ public class Login extends BaseAction {
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", userDetails.getEmail());
-            globalBean.setUserEmail(userDetails.getEmail());
+            GlobalBean.setUserEmail(userDetails.getEmail());
             
             if(userType == UserType.USER && userDetails.getUserType() == UserType.USER){
                 httpSession.setAttribute("userType","user");

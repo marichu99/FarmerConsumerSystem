@@ -13,7 +13,6 @@ public class AppInit implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         // let us initialize the enumConverters into strings
         EnumTypeConverter.registerEnumConverters();
-
     }
 
     @Override

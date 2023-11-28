@@ -287,7 +287,7 @@ i{
     width:80%;
 }
 .prodDetails{
-    width:35%;
+    width:25%;
     display:flex;
 }
 

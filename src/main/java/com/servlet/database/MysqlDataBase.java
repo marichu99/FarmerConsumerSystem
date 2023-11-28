@@ -38,7 +38,6 @@ public class MysqlDataBase implements Serializable{
         DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/farmer-system-app");
         connection=dataSource.getConnection();
         this.updateSchema();
-
     }
     public void updateSchema(){
         System.out.println("*************** Initializing database *************");

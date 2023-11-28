@@ -60,7 +60,7 @@
                         </a></li>
                         <li><a href="#">
                             <img src="icons/adjust-circle.jpg" class="icon" />
-                            <span class="link-name" onclick="window.location.href='./index.jsp'" >Add Admin</span>
+                            <span class="link-name" onclick="window.location.href='./admin'" >Add User</span>
                         </a></li>
                         <li><a href="#">
                             <img src="icons/user-circle.jpg"class="icon"/>

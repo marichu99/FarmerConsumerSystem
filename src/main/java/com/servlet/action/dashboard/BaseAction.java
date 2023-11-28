@@ -50,7 +50,7 @@ public class BaseAction extends HttpServlet {
         // request.setAttribute(getServletName(), response);
         // add some header content for the login page
         String servletPath = request.getServletPath();
-        String content ="";
+        String content = "";
         if(servletPath.equals("/login") || servletPath.equals("/home")){
             content = HtmlComponents.getCustomerDash();
         }

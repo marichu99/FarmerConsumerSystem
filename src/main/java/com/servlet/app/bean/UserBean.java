@@ -1,6 +1,6 @@
 package com.servlet.app.bean;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -8,7 +8,7 @@ import com.servlet.app.model.entity.User;
 import com.servlet.utils.HashText;
 
 @Stateless
-@Remote
+@Local
 public class UserBean<T> extends GenericBean<User> implements UserBeanI{
     @Inject
     HashText hashText;

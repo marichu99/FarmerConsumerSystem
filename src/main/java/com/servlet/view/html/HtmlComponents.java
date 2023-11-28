@@ -4,24 +4,23 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.MysqlDataBase;
-import com.servlet.utils.GlobalBean;
+import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.ProductCategory;
 
 public class HtmlComponents extends HttpServlet {
-    @EJB
-    private MysqlDataBase database;
-    @Inject
-    private static GlobalBean globalBean;
-    public static String gridView(List<Product> models) {
 
+    @EJB
+    private static GlobalBean globalBean;
+
+    public static String gridView(List<Product> models) {
         String allProduce = "<div class ='prodDetails'>";
         for (Product product : models) {
             allProduce += "<div class=\"prod_item\">\n" +
@@ -82,50 +81,54 @@ public class HtmlComponents extends HttpServlet {
 
     public static String form(Class<?> model) {
         Class<?> clazz = model;
-        String owner ="";
-        if(clazz.equals(Product.class)){
-           owner = globalBean.getUserEmail();
+        String owner = "";
+        if (clazz.equals(Product.class)) {
+            owner = GlobalBean.getUserEmail();
+            System.out.println("The owner is ###############  " + owner);
         }
         Field[] fields = model.getDeclaredFields();
         String htmlPage = "    <div class='main'>" +
-                " <form action=\"./produce\"  method=\"POST\">\n" ;
-        htmlPage+="<div class=\"row\">\n" +
+                " <form action=\"./produce\"  method=\"POST\">\n";
+        htmlPage += "<div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\">Product Details</h3>\n" +
-                "               <form action=\"./produce\" method=\"POST\">\n";
-        // " <div class=\"row\">\n" +
-        // " <div class=\"col\">\n" +
-        // " <h3 class=\"title\">Product Details</h3>\n";
-        
-        
+                "               <form action=\"./produce\" method=\"POST\">\n" +
+                (StringUtils.isNotBlank(owner)
+                        ? new String("<input type=\"hidden\" value=\"" + owner + "\"  name=\"productOwner\"/>\n")
+                        : "");
+
         for (Field field : fields) {
             String fieldName = field.getName();
             // lets check if there is an anotation for this field
             if (!field.isAnnotationPresent(FarmerHtmlFormField.class))
                 continue;
+            boolean isOptionField = field.isAnnotationPresent(FarmerEnumAnnot.class);
             String optionString = "";
-            if(fieldName.equals("productCategory")){
-                optionString =  "<select class="+fieldName+" id="+fieldName+" name=\""+fieldName+"\">\n";
-                for(ProductCategory category:ProductCategory.values()){
-                    optionString+=  "<option value=\""+category.name()+"\">"+category.name().toLowerCase()+"</option>\n";
+            if (fieldName.equals("productCategory")) {
+                optionString = "<select class=" + fieldName + " id=" + fieldName + " name=\"" + fieldName + "\">\n";
+                for (ProductCategory category : ProductCategory.values()) {
+                    optionString += "<option value=\"" + category.name() + "\">" + category.name().toLowerCase()
+                            + "</option>\n";
                 }
-                optionString+="</select>";
+                optionString += "</select>";
             }
             // if the annotation is present then we get the various annotations for the
             // various forms present
             FarmerHtmlFormField formField = field.getAnnotation(FarmerHtmlFormField.class);
-            // we come up with an options field to check whether the annotated field is an option so as not to give it an input field
-            boolean isOptionField = fieldName.equals("productCategory");
+            // we come up with an options field to check whether the annotated field is an
+            // option so as not to give it an input field            
             htmlPage += "<div class=\""
-                    + (StringUtils.isBlank(formField.className()) && !isOptionField ? fieldName : formField.className()) + "\">\n" +
+                    + (StringUtils.isBlank(formField.className()) && !isOptionField ? fieldName : formField.className())
+                    + "\">\n" +
                     "                <label>"
-                    + (StringUtils.isBlank(formField.labelName()) && !isOptionField ? fieldName : formField.labelName()) + "</label>\n" 
-                    + ((fieldName.equals("productCategory")) ? optionString: StringUtils.EMPTY)+
+                    + (StringUtils.isBlank(formField.labelName()) && !isOptionField ? fieldName : formField.labelName())
+                    + "</label>\n"
+                    + ((fieldName.equals("productCategory")) ? optionString : StringUtils.EMPTY) +
                     "                <input type=\""
                     + (StringUtils.isBlank(formField.formType()) && !isOptionField ? fieldName : formField.formType())
                     + "\" placeholder=\""
-                    + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName : formField.placeHolder())+
-                    (StringUtils.isNotBlank(owner)?new String("<input type=\"hidden\" value=\""+owner+"\"  name=\"productOwner\"/>\n"): "")
+                    + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName
+                            : formField.placeHolder())
                     + "\" name=\"" + fieldName + "\"/>\n" +
                     "     </div>\n";
         }
@@ -186,7 +189,7 @@ public class HtmlComponents extends HttpServlet {
         HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
 
         StringBuilder trBuilder = new StringBuilder();
-        trBuilder.append("<table class="+htmlTable.className()+"><tr>");
+        trBuilder.append("<table class=" + htmlTable.className() + "><tr>");
 
         Field[] fields = dataClass.getDeclaredFields();
 
@@ -205,6 +208,7 @@ public class HtmlComponents extends HttpServlet {
 
             for (Object data : dataList) {
 
+                int id = 0;
                 trBuilder.append("<tr>");
                 for (Field field : fields) {
                     if (!field.isAnnotationPresent(HtmlTableColHeader.class))
@@ -212,11 +216,19 @@ public class HtmlComponents extends HttpServlet {
 
                     try {
                         field.setAccessible(true);
+                        // if the field is of the type ID, then we set the id variable
+                        if (field.isAnnotationPresent(DbTableID.class))
+                            id = (int) field.get(data);
                         trBuilder.append("<td>").append(field.get(data)).append("</td>");
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
                 }
+                // append an edit and delete button for every product
+                trBuilder.append("<td><button class = 'buttonEdit' onclick='openForm("+id+")'>EDIT</button></td>");
+                trBuilder.append(
+                        "<td><button class = 'buttonRemove' onclick= \"window.location.href= './produce?type=product&productID="
+                                + id + "&mode=remove'\">DELETE</button></td>");
 
                 trBuilder.append("<tr>");
 
@@ -258,5 +270,11 @@ public class HtmlComponents extends HttpServlet {
                 +
                 "    </div>\n";
         return htmlContent;
+    }
+
+    @Override
+    public ServletContext getServletContext() {
+        // TODO Auto-generated method stub
+        return super.getServletContext();
     }
 }
