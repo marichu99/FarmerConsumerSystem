@@ -1,5 +1,6 @@
 package com.servlet.app.bean;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ import com.servlet.view.enums.UserType;
 
 @Stateless
 @Remote
-public class AuthBean implements AuthBeanI{
+public class AuthBean implements AuthBeanI,Serializable{
     @EJB
     MysqlDataBase database;
     @Inject
@@ -24,7 +25,7 @@ public class AuthBean implements AuthBeanI{
     public User authenticatUser(User loginUser) {
 
         try{
-            if(loginUser.getUserType() == UserType.USER)
+            if(loginUser.getUserType().name().equals((UserType.USER).name()))
                 loginUser.setPassword(hashText.hash(loginUser.getPassword()));
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());

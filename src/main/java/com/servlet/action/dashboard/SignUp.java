@@ -18,30 +18,39 @@ import com.servlet.app.model.entity.User;
 public class SignUp extends BaseAction {
     @EJB
     UserBeanI userBean;
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
-        User user = serializeForm(User.class,req.getParameterMap());     
-        // after sign up, the default redirect location is 
-        String redirectLocation ="./login";
+        User user = serializeForm(User.class, req.getParameterMap());
+        // after sign up, the default redirect location is
         String servletPath = req.getServletPath();
-        if(servletPath.contains("/admin"))   
-            redirectLocation="./home";
-        if(userBean.registerUser(user))
-            print.write("<html>" +
-                    "<body>" +
-                    "<script type='text/javascript'>" +
-                    "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
-                    "    window.location.href = "+redirectLocation+";" +
-                    "</script>" +
-                    "</body>" +
-                    "</html>");
+        if (userBean.registerUser(user))
+            if (servletPath.contains("/admin")) {
+                print.write("<html>" +
+                        "<body>" +
+                        "<script type='text/javascript'>" +
+                        "    alert('User Added Successfully');" +
+                        "    window.location.href = ./home;" +
+                        "</script>" +
+                        "</body>" +
+                        "</html>");
+            } else {
+                print.write("<html>" +
+                        "<body>" +
+                        "<script type='text/javascript'>" +
+                        "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
+                        "    window.location.href = ./login;" +
+                        "</script>" +
+                        "</body>" +
+                        "</html>");
+            }
     }
 
     @Override
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("./Sign.html");
-        dispatcher.forward(req, resp);        
+        dispatcher.forward(req, resp);
     }
 }

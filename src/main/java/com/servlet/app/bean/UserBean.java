@@ -23,7 +23,8 @@ public class UserBean<T> extends GenericBean<User> implements UserBeanI{
                 // }
         // hash the input password
         try{
-            hashText.hash(user.getPassword());
+            user.setPassword(hashText.hash(user.getPassword()));
+            System.out.println("###### the hash is "+user.getPassword());
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
