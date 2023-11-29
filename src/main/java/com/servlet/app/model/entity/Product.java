@@ -16,7 +16,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
 @DbTable(name = "products")
-@HtmlTable(addUrl = "./produce")
+@HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&productID=")
 public class Product implements Serializable{
 
     @HtmlTableColHeader(header = "Product ID")

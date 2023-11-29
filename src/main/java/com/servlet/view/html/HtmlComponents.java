@@ -234,8 +234,8 @@ public class HtmlComponents extends HttpServlet {
                 // append an edit and delete button for every product
                 trBuilder.append("<td><button class = 'buttonEdit' onclick='openForm("+id+")'>EDIT</button></td>");
                 trBuilder.append(
-                        "<td><button class = 'buttonRemove' onclick= \"window.location.href= './produce?type=product&productID="
-                                + id + "&mode=remove'\">DELETE</button></td>");
+                        "<td><button class = 'buttonRemove' onclick= \"window.location.href= '"+htmlTable.deleteUrl()+""
+                                + id + "'\">DELETE</button></td>");
 
                 trBuilder.append("<tr>");
 

@@ -25,9 +25,7 @@ public class AuthBean implements AuthBeanI,Serializable{
     public User authenticatUser(User loginUser) {
 
         try{
-            System.out.println("THE ENUM NAME IS "+loginUser.getUserType().name());
-            System.out.println("The ENUM TYPE NAME IS "+(UserType.USER).name());
-            // if(loginUser.getUserType().name().equals((UserType.USER).name()))
+            if(loginUser.getUserType().toString().equals("USER"))
                 loginUser.setPassword(hashText.hash(loginUser.getPassword()));
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());

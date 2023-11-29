@@ -14,7 +14,7 @@ import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 
-@HtmlTable(addUrl = "./sign",deleteUrl = "")
+@HtmlTable(addUrl = "./sign",deleteUrl = "./user?action=delete&id=")
 @DbTable(name = "user")
 public class User implements Serializable{
 

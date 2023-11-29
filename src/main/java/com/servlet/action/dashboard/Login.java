@@ -35,10 +35,12 @@ public class Login extends BaseAction {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
-        User loginUser2= serializeForm(User.class, req.getParameterMap());
+        // get the user type from the request parameters
+        String reqUserType = req.getParameter("usertype");
+        User loginUser2 = serializeForm(User.class, req.getParameterMap());
+        loginUser2.setUserType(Enum.valueOf(UserType.class, reqUserType));
         User userDetails = authBean.authenticatUser(loginUser2);
-        
-        
+
         if (userDetails != null) {
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
@@ -46,16 +48,17 @@ public class Login extends BaseAction {
             UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", userDetails.getEmail());
             GlobalBean.setUserEmail(userDetails.getEmail());
-            
-            if(userType == UserType.USER && userDetails.getUserType() == UserType.USER){
-                httpSession.setAttribute("userType","user");
+
+            boolean isTypeMatching = reqUserType.equals(userDetails.getUserType().toString());
+            if (isTypeMatching && reqUserType.equals("USER")) {
+                httpSession.setAttribute("userType", "user");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
                 renderSpecific(req, resp, Product.class, productBean.list(new Product()));
-            }else if(userType == UserType.ADMIN && userDetails.getUserType() == UserType.ADMIN){
-                httpSession.setAttribute("userType","admin");
+            } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
+                httpSession.setAttribute("userType", "admin");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
                 renderSpecific(req, resp, User.class, userBean.list(new User()));
-            }                           
+            }
 
         }
         print.write("<html><body>Invalid login details <a href=\"./login\"> Login again </a></body></html>");
