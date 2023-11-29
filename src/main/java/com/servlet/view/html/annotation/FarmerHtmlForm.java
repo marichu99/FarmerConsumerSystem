@@ -1,4 +1,4 @@
-package com.servlet.view.html;
+package com.servlet.view.html.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

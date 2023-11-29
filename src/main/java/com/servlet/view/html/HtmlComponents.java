@@ -13,7 +13,10 @@ import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.helper.DbTableID;
-import com.servlet.view.enums.ProductCategory;
+import com.servlet.view.html.annotation.FarmerEnumAnnot;
+import com.servlet.view.html.annotation.FarmerHtmlFormField;
+import com.servlet.view.html.annotation.HtmlTable;
+import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 public class HtmlComponents extends HttpServlet {
 
@@ -59,7 +62,7 @@ public class HtmlComponents extends HttpServlet {
                 "        <label for=\"psw\"><b>Price</b></label>\n" +
                 "        <input type=\"number\" placeholder=\"Enter desired price per Quantity\" name=\"price\" required>\n"
                 +
-                "        <button type=\"submit\" class=\"btn\">Edit</button>\n" +
+                "  3      <button type=\"submit\" class=\"btn\">Edit</button>\n" +
                 "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
                 "    </form>\n" +
                 "</div>";
@@ -87,12 +90,14 @@ public class HtmlComponents extends HttpServlet {
             System.out.println("The owner is ###############  " + owner);
         }
         Field[] fields = model.getDeclaredFields();
-        String htmlPage = "    <div class='main'>" +
-                " <form action=\"./produce\"  method=\"POST\">\n";
+        // get the location of where the form will be posted
+        HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
+        
+        String htmlPage = "<div class='main'>" +
+                " <form action=\""+htmlTable.addUrl()+"\"  method=\""+htmlTable.action()+"\">\n";
         htmlPage += "<div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
-                "            <h3 class=\"title\">Product Details</h3>\n" +
-                "               <form action=\"./produce\" method=\"POST\">\n" +
+                "            <h3 class=\"title\"> Details</h3>\n" +
                 (StringUtils.isNotBlank(owner)
                         ? new String("<input type=\"hidden\" value=\"" + owner + "\"  name=\"productOwner\"/>\n")
                         : "");
@@ -104,10 +109,12 @@ public class HtmlComponents extends HttpServlet {
                 continue;
             boolean isOptionField = field.isAnnotationPresent(FarmerEnumAnnot.class);
             String optionString = "";
-            if (fieldName.equals("productCategory")) {
+            boolean isFieldEnum = field.getType().isEnum();            
+            if (isFieldEnum) {
+                Class<?> enumClass = field.getType();
                 optionString = "<select class=" + fieldName + " id=" + fieldName + " name=\"" + fieldName + "\">\n";
-                for (ProductCategory category : ProductCategory.values()) {
-                    optionString += "<option value=\"" + category.name() + "\">" + category.name().toLowerCase()
+                for (Object category : enumClass.getEnumConstants() ) {
+                    optionString += "<option value=\"" + category + "\">" + (category)
                             + "</option>\n";
                 }
                 optionString += "</select>";
@@ -123,7 +130,7 @@ public class HtmlComponents extends HttpServlet {
                     "                <label>"
                     + (StringUtils.isBlank(formField.labelName()) && !isOptionField ? fieldName : formField.labelName())
                     + "</label>\n"
-                    + ((fieldName.equals("productCategory")) ? optionString : StringUtils.EMPTY) +
+                    + ((isFieldEnum) ? optionString : StringUtils.EMPTY) +
                     "                <input type=\""
                     + (StringUtils.isBlank(formField.formType()) && !isOptionField ? fieldName : formField.formType())
                     + "\" placeholder=\""

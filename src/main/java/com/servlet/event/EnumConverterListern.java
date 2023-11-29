@@ -10,7 +10,15 @@ public class EnumConverterListern implements ServletContextListener{
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         // TODO Auto-generated method stub
-        
+         System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Application is undeployed or destroyed");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     @Override

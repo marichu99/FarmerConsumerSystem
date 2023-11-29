@@ -2,6 +2,7 @@ package com.servlet.action.dashboard;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,17 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servlet.app.bean.UserBean;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.User;
-import com.servlet.view.css.AllPageCss;
 import com.servlet.view.html.HtmlComponents;
 import com.servlet.view.html.UserProfile;
 @WebServlet(urlPatterns = "/profile")
 public class UserProfileAction extends BaseAction{
     UserProfile userProfile = new UserProfile();
-    UserBeanI userBean= new UserBean();
-    AllPageCss allPageCss = new AllPageCss();
+    @EJB
+    UserBeanI userBean;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

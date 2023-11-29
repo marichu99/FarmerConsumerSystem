@@ -16,9 +16,11 @@ public class UserBean<T> extends GenericBean<User> implements UserBeanI{
     @Override
     public boolean registerUser(User user) {
         // check if the user already exists
-        if(!getGenericDao().list(user).isEmpty()){
-            throw new RuntimeException("User Already Exists");
-        }
+        // use fetch instead of list on the method below
+                // if(!getGenericDao().list(user).isEmpty()){
+                //     // throw new RuntimeException("User Already Exists");
+
+                // }
         // hash the input password
         try{
             hashText.hash(user.getPassword());

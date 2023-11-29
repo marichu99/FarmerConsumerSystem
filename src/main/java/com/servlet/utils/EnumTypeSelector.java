@@ -1,16 +1,12 @@
-package com.servlet.view.html;
+package com.servlet.utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD,ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FarmerGridView {
-
-    String className() default "";
-
-    String imgPath() default "./webapp/images/barley.jpg";
-    
+public @interface EnumTypeSelector {
+    EnumType enumType() default EnumType.PRODUCT;
 }

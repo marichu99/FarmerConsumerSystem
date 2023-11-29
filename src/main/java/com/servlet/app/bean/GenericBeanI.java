@@ -9,4 +9,6 @@ public interface GenericBeanI<T> extends Serializable{
     void addOrUpdate(T entity);
 
     void delete(T entity, int productID);
+
+    T getByID(int id, T entity);
 } 

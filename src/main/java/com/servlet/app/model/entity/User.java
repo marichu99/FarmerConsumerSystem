@@ -4,18 +4,24 @@ import java.io.Serializable;
 
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.UserCategory;
 import com.servlet.view.enums.UserType;
-import com.servlet.view.html.AuthFormsAnnot;
-import com.servlet.view.html.FarmerEnumAnnot;
-import com.servlet.view.html.FarmerHtmlFormField;
-import com.servlet.view.html.HtmlTable;
-import com.servlet.view.html.HtmlTableColHeader;
+import com.servlet.view.html.annotation.AuthFormsAnnot;
+import com.servlet.view.html.annotation.FarmerEnumAnnot;
+import com.servlet.view.html.annotation.FarmerHtmlFormField;
+import com.servlet.view.html.annotation.HtmlTable;
+import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 
-@HtmlTable(addUrl = "./profile?action=add")
+@HtmlTable(addUrl = "./sign",deleteUrl = "")
 @DbTable(name = "user")
 public class User implements Serializable{
+
+    @HtmlTableColHeader(header = "User ID")
+    @DbTableColumn(colName = "userId", colDescription = "INT(11)")
+    @DbTableID
+    private int userId;
 
     @DbTableColumn(colName = "email" ,colDescription = "VARCHAR(255)")
     @HtmlTableColHeader(header = "Customer Email")
@@ -47,6 +53,7 @@ public class User implements Serializable{
         this.username = username;
         this.userType = userType;
     }
+    
     
 
     public User(UserType userType) {
@@ -94,6 +101,18 @@ public class User implements Serializable{
 
     public void setUserCategory(UserCategory userCategory) {
         this.userCategory = userCategory;
+    }
+
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     

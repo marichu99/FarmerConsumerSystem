@@ -1,17 +1,14 @@
-package com.servlet.view.html;
+package com.servlet.view.html.annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HtmlTable{
+public @interface HtmlTableColHeader {
 
-    String name() default "";
+    String header();
 
-    String addUrl() default "";
-
-    String className() default "myTable";
+    
 }
- 

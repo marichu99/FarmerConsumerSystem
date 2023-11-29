@@ -24,9 +24,11 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
       - MYSQL_DATABASE=mabera
+    
 
 networks:
   database:
     # bridge: database
     # external: true
+
 

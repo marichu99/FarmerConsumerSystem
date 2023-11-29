@@ -52,7 +52,7 @@
             <ul class="nav-links">
                         <li><a href="#">
                             <img src="icons/home.jpg" class="icon"/>
-                            <span class="link-name" onclick="window.location.href='./index.jsp'">Dashboard</span>
+                            <span class="link-name" onclick="window.location.href='./home'">Dashboard</span>
                         </a></li>
                         <li><a href="#">
                             <img src="icons/chart-line.jpg" class="icon"/>

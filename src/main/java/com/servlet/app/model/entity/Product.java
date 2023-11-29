@@ -7,16 +7,16 @@ import com.servlet.database.helper.DbTableColumn;
 import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.PurchaseStatus;
-import com.servlet.view.html.FarmerEnumAnnot;
-import com.servlet.view.html.FarmerGridView;
-import com.servlet.view.html.FarmerHtmlForm;
-import com.servlet.view.html.FarmerHtmlFormField;
-import com.servlet.view.html.HtmlTable;
-import com.servlet.view.html.HtmlTableColHeader;
+import com.servlet.view.html.annotation.FarmerEnumAnnot;
+import com.servlet.view.html.annotation.FarmerGridView;
+import com.servlet.view.html.annotation.FarmerHtmlForm;
+import com.servlet.view.html.annotation.FarmerHtmlFormField;
+import com.servlet.view.html.annotation.HtmlTable;
+import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
 @DbTable(name = "products")
-@HtmlTable()
+@HtmlTable(addUrl = "./produce")
 public class Product implements Serializable{
 
     @HtmlTableColHeader(header = "Product ID")

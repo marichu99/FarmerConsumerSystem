@@ -9,17 +9,21 @@ COPY . .
 RUN mvn clean install -DskipTests -X
 
 
-FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk17 AS deploy
+FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk11 AS deploy
 
 RUN rm /opt/jboss/wildfly/standalone/configuration/standalone.xml
+RUN rm -rf /opt/jboss/wildfly/standalone/deployments
+RUN mkdir -p /opt/jboss/wildfly/standalone/deployments
 
-COPY --from=build /app/target/farmer.war /opt/jboss/wildfly/standalone/deployments/
+
+
+COPY --from=build /app/target/*.war /opt/jboss/wildfly/standalone/deployments/
 COPY --from=build /app/standalone.xml /opt/jboss/wildfly/standalone/configuration/
 
 
 RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
-COPY --from=build /app/module.xml /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
-COPY --from=build /app/mysql-connector-j-8.2.0.jar /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
+COPY --from=build /app/mysql/main/module.xml /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
+COPY --from=build /app/mysql/main/mysql-connector-java-8.0.17.jar /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
 
 EXPOSE 8080
 

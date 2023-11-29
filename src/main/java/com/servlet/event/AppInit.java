@@ -31,4 +31,3 @@ public class AppInit implements ServletContextListener {
     }
 
 }
-

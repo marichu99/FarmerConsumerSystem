@@ -185,12 +185,12 @@ public class MysqlDataBase implements Serializable{
                     preparedStatement.setString(paramIdx++, (String)param);
             }
             preparedStatement.executeUpdate();
-        }catch(Exception e){
+        }catch(Exception e){ 
             e.printStackTrace();
         }
     }
 
-    public boolean delete(Object entity,int productID){
+    public boolean delete(Object entity,int id){
         try{
             Class<?> clazz = entity.getClass();
             if(!clazz.isAnnotationPresent(DbTable.class))
@@ -216,7 +216,7 @@ public class MysqlDataBase implements Serializable{
             String queryBuilder = "DELETE FROM "+
                     dbTable.name()+" WHERE "+
                     columnID+" ="+
-                    productID;
+                    id;
             
             System.out.println("Query####################: "+ queryBuilder);
             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder);

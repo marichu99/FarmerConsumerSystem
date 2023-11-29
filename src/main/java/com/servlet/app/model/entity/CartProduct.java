@@ -3,8 +3,8 @@ package com.servlet.app.model.entity;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
 import com.servlet.database.helper.DbTableID;
-import com.servlet.view.html.HtmlTable;
-import com.servlet.view.html.HtmlTableColHeader;
+import com.servlet.view.html.annotation.HtmlTable;
+import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @HtmlTable(name = "Cart")
 @DbTable(name ="CartItem")

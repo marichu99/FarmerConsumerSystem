@@ -21,13 +21,18 @@ public class SignUp extends BaseAction {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter print = resp.getWriter();
-        User user = serializeForm(User.class,req.getParameterMap());        
+        User user = serializeForm(User.class,req.getParameterMap());     
+        // after sign up, the default redirect location is 
+        String redirectLocation ="./login";
+        String servletPath = req.getServletPath();
+        if(servletPath.contains("/admin"))   
+            redirectLocation="./home";
         if(userBean.registerUser(user))
             print.write("<html>" +
                     "<body>" +
                     "<script type='text/javascript'>" +
                     "    alert('Thanks for registering with us, Kindly Login using your credentials');" +
-                    "    window.location.href = './login';" +
+                    "    window.location.href = "+redirectLocation+";" +
                     "</script>" +
                     "</body>" +
                     "</html>");
