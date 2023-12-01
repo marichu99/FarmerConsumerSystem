@@ -44,7 +44,6 @@ public class User implements Serializable{
     private UserType userType;
 
     @DbTableColumn(colName = "userCategory",colDescription = "VARCHAR(255)")
-    @FarmerEnumAnnot
     private UserCategory userCategory;
     
     public User(String email, String password, String username, UserType userType) {

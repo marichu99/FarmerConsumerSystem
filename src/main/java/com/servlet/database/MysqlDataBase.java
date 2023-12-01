@@ -6,9 +6,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,11 +22,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.lang3.StringUtils;
+
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
+import com.servlet.database.helper.DbTableID;
 
 @Singleton
 @Startup()
@@ -137,6 +145,7 @@ public class MysqlDataBase implements Serializable{
 
     public  void insert(Object entity){
         try{
+            System.out.println("WE ARE TRYIN TO INSERT !!!!");
             Class<?> clazz = entity.getClass();
             if(!clazz.isAnnotationPresent(DbTable.class))
                 return;
@@ -188,6 +197,109 @@ public class MysqlDataBase implements Serializable{
         }catch(Exception e){ 
             e.printStackTrace();
         }
+    }
+    public <T> List<T> fetch(T entity) {
+
+        List<T> resultList = new ArrayList<>();
+
+        try {
+            Class<?> clazz = entity.getClass();
+
+            if (!clazz.isAnnotationPresent(DbTable.class))
+                return resultList;
+
+            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+
+            String tableAlias = dbTable.name().charAt(0) + "_e_";
+            System.out.println("table alias " + tableAlias);
+
+            List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+            StringBuilder columnBuilder = new StringBuilder();
+            StringBuilder paramPlaceHolderBuilder = new StringBuilder();
+            List<Object> whereParams = new ArrayList<>();
+
+            DateConverter converter = new DateConverter( null );
+            converter.setPattern("yyyy-mm-dd");
+            ConvertUtils.register(converter, Date.class);
+
+            for (Field field : fields) {
+                if (!field.isAnnotationPresent(DbTableColumn.class) || field.isAnnotationPresent(DbTableID.class))
+                    continue;
+
+                DbTableColumn dbTableColumn = field.getAnnotation(DbTableColumn.class);
+
+                columnBuilder.append(tableAlias).append(".").append(dbTableColumn.colName()).append(",");
+
+                field.setAccessible(true);
+                if (field.get(entity) != null) {
+                    paramPlaceHolderBuilder
+                        .append(whereParams.isEmpty()?"":" and ")
+                        .append(tableAlias).append(".").append(dbTableColumn.colName()).append("=?");
+                    whereParams.add(field.get(entity));
+                }
+
+            }
+
+            String queryBuilder =
+                "select " +
+                columnBuilder +
+                " from " +
+                dbTable.name() + " " + tableAlias +
+                (whereParams.isEmpty() && StringUtils.isBlank(paramPlaceHolderBuilder) ? "" : " where " + paramPlaceHolderBuilder);
+
+            String query = queryBuilder.replace(", from", " from");
+            
+
+            PreparedStatement sqlStmt = connection.prepareStatement(query);
+
+            int paramIdx = 1;
+            for (Object whereParam : whereParams) {
+                if(whereParam.getClass().isAssignableFrom(Integer.class))
+                    sqlStmt.setInt(paramIdx++, (int)whereParam);
+                else if(whereParam.getClass().isAssignableFrom(Double.class))
+                    sqlStmt.setDouble(paramIdx++, (Double)whereParam);
+                else if(whereParam instanceof Enum)
+                    sqlStmt.setString(paramIdx++,((Enum<?>)whereParam).name());
+                else
+                    sqlStmt.setString(paramIdx++, (String)whereParam);
+
+            }
+            System.out.println("Query: " + query);
+            ResultSet resultSet = sqlStmt.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int resultSetMetaDataCnt = resultSetMetaData.getColumnCount();
+
+            while (resultSet.next()){
+                T bean = (T) entity.getClass().getDeclaredConstructor().newInstance();
+
+                for (int idx = 1; idx <= resultSetMetaDataCnt; idx++ ) {
+                    String colName = resultSetMetaData.getColumnName(idx);
+
+                    for (Field field : fields) {
+                        if (!field.isAnnotationPresent(DbTableColumn.class) || field.isAnnotationPresent(DbTableID.class))
+                            continue;
+
+                        DbTableColumn dbTableColumn = field.getAnnotation(DbTableColumn.class);
+
+                        field.setAccessible(true);
+                        if (dbTableColumn.colName().equals(colName)) {
+                            BeanUtils.setProperty(bean, field.getName(), resultSet.getObject(idx));
+                            break;
+                        }
+                    }
+                }
+
+                resultList.add(bean);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return resultList;
+
     }
 
     public boolean delete(Object entity,int id){

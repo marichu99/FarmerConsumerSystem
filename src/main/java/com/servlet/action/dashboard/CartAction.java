@@ -22,7 +22,6 @@ public class CartAction extends BaseAction{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         // TODO Auto-generated method stub
-        // new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(database.getCartProducts()), "");
         // check if there are instances where one wants to add or remove carted products
         String mode =StringUtils.trimToEmpty(req.getParameter("mode"));
         if(mode.equals("add")){
@@ -34,7 +33,6 @@ public class CartAction extends BaseAction{
             }
         }else{
             renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.list(new CartProduct())));
-            // new AppPage().renderHtml(req, resp, 0, HtmlComponents.cartItems(cartBean.getAllCarts()), "");
         }       
 
     }

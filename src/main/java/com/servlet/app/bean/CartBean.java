@@ -17,12 +17,13 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
     public boolean addToCart(int productID) {
         // loop through all the products
         for(Product product: dataBase.select(Product.class)){
-            if(product.getProductId() == productID){
+            if(product.getProductId() == productID){                
+                // then add it to the cart products list
+                CartProduct cartProduct = new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(), product.getProductDescription());
+                dataBase.insert(cartProduct);
                 // remove the product from the products list
                 dataBase.delete(product, productID);
-                // then add it to the cart products list
-                CartProduct cartProduct = (CartProduct)product;
-                dataBase.insert(cartProduct);
+                
                 return true;
             }else{
                 continue;

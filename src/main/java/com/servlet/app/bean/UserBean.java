@@ -5,13 +5,16 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.servlet.app.model.entity.User;
-import com.servlet.utils.HashText;
+import com.servlet.utils.EncryptText;
+import com.servlet.utils.PasswordEnum;
+import com.servlet.utils.PasswordTypeSelector;
 
 @Stateless
 @Local
 public class UserBean<T> extends GenericBean<User> implements UserBeanI{
     @Inject
-    HashText hashText;
+    @PasswordTypeSelector(passwordEnum = PasswordEnum.SHA256)
+    EncryptText encryptText;
 
     @Override
     public boolean registerUser(User user) {
@@ -23,7 +26,7 @@ public class UserBean<T> extends GenericBean<User> implements UserBeanI{
                 // }
         // hash the input password
         try{
-            user.setPassword(hashText.hash(user.getPassword()));
+            user.setPassword(encryptText.hash(user.getPassword()));
             System.out.println("###### the hash is "+user.getPassword());
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());

@@ -25,7 +25,8 @@ public class SignUp extends BaseAction {
         User user = serializeForm(User.class, req.getParameterMap());
         // after sign up, the default redirect location is
         String servletPath = req.getServletPath();
-        if (userBean.registerUser(user))
+        if (userBean.registerUser(user)){
+            System.out.println("The Servlet Path is##### "+servletPath);
             if (servletPath.contains("/admin")) {
                 print.write("<html>" +
                         "<body>" +
@@ -45,7 +46,11 @@ public class SignUp extends BaseAction {
                         "</body>" +
                         "</html>");
             }
-    }
+        }
+        // action for updating the user
+        
+    }   
+
 
     @Override
 

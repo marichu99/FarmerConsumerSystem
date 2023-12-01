@@ -1,0 +1,56 @@
+# ---
+# - name: Farmer System
+#   hosts: localhost
+#   become: yes
+#   vars:
+#     maven_project_directory: "/path/to/your/maven/project"
+#     docker_compose_file: "/your/docker-compose.yml"
+
+#   tasks:
+#     - name: Install Docker and Docker Compose
+#       include_tasks: tasks/install_docker.yml
+#       tags:
+#         - docker
+
+#     - name: Build Maven Project
+#       command: "mvn clean install"
+#       args:
+#         chdir: "{{ maven_project_directory }}"
+#       tags:
+#         - maven
+
+#     - name: Copy Docker Compose File
+#       copy:
+#         src: "{{ docker_compose_file }}"
+#         dest: "/path/to/deploy/docker-compose.yml"
+#       tags:
+#         - docker
+
+#     - name: Start Docker Compose
+#       command: "docker-compose up -d"
+#       args:
+#         chdir: "/path/to/deploy"
+#       tags:
+#         - docker
+
+
+---
+- name: Deploy Farmer System App
+  hosts: all
+  become: true
+  tasks:
+    - name: Recursively change the ownership
+      file:
+        path: /home/mabera/Farmer
+        state: directory
+        recurse: yes
+        owner: mabera
+      
+    - name: Copy Docker Compose File
+      copy:
+        src: /home/mabera/Documents/FarmerConsumerSystem/docker-compose.yml
+        dest: /home/mabera/Farmer/docker-compose.yml
+      become: true
+
+    - name: Orchestrate using docker compose
+      command: docker-compose up -f /home/mabera/Farmer/docker-compose.yml -d

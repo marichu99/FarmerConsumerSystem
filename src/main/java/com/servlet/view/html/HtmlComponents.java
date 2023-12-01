@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servlet.app.bean.GlobalBean;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.helper.DbTableID;
+import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.HtmlTable;
@@ -82,6 +82,49 @@ public class HtmlComponents extends HttpServlet {
         return allProduce;
     }
 
+    public static String popUpForm(Class<?> model) {
+        Field[] fields = model.getDeclaredFields();
+        HtmlTable htmlTable = model.getAnnotation(HtmlTable.class);
+
+        String popUpForm = "<div class=\"form-popup\" id=\"myForm\">\n" +
+                "    <form action=\"" + htmlTable.addUrl() + "\" class=\"form-container\" method=\""
+                + htmlTable.action() + "\">\n" +
+                "<input type=\"hidden\" value=\"update\" name=\"" + model.getSimpleName() + "\">\n" +
+                "        <h2>Edit Details</h2>\n";
+        for (Field field : fields) {
+
+            // check if the field is an id column
+            if (field.isAnnotationPresent(DbTableID.class)) {
+                popUpForm += "<input type=\"hidden\" id=\"hiddenId\" name=\"" + field.getName() + "\">\n";
+            }
+            if (field.isAnnotationPresent(FarmerHtmlFormField.class)) {
+                FarmerHtmlFormField farmerFormField = field.getAnnotation(FarmerHtmlFormField.class);
+                popUpForm += "        <label for=\"email\"><b>" + farmerFormField.formName() + "</b></label>\n" +
+                        "        <input type=\"" + farmerFormField.formType() + "\" placeholder=\""
+                        + farmerFormField.placeHolder() + "\" name=\"" + field.getName() + "\" required>\n";
+            }
+            String optionString = "";
+            if (field.isAnnotationPresent(FarmerEnumAnnot.class)) {                
+                boolean isFieldEnum = field.getType().isEnum();
+                if (isFieldEnum) {
+                    Class<?> enumClass = field.getType();
+                    optionString = "<select class=" + field.getName() + " id=" + field.getName() + " name=\"" + field.getName() + "\">\n";
+                    for (Object category : enumClass.getEnumConstants()) {
+                        optionString += "<option value=\"" + category + "\">" + (category)
+                                + "</option>\n";
+                    }
+                    optionString += "</select>";
+                    popUpForm+=optionString;
+                }
+            }
+        }
+        popUpForm += "<button type=\"submit\" class=\"btn\">Edit</button>\n" +
+                "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
+                "    </form>\n" +
+                "</div>";
+        return popUpForm;
+    }
+    
     public static String form(Class<?> model) {
         Class<?> clazz = model;
         String owner = "";
@@ -92,9 +135,9 @@ public class HtmlComponents extends HttpServlet {
         Field[] fields = model.getDeclaredFields();
         // get the location of where the form will be posted
         HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
-        
+
         String htmlPage = "<div class='main'>" +
-                " <form action=\""+htmlTable.addUrl()+"\"  method=\""+htmlTable.action()+"\">\n";
+                " <form action=\"" + htmlTable.addUrl() + "\"  method=\"" + htmlTable.action() + "\">\n";
         htmlPage += "<div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\"> Details</h3>\n" +
@@ -109,11 +152,11 @@ public class HtmlComponents extends HttpServlet {
                 continue;
             boolean isOptionField = field.isAnnotationPresent(FarmerEnumAnnot.class);
             String optionString = "";
-            boolean isFieldEnum = field.getType().isEnum();            
+            boolean isFieldEnum = field.getType().isEnum();
             if (isFieldEnum) {
                 Class<?> enumClass = field.getType();
                 optionString = "<select class=" + fieldName + " id=" + fieldName + " name=\"" + fieldName + "\">\n";
-                for (Object category : enumClass.getEnumConstants() ) {
+                for (Object category : enumClass.getEnumConstants()) {
                     optionString += "<option value=\"" + category + "\">" + (category)
                             + "</option>\n";
                 }
@@ -123,7 +166,7 @@ public class HtmlComponents extends HttpServlet {
             // various forms present
             FarmerHtmlFormField formField = field.getAnnotation(FarmerHtmlFormField.class);
             // we come up with an options field to check whether the annotated field is an
-            // option so as not to give it an input field            
+            // option so as not to give it an input field
             htmlPage += "<div class=\""
                     + (StringUtils.isBlank(formField.className()) && !isOptionField ? fieldName : formField.className())
                     + "\">\n" +
@@ -232,9 +275,10 @@ public class HtmlComponents extends HttpServlet {
                     }
                 }
                 // append an edit and delete button for every product
-                trBuilder.append("<td><button class = 'buttonEdit' onclick='openForm("+id+")'>EDIT</button></td>");
+                trBuilder.append("<td><button class = 'buttonEdit' onclick='openForm(" + id + ")'>EDIT</button></td>");
                 trBuilder.append(
-                        "<td><button class = 'buttonRemove' onclick= \"window.location.href= '"+htmlTable.deleteUrl()+""
+                        "<td><button class = 'buttonRemove' onclick= \"window.location.href= '" + htmlTable.deleteUrl()
+                                + ""
                                 + id + "'\">DELETE</button></td>");
 
                 trBuilder.append("<tr>");
@@ -243,6 +287,8 @@ public class HtmlComponents extends HttpServlet {
         }
 
         trBuilder.append("</table>");
+        
+        trBuilder.append("<p>"+GlobalBean.getUserEmail()+"</p>");
 
         return trBuilder.toString();
 

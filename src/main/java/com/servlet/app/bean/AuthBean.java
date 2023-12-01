@@ -1,9 +1,7 @@
 package com.servlet.app.bean;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -12,45 +10,35 @@ import javax.inject.Inject;
 
 import com.servlet.app.model.entity.User;
 import com.servlet.database.MysqlDataBase;
-import com.servlet.utils.HashText;
-import com.servlet.view.enums.UserType;
+import com.servlet.utils.EncryptText;
+import com.servlet.utils.PasswordEnum;
+import com.servlet.utils.PasswordTypeSelector;
 
 @Stateless
 @Remote
 public class AuthBean implements AuthBeanI,Serializable{
     @EJB
     MysqlDataBase database;
+
     @Inject
-    HashText hashText;
+    @PasswordTypeSelector(passwordEnum = PasswordEnum.SHA256)
+    private EncryptText encryptText;
     public User authenticatUser(User loginUser) {
 
         try{
+            System.out.println("The user type is ......"+loginUser.getUserType());
             if(loginUser.getUserType().toString().equals("USER"))
-                loginUser.setPassword(hashText.hash(loginUser.getPassword()));
+                loginUser.setPassword(encryptText.hash(loginUser.getPassword()));
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
-        PreparedStatement preparedStatement;
         try {
-            preparedStatement = database.getConnection()
-                                .prepareStatement("select * from user where email=? and password=?");
-            preparedStatement.setString(1, loginUser.getEmail());
-            preparedStatement.setString(2, loginUser.getPassword());
-
-            System.out.println(preparedStatement.toString());
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            User user = new User();
-            while (resultSet.next()) {
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setUserType(Enum.valueOf(UserType.class,resultSet.getString("usertype")));
+            List<User> users = database.fetch(loginUser);
+            for(User user : users){
+                if(loginUser.getUserId() == user.getUserId())
+                    return user;
             }
-            System.out.println(user.getEmail());
-            System.out.println(user.getUserType());
-            return user;
-            
-        } catch (SQLException e) {
+        }catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

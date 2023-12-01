@@ -53,6 +53,7 @@ public class BaseAction extends HttpServlet {
         String content = "";
         if(servletPath.equals("/login") || servletPath.equals("/home")){
             content = HtmlComponents.getCustomerDash();
+            content+= HtmlComponents.popUpForm(entity);
         }
         content +=HtmlComponents.table(entityList, entity);
 

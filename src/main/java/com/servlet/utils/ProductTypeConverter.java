@@ -7,7 +7,7 @@ import com.servlet.view.enums.ProductCategory;
 
 public class ProductTypeConverter implements Converter{
     @SuppressWarnings("unchecked")
-     @Override
+    @Override
     public <T> T convert(Class<T> tClass, Object o) {
         String enumValName = (String) o;
         ProductCategory[] enumConstants = (ProductCategory[]) tClass.getEnumConstants();

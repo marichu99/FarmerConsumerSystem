@@ -1,14 +1,17 @@
 package com.servlet.event;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 import com.servlet.utils.EnumTypeConverter;
 
-public class EnumConverterListern implements ServletContextListener{
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
+@Startup()
+@Singleton
+public class EnumConverterListern{
+    @PreDestroy
+    public void destroySout() {
         // TODO Auto-generated method stub
          System.out.println();
         System.out.println();
@@ -21,8 +24,8 @@ public class EnumConverterListern implements ServletContextListener{
         System.out.println();
     }
 
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
+    @PostConstruct
+    public void init() {
         // TODO Auto-generated method stub
         EnumTypeConverter.registerEnumConverters();
     }

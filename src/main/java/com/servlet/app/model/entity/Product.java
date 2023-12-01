@@ -57,7 +57,7 @@ public class Product implements Serializable{
     private String productOwner;
 
     @DbTableColumn(colName = "purchaseStatus",colDescription = "VARCHAR(255)")
-    @FarmerEnumAnnot
+    // @FarmerEnumAnnot
     private PurchaseStatus purchaseStatus;
 
     public int getProdQuantity() {

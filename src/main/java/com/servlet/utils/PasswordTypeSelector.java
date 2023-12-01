@@ -10,6 +10,6 @@ import javax.inject.Qualifier;
 @Qualifier
 @Target({ElementType.FIELD,ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnumTypeSelector {
-    EnumType enumType() default EnumType.PRODUCT;
+public @interface PasswordTypeSelector {
+    PasswordEnum passwordEnum() default PasswordEnum.SHA256;
 }
