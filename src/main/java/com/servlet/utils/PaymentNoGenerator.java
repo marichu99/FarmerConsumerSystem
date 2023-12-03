@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.inject.Named;
+
+@Named("Payment")
 public class PaymentNoGenerator implements TransactionNoGenerator{
 
     @Override
