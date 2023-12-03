@@ -30,7 +30,7 @@ public class CartProduct extends Product{
 
     public CartProduct() {
     }
-
+    
     public String getProdDescription() {
         return prodDescription;
     }

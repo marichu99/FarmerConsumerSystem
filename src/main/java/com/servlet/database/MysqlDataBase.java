@@ -124,7 +124,6 @@ public class MysqlDataBase implements Serializable {
                         if (value instanceof java.sql.Date && field.getType().equals(java.time.LocalDate.class)) {
                             value = ((java.sql.Date) value).toLocalDate();
                         }
-
                         // Convert java.sql.Time to java.time.LocalTime if needed
                         if (value instanceof java.sql.Time && field.getType().equals(java.time.LocalTime.class)) {
                             value = ((java.sql.Time) value).toLocalTime();
@@ -133,6 +132,13 @@ public class MysqlDataBase implements Serializable {
                         if (field.getType().isEnum() && value instanceof String) {
                             value = Enum.valueOf((Class<Enum>) field.getType(), (String) value);
                         }
+                        // convert the value to Double if needed
+                        if (field.getType().isAssignableFrom(Double.class) && value instanceof Integer) {
+                            value = ((int) value);
+                        }
+                        if (field.getType().isAssignableFrom(Integer.class) && value instanceof Integer) {
+                            value = ((int) value);
+                        }
                         field.setAccessible(true);
                         field.set(object, value);
                     }
@@ -140,6 +146,7 @@ public class MysqlDataBase implements Serializable {
 
                 result.add(object);
             }
+            
             return result;
 
         } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException
@@ -156,8 +163,8 @@ public class MysqlDataBase implements Serializable {
                 return;
 
             DbTable dbTable = clazz.getAnnotation(DbTable.class);
-            List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
-            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+            Field[] fields = clazz.getDeclaredFields();
+            // fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
 
             StringBuilder columnBuilder = new StringBuilder();
             StringBuilder paramPLaceHolderBuilder = new StringBuilder();
@@ -294,8 +301,6 @@ public class MysqlDataBase implements Serializable {
                         field.setAccessible(true);
 
                         if (dbTableColumn.colName().equals(colName)) {
-                            System.out.println("The field value is ##"+resultSet.getObject(idx));
-                            System.out.println("The field name is ##"+field.getName());
                             // if the value obtained from the database is empty, do not set
                             if (!StringUtils.trimToEmpty((String) resultSet.getObject(idx)).isEmpty()) {
                                 BeanUtils.setProperty(bean, field.getName(), resultSet.getObject(idx));

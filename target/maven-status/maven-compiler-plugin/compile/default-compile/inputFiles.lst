@@ -26,6 +26,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/CartProduct.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/Payment.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTableColumn.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/HtmlTableColHeader.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/PasswordEnum.java

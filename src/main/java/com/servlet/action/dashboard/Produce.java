@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servlet.app.bean.CartBean;
 import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
@@ -22,8 +21,10 @@ import com.servlet.view.html.HtmlComponents;
 public class Produce extends BaseAction {
     @EJB
     private ProductBeanI productBean;
-    private CartBeanI cartBean = new CartBean();
+    @EJB
+    private CartBeanI cartBean;
     // Database database = Database.getDbInstance();
+    @EJB
     MysqlDataBase database;
 
 
