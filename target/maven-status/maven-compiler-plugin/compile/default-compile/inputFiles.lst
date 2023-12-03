@@ -11,6 +11,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/LoginForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserType.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/UserCategoryConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/AuthFormsAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/MysqlDataBase.java
