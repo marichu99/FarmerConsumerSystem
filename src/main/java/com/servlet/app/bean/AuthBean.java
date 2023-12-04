@@ -40,12 +40,14 @@ public class AuthBean implements AuthBeanI,Serializable{
             throw new RuntimeException(e.getMessage());
         }
         try {
-            String fetchUser ="FROM user u where u.password=:password and u.email=:email";
-            List<User> users = em.createQuery(fetchUser,User.class)
+            List<User> users = em.createQuery("FROM User u WHERE u.password=:password AND u.email=:email", User.class)
                 .setParameter("password", loginUser.getPassword())
-                .setParameter("email", loginUser.getEmail()).getResultList();
+                .setParameter("email", loginUser.getEmail())
+                .getResultList();
             for(User user : users){
-                if(loginUser.getUserId() == user.getUserId()){
+                System.out.println("The user is "+user.getEmail());
+                System.out.println("The login user is "+loginUser.getEmail());
+                if(loginUser.getEmail().equals(user.getEmail())){
                     // update the logs
                     AuditLog auditLog = new AuditLog(loginUser.getEmail(),LocalDateTime.now(),"User Login");          
                     logger.fire(auditLog);     

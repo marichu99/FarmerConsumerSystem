@@ -19,7 +19,7 @@
         ${requestScope.content}
         <!-- include the customerDash nav -->
     </div>
-                            
+        <script src="./js/login.js" type="text/javascript"></script>        
         <script type="text/javascript">
             function openForm(productId) {
                 document.getElementById("myForm").style.display = "flex";

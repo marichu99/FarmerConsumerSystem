@@ -46,13 +46,13 @@ public class GenericBean<T> implements GenericBeanI<T>{
         for(T element: elements){
             if(entity instanceof User){
                 User newUser = (User) element;
-                if(newUser.getUserId() == id){
+                if(newUser.getId() == id){
                     // return the new user
                     return element;
                 }
            }else if(entity instanceof Product){
                 Product newProduct = (Product)element;
-                if(newProduct.getProductId() == id){
+                if(newProduct.getId() == id){
                     // return the new product
                     return element;
                 }

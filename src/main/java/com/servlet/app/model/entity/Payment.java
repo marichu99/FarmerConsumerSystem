@@ -13,7 +13,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 @Entity
 @Table(name = "payment")
 @HtmlTable(deleteUrl = "")
-public class Payment {
+public class Payment extends BaseEntity{
     @HtmlTableColHeader(header = "Date")
     @Column(name = "Date", columnDefinition = "")
     private Date transactionDate;

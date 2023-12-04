@@ -22,7 +22,7 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
     public boolean addToCart(int productID) {
         // loop through all the products
         for(Product product: productBean.list(new Product())){
-            if(product.getProductId() == productID){
+            if(product.getId() == productID){
                 
                 // then add it to the cart products list
                 CartProduct cartProduct = new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(), product.getProductDescription());
@@ -47,7 +47,7 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
                 productBean.addOrUpdate(product);
 
                 System.out.println("The product name is "+product.getProductName());
-                System.out.println("The product ID is "+product.getProductId());
+                System.out.println("The product ID is "+product.getId());
                 System.out.println("The product description is "+product.getProductDescription());
                 // remove the matching element
                 getGenericDao().delete(cartProduct, productId);

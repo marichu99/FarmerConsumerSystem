@@ -5,12 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.servlet.database.helper.DbTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @Entity
-@Table(name = "Cart")
-@DbTable(name ="CartItem")
+@Table(name = "CartItem")
 public class CartProduct extends BaseEntity{
     
     @HtmlTableColHeader(header = "Product Name")

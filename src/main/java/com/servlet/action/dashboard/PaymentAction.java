@@ -13,12 +13,12 @@ import com.servlet.view.html.HtmlComponents;
 
 public class PaymentAction extends BaseAction {
     @EJB
-    PaymentBeanI paymentBeanI;
+    PaymentBeanI paymentBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        renderPage(req, resp, 0, HtmlComponents.table(Payment.class, ));
+        renderPage(req, resp, 0, HtmlComponents.table( paymentBean.list(new Payment()),Payment.class));
     }
 
     @Override

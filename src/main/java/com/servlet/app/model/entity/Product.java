@@ -1,12 +1,9 @@
 package com.servlet.app.model.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.PurchaseStatus;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
@@ -20,12 +17,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 @Entity
 @Table(name="products")
 @HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&productID=")
-public class Product implements Serializable{
-
-    @HtmlTableColHeader(header = "Product ID")
-    @Column(name = "productId", columnDefinition = "INT(11)")
-    @DbTableID
-    private int productId;
+public class Product extends BaseEntity{
 
     @HtmlTableColHeader(header = "Product Name")
     @Column(name = "productName", columnDefinition = "VARCHAR(255)")
@@ -76,28 +68,19 @@ public class Product implements Serializable{
     }
 
     public Product(int id, String name, String description, double price, int prodQuantity) {
-        this.productId = id;
+        super();
         this.productName = name;
         this.productDescription = description;
         this.price = price;
         this.prodQuantity =prodQuantity;
     }
     public Product(int id, String name, String description, double price, int prodQuantity, ProductCategory productCategory) {
-        this.productId = id;
+        super();
         this.productName = name;
         this.productDescription = description;
         this.price = price;
         this.prodQuantity =prodQuantity;
         this.productCategory=productCategory;
-    }
-    
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public String getProductName() {

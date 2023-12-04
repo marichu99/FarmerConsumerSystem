@@ -27,7 +27,7 @@ public class GenericDao<T> implements GenericDaoI<T> {
     @Override
     public void delete(T entity, int entityID) {
         String jpql = "DELETE FROM "+entity.getClass().getSimpleName()+" WHERE id=:id";
-        em.createQuery(jpql,entity.getClass())
+        em.createQuery(jpql)
           .setParameter("id", entityID);
         // code to remove an object from the database
     }

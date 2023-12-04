@@ -41,7 +41,7 @@ public class AuthFilter implements Filter {
         if (httpSession.isNew()) {
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.equals("/sign") || servletPath.contains("/css/") || servletPath.contains("/images/") ) {
+            if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.equals("/sign") || servletPath.contains("/css/") || servletPath.contains("/js/") ) {
                 filterChain.doFilter(servletRequest, servletResponse);
 
             } else {
@@ -55,7 +55,7 @@ public class AuthFilter implements Filter {
                 httpResponse.addHeader("AuthTime", DateFormat.getDateTimeInstance().format(new Date()));
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                if(servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/sign") || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/")){
+                if(servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/sign") || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/") || servletPath.contains("/js/")){
                     filterChain.doFilter(servletRequest, servletResponse);
                 }else{
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/");

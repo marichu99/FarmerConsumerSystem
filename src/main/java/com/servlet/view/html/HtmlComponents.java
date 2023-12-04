@@ -36,11 +36,11 @@ public class HtmlComponents extends HttpServlet {
                     "        <span class=\"prodPrice\">" + product.getPrice() + "</span><br/>\n" +
                     "        <div class=\"innerButtons\">\n" +
                     "            <button class='buttonRemove' onclick=\"window.location.href='./produce?type=product&productID="
-                    + product.getProductId() + "&mode=remove'\">Remove</button>\n" +
-                    "            <button class=\"buttonEdit\" onclick=\"openForm(" + product.getProductId()
+                    + product.getId() + "&mode=remove'\">Remove</button>\n" +
+                    "            <button class=\"buttonEdit\" onclick=\"openForm(" + product.getId()
                     + ")\">Edit</button>\n" +
                     "            <button class='button' onclick=\"window.location.href='./cart?mode=add&productId="
-                    + product.getProductId() + "'\">Buy</button>\n" +
+                    + product.getId() + "'\">Buy</button>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
                     "</div>";
@@ -202,16 +202,18 @@ public class HtmlComponents extends HttpServlet {
                 "               </tr>\n";
         Double sumProducts = 0.0;
         for (CartProduct cartProduct : models) {
+            int modelINdex= models.indexOf(cartProduct);
             shoppinCartHTML += "<tr id=\"\">\n" +
                     "\n" +
                     "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
                     "\n" +
-                    "                   <td id=\"prodQuantity\"><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  />/ <span id=\"totalQuantity\">"
+                    "                   <td id=\"prodQuantity\"><p id=\"errText"+modelINdex+"\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  onkeyup=\"calculatePrice(event,"+modelINdex+")\"/>/ <span id=\"totalQuantity"+modelINdex+"\">"
                     + cartProduct.getProdQuantity() + "</span></td>\n" +
+                    "<input type='hidden' name='hiddenQuantity' id='hiddenQuantity"+modelINdex+"' name='hiddenQuantity"+modelINdex+"' value='"+cartProduct.getProdPrice()+"'\n/>"+
                     "\n" +
                     "                   <td>" + cartProduct.getProdPrice() + " Kshs</td>\n" +
                     "\n" +
-                    "                   <td id=\"\"> Total Price "
+                    "                   <td id=comPrice"+modelINdex+"> Total Price "
                     + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</td>\n" +
                     "\n" +
                     "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
@@ -223,7 +225,7 @@ public class HtmlComponents extends HttpServlet {
                 "   </div>\n" +
                 "   <div class=\"checkout\">\n" +
                 "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: " + sumProducts + "</h3>\n" +
-                "       <input type=\"hidden\" value=\"\" id=\"numIterations\"/>\n" +
+                "       <input type=\"hidden\" value=\""+models.size()+"\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
                 "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
                 "   </div>\n" +
@@ -257,7 +259,7 @@ public class HtmlComponents extends HttpServlet {
         if (dataList != null && !dataList.isEmpty()) {
 
             for (Object data : dataList) {
-
+                System.out.println(data);
                 int id = 0;
                 trBuilder.append("<tr>");
                 for (Field field : fields) {

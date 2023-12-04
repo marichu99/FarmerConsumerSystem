@@ -13,7 +13,7 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
 
     public void updateByID(int productID,Product productUpdate){        
         for(Product product: getGenericDao().list(new Product())){
-            if(productID == product.getProductId()){
+            if(productID == product.getId()){
                 // lets update the product then
                 getGenericDao().delete(productUpdate, productID);
                 // and replace it with the new product
@@ -28,7 +28,7 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
      public Product getProductByID(int productID){
         List<Product> products = getGenericDao().list(new Product());
         for(Product product: products){
-            if(product.getProductId() == productID){
+            if(product.getId() == productID){
                 return product;
             }
         }
@@ -37,7 +37,7 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
 
     public void deleteProduct(int productID) {
         for(Product product: getGenericDao().list(new Product())){
-            if(productID == product.getProductId()){
+            if(productID == product.getId()){
                 // lets update the product then
                 getGenericDao().delete(product, productID);
                 break;

@@ -3,7 +3,6 @@ package com.servlet.app.bean;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,7 +22,7 @@ public class PaymentBean extends GenericBean<Payment> implements PaymentBeanI{
     @Override
 
     // the payment will observe the payment entity
-    public void addOrUpdate(@Observes Payment entity) {
+    public void addOrUpdate(Payment entity) {
         // TODO Auto-generated method stub
 
         entity.setTxnNumber(paymentNoGenerator.generate());

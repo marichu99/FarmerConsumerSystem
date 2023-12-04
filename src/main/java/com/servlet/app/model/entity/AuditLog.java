@@ -2,11 +2,15 @@ package com.servlet.app.model.entity;
 
 import java.time.LocalDateTime;
 
-import com.servlet.database.helper.DbTable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
-@DbTable(name = "logs")
+// @DbTable(name = "logs")
+@Entity
+@Table(name = "logs")
 public class AuditLog extends BaseEntity {
 
     @DbTableColumn(colName = "user", colDescription = "VARCHAR(255)")
