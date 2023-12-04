@@ -1,14 +1,17 @@
 package com.servlet.app.bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.User;
 import com.servlet.utils.EncryptText;
 import com.servlet.utils.PasswordEnum;
@@ -24,6 +27,9 @@ public class AuthBean implements AuthBeanI,Serializable{
     @Inject
     @PasswordTypeSelector(passwordEnum = PasswordEnum.SHA256)
     private EncryptText encryptText;
+
+    @Inject
+    private Event<AuditLog> logger;
     public User authenticatUser(User loginUser) {
 
         try{
@@ -39,8 +45,12 @@ public class AuthBean implements AuthBeanI,Serializable{
                 .setParameter("password", loginUser.getPassword())
                 .setParameter("email", loginUser.getEmail()).getResultList();
             for(User user : users){
-                if(loginUser.getUserId() == user.getUserId())                    
+                if(loginUser.getUserId() == user.getUserId()){
+                    // update the logs
+                    AuditLog auditLog = new AuditLog(loginUser.getEmail(),LocalDateTime.now(),"User Login");          
+                    logger.fire(auditLog);     
                     return user;
+                }                    
             }
         }catch (Exception e) {
             // TODO Auto-generated catch block

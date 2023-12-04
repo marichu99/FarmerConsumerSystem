@@ -215,7 +215,7 @@ public class HtmlComponents extends HttpServlet {
                     + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</td>\n" +
                     "\n" +
                     "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
-                    + cartProduct.getProductId() + "'\"></i></td>\n";
+                    + cartProduct.getId() + "'\"></i></td>\n";
             sumProducts += cartProduct.getProdPrice() * cartProduct.getProdQuantity();
         }
 

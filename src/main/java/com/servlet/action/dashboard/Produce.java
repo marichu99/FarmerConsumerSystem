@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.MysqlDataBase;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
@@ -23,9 +22,7 @@ public class Produce extends BaseAction {
     private ProductBeanI productBean;
     @EJB
     private CartBeanI cartBean;
-    // Database database = Database.getDbInstance();
-    @EJB
-    MysqlDataBase database;
+
 
 
     @Override

@@ -12,6 +12,7 @@ import com.servlet.view.enums.UserType;
 public class GlobalBean implements Serializable{
     private static String userEmail;
     private static UserType userType;
+    private static String servletPath;
 
     public static String getUserEmail() {
         return userEmail;
@@ -25,6 +26,13 @@ public class GlobalBean implements Serializable{
     public static void setUserType(UserType userType) {
         GlobalBean.userType = userType;
     }
+    public static String getServletPath() {
+        return servletPath;
+    }
+    public static void setServletPath(String servletPath) {
+        GlobalBean.servletPath = servletPath;
+    }
+    
 
         
 }

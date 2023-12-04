@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.servlet.app.bean.ProductBean;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.view.html.HtmlComponents;

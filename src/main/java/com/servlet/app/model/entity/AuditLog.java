@@ -1,42 +1,33 @@
 package com.servlet.app.model.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.servlet.database.helper.DbTable;
 import com.servlet.database.helper.DbTableColumn;
-import com.servlet.database.helper.DbTableID;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @DbTable(name = "logs")
-public class AuditLog {
-    
-    @DbTableColumn(colName ="logId",colDescription = "INT NOT NULL INCREMENT")
-    @DbTableID
-    @HtmlTableColHeader(header = "Log ID")
-    private int logId;
+public class AuditLog extends BaseEntity {
 
     @DbTableColumn(colName = "user", colDescription = "VARCHAR(255)")
     @HtmlTableColHeader(header = "User")
     private String userEmail;
 
-    @DbTableColumn(colName = "Date",colDescription = "DATE")
+    @DbTableColumn(colName = "Date", colDescription = "DATE")
     @HtmlTableColHeader(header = "TimeStamp")
-    private Date date;
+    private LocalDateTime date;
 
-    @DbTableColumn(colName = "last_visited",colDescription = "VARCHAR(255)")
-    @HtmlTableColHeader(header = "Last Page Visited")
-    private String lastVisited;
+    @DbTableColumn(colName = "user_action", colDescription = "VARCHAR(255)")
+    @HtmlTableColHeader(header = "User Action")
+    private String userAction;
 
-    
     public AuditLog() {
     }
 
-    public int getLogId() {
-        return logId;
-    }
-
-    public void setLogId(int logId) {
-        this.logId = logId;
+    public AuditLog(String userEmail, LocalDateTime date, String userAction) {
+        this.userEmail = userEmail;
+        this.date = date;
+        this.userAction = userAction;
     }
 
     public String getUserEmail() {
@@ -47,23 +38,20 @@ public class AuditLog {
         this.userEmail = userEmail;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    public String getLastVisited() {
-        return lastVisited;
+    public String getUserAction() {
+        return userAction;
     }
 
-    public void setLastVisited(String lastVisited) {
-        this.lastVisited = lastVisited;
+    public void setUserAction(String userAction) {
+        this.userAction = userAction;
     }
 
-    
-
-}   
-
+}
