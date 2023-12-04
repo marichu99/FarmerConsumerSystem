@@ -1,18 +1,19 @@
 package com.servlet.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.servlet.database.MysqlDataBase;
+import javax.persistence.EntityManager;
 
-public interface GenericDaoI<T>{
+public interface GenericDaoI<T> extends Serializable{
    List<T> list(Object entity);
 
     void addOrUpdate(T entity);
 
     void delete(T entity, int productID);
 
-    MysqlDataBase getDatabase();
+    EntityManager getEm();
 
-    void setDatabase(MysqlDataBase database);
+    void setEm(EntityManager em);
     
 }

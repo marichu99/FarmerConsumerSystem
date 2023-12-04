@@ -2,39 +2,41 @@ package com.servlet.dao;
 
 import java.util.List;
 
-import com.servlet.database.MysqlDataBase;
+import javax.persistence.EntityManager;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings({ "unchecked"})
 public class GenericDao<T> implements GenericDaoI<T> {
-    private MysqlDataBase dataBase;
+
+    private EntityManager em;
+    
     @Override
     public List<T> list(Object entity) {
+        String jpql = "FROM "+ entity.getClass().getSimpleName()+ " e";
 
-        Class clazz = entity.getClass();
+        List<T> results = (List<T>)em.createQuery(jpql, entity.getClass()).getResultList();
+
         // the select returns the unknown object and is thereby casted into the list of unknown
-        return (List<T>) dataBase.select(clazz);
+        return (List<T>) results;
     }
 
     @Override
     public void addOrUpdate(T entity) {
-        dataBase.insert(entity);
+        em.merge(entity);
     }
 
     @Override
     public void delete(T entity, int entityID) {
+        String jpql = "DELETE FROM "+entity.getClass().getSimpleName()+" WHERE id=:id";
+        em.createQuery(jpql,entity.getClass())
+          .setParameter("id", entityID);
         // code to remove an object from the database
-        dataBase.delete(entity, entityID);
     }
 
-    @Override
-    public MysqlDataBase getDatabase() {
-        // TODO Auto-generated method stub
-        return dataBase;
+    public EntityManager getEm() {
+        return em;
     }
 
-    @Override
-    public void setDatabase(MysqlDataBase database) {
-        // TODO Auto-generated method stub
-        this.dataBase=database;        
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }

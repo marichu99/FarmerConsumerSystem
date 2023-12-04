@@ -3,13 +3,13 @@ package com.servlet.app.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.servlet.app.model.entity.User;
-import com.servlet.database.MysqlDataBase;
 import com.servlet.utils.EncryptText;
 import com.servlet.utils.PasswordEnum;
 import com.servlet.utils.PasswordTypeSelector;
@@ -17,8 +17,9 @@ import com.servlet.utils.PasswordTypeSelector;
 @Stateless
 @Remote
 public class AuthBean implements AuthBeanI,Serializable{
-    @EJB
-    MysqlDataBase database;
+
+    @PersistenceContext 
+    EntityManager em;
 
     @Inject
     @PasswordTypeSelector(passwordEnum = PasswordEnum.SHA256)
@@ -33,9 +34,12 @@ public class AuthBean implements AuthBeanI,Serializable{
             throw new RuntimeException(e.getMessage());
         }
         try {
-            List<User> users = database.fetch(loginUser);
+            String fetchUser ="FROM user u where u.password=:password and u.email=:email";
+            List<User> users = em.createQuery(fetchUser,User.class)
+                .setParameter("password", loginUser.getPassword())
+                .setParameter("email", loginUser.getEmail()).getResultList();
             for(User user : users){
-                if(loginUser.getUserId() == user.getUserId())
+                if(loginUser.getUserId() == user.getUserId())                    
                     return user;
             }
         }catch (Exception e) {

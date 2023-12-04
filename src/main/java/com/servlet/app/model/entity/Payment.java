@@ -2,24 +2,28 @@ package com.servlet.app.model.entity;
 
 import java.util.Date;
 
-import com.servlet.database.helper.DbTable;
-import com.servlet.database.helper.DbTableColumn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
-@DbTable(name = "table")
+// @DbTable(name = "table")
+@Entity
+@Table(name = "payment")
 @HtmlTable(deleteUrl = "")
 public class Payment {
     @HtmlTableColHeader(header = "Date")
-    @DbTableColumn(colName = "Date", colDescription = "")
+    @Column(name = "Date", columnDefinition = "")
     private Date transactionDate;
 
     @HtmlTableColHeader(header = "Transaction Number")
-    @DbTableColumn(colName = "txnNumber", colDescription = "VARCHAR(255)")
+    @Column(name = "txnNumber", columnDefinition = "VARCHAR(255)")
     private String txnNumber;
 
     @HtmlTableColHeader(header = "Price")
-    @DbTableColumn(colName = "Price", colDescription = "DOUBLE")
+    @Column(name = "Price", columnDefinition = "DOUBLE")
     private Double Price;
 
     public Payment() {

@@ -2,8 +2,10 @@ package com.servlet.app.model.entity;
 
 import java.io.Serializable;
 
-import com.servlet.database.helper.DbTable;
-import com.servlet.database.helper.DbTableColumn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.servlet.database.helper.DbTableID;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.PurchaseStatus;
@@ -15,48 +17,49 @@ import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
-@DbTable(name = "products")
+@Entity
+@Table(name="products")
 @HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&productID=")
 public class Product implements Serializable{
 
     @HtmlTableColHeader(header = "Product ID")
-    @DbTableColumn(colName = "productId", colDescription = "INT(11)")
+    @Column(name = "productId", columnDefinition = "INT(11)")
     @DbTableID
     private int productId;
 
     @HtmlTableColHeader(header = "Product Name")
-    @DbTableColumn(colName = "productName", colDescription = "VARCHAR(255)")
+    @Column(name = "productName", columnDefinition = "VARCHAR(255)")
     @FarmerGridView(className = "prodName")
     @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize")
     private String productName;
 
     @HtmlTableColHeader(header = "Product Description")
-    @DbTableColumn(colName = "productDescription", colDescription = "VARCHAR(255)")
+    @Column(name = "productDescription", columnDefinition = "VARCHAR(255)")
     @FarmerGridView(className = "prodLocation")
     @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description")
     private String productDescription;
 
     @HtmlTableColHeader(header = "Price")
-    @DbTableColumn(colName="price", colDescription = "INT(11)")
+    @Column(name="price", columnDefinition = "INT(11)")
     @FarmerGridView(className = "prodPrice")
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
     private double price;
 
     @HtmlTableColHeader(header = "Product Quantity")
-    @DbTableColumn(colName = "productQuantity", colDescription = "INT(11)")
+    @Column(name = "productQuantity", columnDefinition = "INT(11)")
     @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
     private int prodQuantity;
 
     @HtmlTableColHeader(header = "Product Category")
-    @DbTableColumn(colName = "productCategory", colDescription = "VARCHAR(255)")
+    @Column(name = "productCategory", columnDefinition = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
     @FarmerEnumAnnot
     private ProductCategory productCategory;
 
-    @DbTableColumn(colName = "productOwner",colDescription = "VARCHAR(255)")
+    @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
     private String productOwner;
 
-    @DbTableColumn(colName = "purchaseStatus",colDescription = "VARCHAR(255)")
+    @Column(name = "purchaseStatus",columnDefinition = "VARCHAR(255)")
     // @FarmerEnumAnnot
     private PurchaseStatus purchaseStatus;
 

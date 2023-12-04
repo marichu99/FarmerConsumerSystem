@@ -1,32 +1,35 @@
 package com.servlet.app.model.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.servlet.database.helper.DbTable;
-import com.servlet.database.helper.DbTableColumn;
-import com.servlet.database.helper.DbTableID;
-import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
-@HtmlTable(name = "Cart")
+@Entity
+@Table(name = "Cart")
 @DbTable(name ="CartItem")
-public class CartProduct extends Product{
-    @DbTableColumn(colName = "productId",colDescription = "INT")
-    @DbTableID
-    private int productId;
+public class CartProduct extends BaseEntity{
     
     @HtmlTableColHeader(header = "Product Name")
-    @DbTableColumn(colName = "productName", colDescription = "VARCHAR(255)")
+    @Column(name = "productName", columnDefinition = "VARCHAR(255)")
     private String prodName;
 
     @HtmlTableColHeader(header = "Price")
-    @DbTableColumn(colName = "Price",colDescription = "INT(11)")
+    @Column(name = "Price",columnDefinition = "INT(11)")
     private Double prodPrice;
 
-    @DbTableColumn(colName = "productQuantity", colDescription = "INT(11)")
+    @Column(name = "productQuantity", columnDefinition = "INT(11)")
     @HtmlTableColHeader(header = "Quantity")
     private int prodQuantity;
 
-    @DbTableColumn(colName = "productDescription",colDescription = "VARCHAR(255)")
+    @Column(name = "productDescription",columnDefinition = "VARCHAR(255)")
     private String prodDescription;
+
+    @Transient
+    private int productId;
 
     public CartProduct() {
     }
@@ -54,12 +57,6 @@ public class CartProduct extends Product{
     }
     public void setProdQuantity(int prodQuantity) {
         this.prodQuantity = prodQuantity;
-    }
-    public int getProductId() {
-        return productId;
-    }
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
     public CartProduct(int productId, String prodName, Double prodPrice, int prodQuantity, String prodDescription) {
         this.productId = productId;

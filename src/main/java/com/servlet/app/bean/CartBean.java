@@ -3,27 +3,32 @@ package com.servlet.app.bean;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.Product;
-import com.servlet.database.MysqlDataBase;
 
 @Stateless
 @Remote
 public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
+
+    @PersistenceContext
+    EntityManager em;
     @EJB
-    MysqlDataBase dataBase;
+    private ProductBeanI productBean;
+
     @Override
     public boolean addToCart(int productID) {
         // loop through all the products
-        for(Product product: dataBase.select(Product.class)){
+        for(Product product: productBean.list(new Product())){
             if(product.getProductId() == productID){
                 
                 // then add it to the cart products list
                 CartProduct cartProduct = new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(), product.getProductDescription());
-                dataBase.insert(cartProduct);
+                getGenericDao().addOrUpdate(cartProduct);
                 
-                dataBase.delete(product, productID);
+                productBean.delete(product, productID);
                 
                 return true;
             }else{
@@ -35,17 +40,17 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
 
     @Override
     public boolean removeByID(int productId) {
-        for(CartProduct cartProduct: dataBase.select(CartProduct.class)){
-            if(cartProduct.getProductId() == productId){
+        for(CartProduct cartProduct: getGenericDao().list(new CartProduct())){
+            if(cartProduct.getId() == productId){
                 // then add it back to the products list
-                Product product = new Product(cartProduct.getProductId(),cartProduct.getProdName(),cartProduct.getProdDescription(),cartProduct.getProdPrice(),cartProduct.getProdQuantity());
-                dataBase.insert(product);
+                Product product = new Product(cartProduct.getId(),cartProduct.getProdName(),cartProduct.getProdDescription(),cartProduct.getProdPrice(),cartProduct.getProdQuantity());
+                productBean.addOrUpdate(product);
 
                 System.out.println("The product name is "+product.getProductName());
                 System.out.println("The product ID is "+product.getProductId());
                 System.out.println("The product description is "+product.getProductDescription());
                 // remove the matching element
-                dataBase.delete(cartProduct, productId);
+                getGenericDao().delete(cartProduct, productId);
                 
                 return true;
             }

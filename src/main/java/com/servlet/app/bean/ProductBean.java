@@ -12,12 +12,12 @@ import com.servlet.app.model.entity.Product;
 public class ProductBean extends GenericBean<Product> implements ProductBeanI{
 
     public void updateByID(int productID,Product productUpdate){        
-        for(Product product: getGenericDao().getDatabase().select(Product.class)){
+        for(Product product: getGenericDao().list(new Product())){
             if(productID == product.getProductId()){
                 // lets update the product then
-                database.delete(productUpdate, productID);
+                getGenericDao().delete(productUpdate, productID);
                 // and replace it with the new product
-                database.insert(productUpdate);
+                getGenericDao().addOrUpdate(productUpdate);
                 break;
             }else{
                 // otherwise continue
@@ -26,7 +26,7 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
         }
     }
      public Product getProductByID(int productID){
-        List<Product> products = database.select(Product.class);
+        List<Product> products = getGenericDao().list(new Product());
         for(Product product: products){
             if(product.getProductId() == productID){
                 return product;
@@ -36,10 +36,10 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
     }
 
     public void deleteProduct(int productID) {
-        for(Product product: database.select(Product.class)){
+        for(Product product: getGenericDao().list(new Product())){
             if(productID == product.getProductId()){
                 // lets update the product then
-                database.delete(product, productID);
+                getGenericDao().delete(product, productID);
                 break;
             }else{
                 // otherwise continue
