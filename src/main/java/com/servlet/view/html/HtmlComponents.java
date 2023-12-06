@@ -46,26 +46,6 @@ public class HtmlComponents extends HttpServlet {
                     "</div>";
         }
         allProduce += "</div>";
-        allProduce += "<div class=\"form-popup\" id=\"myForm\">\n" +
-                "    <form action=\"./produce\" class=\"form-container\" method=\"POST\">\n" +
-                "        <h2>Edit Details</h2>\n" +
-                "        <input type=\"hidden\" id=\"hiddenId\" name=\"productId\">\n" +
-                "        <input type=\"hidden\" value=\"update\" name=\"product\">\n" +
-                "        <label for=\"email\"><b>Product Name</b></label>\n" +
-                "        <input type=\"text\" placeholder=\"Enter product name\" name=\"productName\" required>\n" +
-                "        <label for=\"psw\"><b>Product Description</b></label>\n" +
-                "        <input type=\"text\" placeholder=\"Enter product description\" name=\"productDescription\" required>\n"
-                +
-                "        <label for=\"email\"><b>Product Quantity</b></label>\n" +
-                "        <input type=\"number\" placeholder=\"Enter desired quantity\" name=\"prodQuantity\" required>\n"
-                +
-                "        <label for=\"psw\"><b>Price</b></label>\n" +
-                "        <input type=\"number\" placeholder=\"Enter desired price per Quantity\" name=\"price\" required>\n"
-                +
-                "  3      <button type=\"submit\" class=\"btn\">Edit</button>\n" +
-                "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
-                "    </form>\n" +
-                "</div>";
         allProduce += "<script type=\"text/javascript\">\n" +
                 "    function openForm(productId) {\n" +
                 "        document.getElementById(\"myForm\").style.display = \"flex\";\n" +
@@ -97,7 +77,7 @@ public class HtmlComponents extends HttpServlet {
             if (field.isAnnotationPresent(DbTableID.class)) {
                 popUpForm += "<input type=\"hidden\" id=\"hiddenId\" name=\"" + field.getName() + "\">\n";
             }
-            if (field.isAnnotationPresent(FarmerHtmlFormField.class)) {
+            if (field.isAnnotationPresent(FarmerHtmlFormField.class) && !field.isAnnotationPresent(FarmerEnumAnnot.class)) {
                 FarmerHtmlFormField farmerFormField = field.getAnnotation(FarmerHtmlFormField.class);
                 popUpForm += "        <label for=\"email\"><b>" + farmerFormField.formName() + "</b></label>\n" +
                         "        <input type=\"" + farmerFormField.formType() + "\" placeholder=\""
