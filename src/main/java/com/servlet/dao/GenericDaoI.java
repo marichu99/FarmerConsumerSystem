@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 public interface GenericDaoI<T> extends Serializable{
-   List<T> list(Object entity);
+   List<T> list(T entity);
 
     void addOrUpdate(T entity);
 
@@ -15,5 +15,7 @@ public interface GenericDaoI<T> extends Serializable{
     EntityManager getEm();
 
     void setEm(EntityManager em);
+
+    List<T> allElements(T entity);
     
 }

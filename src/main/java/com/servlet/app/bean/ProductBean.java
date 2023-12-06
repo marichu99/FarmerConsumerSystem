@@ -12,8 +12,9 @@ import com.servlet.app.model.entity.Product;
 public class ProductBean extends GenericBean<Product> implements ProductBeanI{
 
     public void updateByID(int productID,Product productUpdate){        
-        for(Product product: getGenericDao().list(new Product())){
+        for(Product product: getGenericDao().allElements(new Product())){
             if(productID == product.getId()){
+                System.out.println("The name of the product is "+product.getProductName());
                 // lets update the product then
                 getGenericDao().delete(productUpdate, productID);
                 // and replace it with the new product

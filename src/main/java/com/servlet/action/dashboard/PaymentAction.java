@@ -18,7 +18,7 @@ public class PaymentAction extends BaseAction {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        renderPage(req, resp, 0, HtmlComponents.table( paymentBean.list(new Payment()),Payment.class));
+        renderPage(req, resp, 0, HtmlComponents.table( paymentBean.allElements(new Payment()),Payment.class));
     }
 
     @Override

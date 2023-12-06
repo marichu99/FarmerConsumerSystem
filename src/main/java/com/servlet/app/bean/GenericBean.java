@@ -2,6 +2,7 @@ package com.servlet.app.bean;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,11 +15,11 @@ public class GenericBean<T> implements GenericBeanI<T>{
     @PersistenceContext
     private EntityManager em;
 
-
-    private final GenericDao<T> genericDao = new GenericDao<>();
+    @Inject
+    private GenericDao<T> genericDao;
 
     @Override
-    public List<T> list(Object entity) {
+    public List<T> list(T entity) {
         genericDao.setEm(em);
         return genericDao.list(entity);
     }
@@ -60,6 +61,13 @@ public class GenericBean<T> implements GenericBeanI<T>{
         }
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public List<T> allElements(T entity) {
+        // TODO Auto-generated method stub
+        genericDao.setEm(em);        
+        return genericDao.allElements(entity);
     }
 
   

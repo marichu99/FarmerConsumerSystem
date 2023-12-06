@@ -1,6 +1,5 @@
 package com.servlet.app.bean;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,10 +15,11 @@ import com.servlet.app.model.entity.User;
 import com.servlet.utils.EncryptText;
 import com.servlet.utils.PasswordEnum;
 import com.servlet.utils.PasswordTypeSelector;
+import com.servlet.view.enums.UserAction;
 
 @Stateless
 @Remote
-public class AuthBean implements AuthBeanI,Serializable{
+public class AuthBean extends GenericBean<User> implements AuthBeanI{
 
     @PersistenceContext 
     EntityManager em;
@@ -40,16 +40,13 @@ public class AuthBean implements AuthBeanI,Serializable{
             throw new RuntimeException(e.getMessage());
         }
         try {
-            List<User> users = em.createQuery("FROM User u WHERE u.password=:password AND u.email=:email", User.class)
-                .setParameter("password", loginUser.getPassword())
-                .setParameter("email", loginUser.getEmail())
-                .getResultList();
+            List<User> users = list(loginUser);
             for(User user : users){
                 System.out.println("The user is "+user.getEmail());
                 System.out.println("The login user is "+loginUser.getEmail());
                 if(loginUser.getEmail().equals(user.getEmail())){
                     // update the logs
-                    AuditLog auditLog = new AuditLog(loginUser.getEmail(),LocalDateTime.now(),"User Login");          
+                    AuditLog auditLog = new AuditLog(loginUser.getEmail(),LocalDateTime.now(),UserAction.LOGIN.getValue());          
                     logger.fire(auditLog);     
                     return user;
                 }                    

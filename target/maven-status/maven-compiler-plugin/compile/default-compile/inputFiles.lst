@@ -32,6 +32,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/PasswordEnum.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerHtmlForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerEnumAnnot.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/Home.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/AdminAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/PaymentAction.java

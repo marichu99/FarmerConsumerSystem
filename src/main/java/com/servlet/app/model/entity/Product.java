@@ -15,7 +15,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
 @Entity
-@Table(name="products")
+@Table(name="Product")
 @HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&productID=")
 public class Product extends BaseEntity{
 

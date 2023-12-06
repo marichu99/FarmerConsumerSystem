@@ -19,7 +19,7 @@ public class Buy extends BaseAction{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list(Product.class)));
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.allElements(new Product())));
     }
 
     @Override

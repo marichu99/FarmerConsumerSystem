@@ -63,7 +63,7 @@ public class Produce extends BaseAction {
                 "</body>" +
                 "</html>");
         }
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.list(new Product())));
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.allElements(new Product())));
         // renderSpecific(req, resp, Product.class, productBean.list());
       
     }
