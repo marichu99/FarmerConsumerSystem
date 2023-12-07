@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +12,7 @@ import com.servlet.app.bean.PaymentBeanI;
 import com.servlet.app.model.entity.Payment;
 import com.servlet.view.html.HtmlComponents;
 
+@WebServlet(urlPatterns = "/payments")
 public class PaymentAction extends BaseAction {
     @EJB
     PaymentBeanI paymentBean;

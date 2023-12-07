@@ -35,6 +35,6 @@ public class Home extends BaseAction {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {       
 
         // new AppPage().renderHtml(req, resp, 0, allHtml.getAllHtml(),allCss.getCssCode());
-        renderSpecific(req, resp, Product.class, productBean.list(new Product()));
+        renderSpecific(req, resp, Product.class, productBean.allElements(new Product()));
     }
 }

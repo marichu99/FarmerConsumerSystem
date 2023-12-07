@@ -22,6 +22,7 @@ com/servlet/utils/UserTypeConverter.class
 com/servlet/app/bean/UserBean.class
 com/servlet/view/html/ApprovalHtml.class
 com/servlet/action/dashboard/SignUp.class
+com/servlet/view/html/annotation/NumericTypeAnnot.class
 com/servlet/app/bean/ProductBeanI.class
 com/servlet/app/bean/PaymentBeanI.class
 com/servlet/app/bean/CartBeanI.class

@@ -31,9 +31,9 @@ public class GenericBean<T> implements GenericBeanI<T>{
     }
 
     @Override
-    public void delete(T entity, int entityID) {
+    public void delete(T entity) {
         genericDao.setEm(em);
-        genericDao.delete(entity,entityID);
+        genericDao.delete(entity);
     }
 
     public GenericDao<T> getGenericDao() {

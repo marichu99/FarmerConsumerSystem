@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
+import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
@@ -23,6 +24,8 @@ public class Produce extends BaseAction {
     @EJB
     private CartBeanI cartBean;
 
+    @EJB
+    GlobalBean globalBean;
 
 
     @Override
@@ -41,7 +44,7 @@ public class Produce extends BaseAction {
                 Product product = productBean.getProductByID(productID);
                 System.out.println("############## Product Name "+product.getProductName());
 
-                productBean.delete(product,productID);
+                productBean.delete(product);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -63,7 +66,7 @@ public class Produce extends BaseAction {
                 "</body>" +
                 "</html>");
         }
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.allElements(new Product())));
+        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.selectByUser(new Product(), GlobalBean.getUserEmail())));
         // renderSpecific(req, resp, Product.class, productBean.list());
       
     }

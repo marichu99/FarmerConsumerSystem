@@ -28,7 +28,7 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
                 CartProduct cartProduct = new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(), product.getProductDescription());
                 getGenericDao().addOrUpdate(cartProduct);
                 
-                productBean.delete(product, productID);
+                productBean.delete(product);
                 
                 return true;
             }else{
@@ -50,7 +50,7 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
                 System.out.println("The product ID is "+product.getId());
                 System.out.println("The product description is "+product.getProductDescription());
                 // remove the matching element
-                getGenericDao().delete(cartProduct, productId);
+                getGenericDao().delete(cartProduct);
                 
                 return true;
             }

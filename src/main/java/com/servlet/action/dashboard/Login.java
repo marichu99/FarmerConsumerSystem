@@ -3,7 +3,6 @@ package com.servlet.action.dashboard;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -60,14 +59,8 @@ public class Login extends BaseAction {
             GlobalBean.setUserEmail(userDetails.getEmail());
 
             boolean isTypeMatching = reqUserType.equals(userType.toString());
-            List<Product> products = productBean.allElements(new Product());
-            if(products.isEmpty()){
-                System.out.println("The PRODUCTS ARE EMPTY");
-            }
             if (isTypeMatching && reqUserType.equals("USER")) {
                 httpSession.setAttribute("userType", "user");
-                // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
-
                 renderSpecific(req, resp, Product.class, productBean.allElements(new Product()));
             } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
                 httpSession.setAttribute("userType", "admin");

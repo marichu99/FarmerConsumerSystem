@@ -26,7 +26,7 @@ public class UserAction extends BaseAction{
         
         if(action.equals("delete"))
             // get the user element by Id                        
-            userBean.delete((User)userBean.getByID(id, new User()),id);     
+            userBean.delete((User)userBean.getByID(id, new User()));     
             printWriter.write("<html>" +
                         "<body>" +
                         "<script type='text/javascript'>" +

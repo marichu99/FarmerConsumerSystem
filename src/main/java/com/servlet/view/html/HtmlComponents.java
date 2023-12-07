@@ -1,6 +1,9 @@
 package com.servlet.view.html;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -223,7 +226,8 @@ public class HtmlComponents extends HttpServlet {
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<table class=" + htmlTable.className() + "><tr>");
 
-        Field[] fields = dataClass.getDeclaredFields();
+        List<Field> fields = new ArrayList<>(Arrays.asList(dataClass.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(dataClass.getDeclaredFields()));
 
         for (Field field : fields) {
             if (!field.isAnnotationPresent(HtmlTableColHeader.class))
@@ -239,8 +243,15 @@ public class HtmlComponents extends HttpServlet {
         if (dataList != null && !dataList.isEmpty()) {
 
             for (Object data : dataList) {
-                System.out.println(data);
-                int id = 0;
+                Object id = null;
+                try {
+                    id = dataClass.getMethod("getId").invoke(data);
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                        | NoSuchMethodException | SecurityException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
                 trBuilder.append("<tr>");
                 for (Field field : fields) {
                     if (!field.isAnnotationPresent(HtmlTableColHeader.class))
@@ -248,9 +259,7 @@ public class HtmlComponents extends HttpServlet {
 
                     try {
                         field.setAccessible(true);
-                        // if the field is of the type ID, then we set the id variable
-                        if (field.isAnnotationPresent(DbTableID.class))
-                            id = (int) field.get(data);
+
                         trBuilder.append("<td>").append(field.get(data)).append("</td>");
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);

@@ -2,6 +2,7 @@ package com.servlet.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.servlet.view.enums.ProductCategory;
@@ -12,6 +13,7 @@ import com.servlet.view.html.annotation.FarmerHtmlForm;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
+import com.servlet.view.html.annotation.NumericTypeAnnot;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
 @Entity
@@ -35,11 +37,13 @@ public class Product extends BaseEntity{
     @Column(name="price", columnDefinition = "INT(11)")
     @FarmerGridView(className = "prodPrice")
     @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
-    private double price;
+    @NumericTypeAnnot
+    private Double price;    
 
     @HtmlTableColHeader(header = "Product Quantity")
     @Column(name = "productQuantity", columnDefinition = "INT(11)")
     @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
+    @NumericTypeAnnot
     private int prodQuantity;
 
     @HtmlTableColHeader(header = "Product Category")

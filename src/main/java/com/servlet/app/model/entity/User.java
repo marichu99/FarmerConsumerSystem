@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.servlet.view.enums.UserCategory;
@@ -44,6 +46,9 @@ public class User extends BaseEntity {
     @Column(name = "userCategory", columnDefinition = "VARCHAR(255)")
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
 
     public User(String email, String password, String username, UserType userType) {
         this.email = email;

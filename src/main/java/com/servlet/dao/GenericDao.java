@@ -28,7 +28,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
     @PersistenceContext
     private EntityManager em;
 
-    Event<AuditLog> logger;
+    @Inject
+    private Event<AuditLog> logger;
 
     @Inject
     GlobalBean globalBean;
@@ -58,6 +59,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
             try {
                 if (field.get(entity) != null) {
+                    System.out.println(field.getName()+" is not null");
+                    System.out.println("the value is "+field.get(entity));
                     String colName = StringUtils.isEmpty(column.name()) ? field.getName() : column.name();
                     // convert the value to enum if needed
                     if (!field.isAnnotationPresent(AuthFormsAnnot.class)) {
@@ -102,7 +105,7 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
     @Override
-    public void delete(T entity, int entityID) {
+    public void delete(T entity) {
 
         em.remove(em.contains(entity) ? entity : em.merge(entity));
         // code to remove an object from the database

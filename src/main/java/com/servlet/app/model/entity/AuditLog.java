@@ -2,10 +2,10 @@ package com.servlet.app.model.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.servlet.database.helper.DbTableColumn;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 // @DbTable(name = "logs")
@@ -13,15 +13,15 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 @Table(name = "logs")
 public class AuditLog extends BaseEntity {
 
-    @DbTableColumn(colName = "user", colDescription = "VARCHAR(255)")
+    @Column(name = "user", columnDefinition = "VARCHAR(255)")
     @HtmlTableColHeader(header = "User")
     private String userEmail;
 
-    @DbTableColumn(colName = "Date", colDescription = "DATE")
+    @Column(name = "Date", columnDefinition = "DATE")
     @HtmlTableColHeader(header = "TimeStamp")
     private LocalDateTime date;
 
-    @DbTableColumn(colName = "user_action", colDescription = "VARCHAR(255)")
+    @Column(name = "user_action", columnDefinition = "VARCHAR(255)")
     @HtmlTableColHeader(header = "User Action")
     private String userAction;
 
