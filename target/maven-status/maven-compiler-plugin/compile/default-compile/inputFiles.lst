@@ -1,6 +1,9 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/ProductBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Sell.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/model/Mail.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UserProfileAction.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/bean/MailBeanI.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/bean/MailBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/TextEncryptMD5.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/filter/AuthFilter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBeanI.java
@@ -21,6 +24,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Reports.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeSelector.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/GlobalBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/utility/MailFormatter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerGridView.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Login.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Approvals.java
@@ -67,6 +71,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Track.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/HtmlComponents.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/BaseEntity.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/bean/Protocol.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuditLogBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/dao/GenericDaoI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/PaymentBean.java

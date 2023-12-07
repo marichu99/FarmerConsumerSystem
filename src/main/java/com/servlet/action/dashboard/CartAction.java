@@ -30,10 +30,10 @@ public class CartAction extends BaseAction{
             boolean isItemAdded = cartBean.addToCart(productId);
             if(isItemAdded){
                 req.setAttribute("Source", "./js/form.js");
-                renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.list(new CartProduct())));
+                renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.allElements(new CartProduct())));
             }
         }else{
-            renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.list(new CartProduct())));
+            renderPage(req, resp, 0, HtmlComponents.cartItems(cartBean.allElements(new CartProduct())));
         }       
 
     }

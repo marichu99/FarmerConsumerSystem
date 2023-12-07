@@ -29,8 +29,11 @@ com/servlet/app/bean/CartBeanI.class
 com/servlet/utils/PasswordTypeSelector.class
 com/servlet/view/html/annotation/FarmerGridView.class
 com/servlet/view/enums/ProductCategory.class
+com/servlet/mail/utility/MailFormatter.class
 com/servlet/database/helper/DbTableColumn.class
 com/servlet/view/html/annotation/AuthFormsAnnot.class
+com/servlet/mail/model/Mail.class
+com/servlet/mail/bean/MailBean$1.class
 com/servlet/dao/GenericDaoI.class
 com/servlet/utils/GlobalBean.class
 com/servlet/action/dashboard/Logout.class
@@ -41,6 +44,7 @@ com/servlet/app/bean/CartBean.class
 com/servlet/action/dashboard/Track.class
 com/servlet/app/model/entity/User.class
 com/servlet/app/model/view/MenuLink.class
+com/servlet/mail/bean/MailBean.class
 com/servlet/app/bean/AuthBeanI.class
 com/servlet/app/bean/GenericBeanI.class
 com/servlet/action/dashboard/AdminAction.class
@@ -64,6 +68,7 @@ com/servlet/app/model/entity/Payment.class
 com/servlet/view/html/annotation/HtmlTableColHeader.class
 com/servlet/utils/ProductTypeConverter.class
 com/servlet/database/helper/DbTable.class
+com/servlet/mail/bean/MailBeanI.class
 com/servlet/view/html/HtmlComponents.class
 com/servlet/app/model/entity/Product.class
 com/servlet/view/html/annotation/HtmlTable.class
@@ -74,4 +79,5 @@ com/servlet/app/model/entity/AuditLog.class
 com/servlet/action/dashboard/Reports.class
 com/servlet/action/dashboard/Approvals.class
 com/servlet/utils/EncryptText.class
+com/servlet/mail/bean/Protocol.class
 com/servlet/database/helper/DbTableID.class

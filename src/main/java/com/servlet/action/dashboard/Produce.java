@@ -85,8 +85,12 @@ public class Produce extends BaseAction {
                 int productID = Integer.parseInt(req.getParameter("productId"));
                 // serialize the form first
                 Product product = serializeForm(Product.class, req.getParameterMap());
+                // add the product owner and the product ID to the product object
+                product.setProductOwner(req.getParameter("productOwner"));
+                product.setId(productID);
+                System.out.println("The product owner is ##"+product.getProductOwner());
                 // then run the update by id methos
-                productBean.updateByID(productID, product);
+                productBean.addOrUpdate(product);
             }
         } else {
             // if no update then create a new product    
