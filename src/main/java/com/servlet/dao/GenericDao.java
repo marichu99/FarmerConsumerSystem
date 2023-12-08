@@ -108,6 +108,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
     public void delete(T entity) {
 
         em.remove(em.contains(entity) ? entity : em.merge(entity));
+        AuditLog auditLog = new AuditLog(GlobalBean.getUserEmail(),LocalDateTime.now(),UserAction.DELETE_ITEM.getValue());
+        logger.fire(auditLog);
         // code to remove an object from the database
     }
 

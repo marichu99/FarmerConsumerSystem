@@ -7,7 +7,8 @@ public enum UserAction {
     ADD_TO_CART("item added to cart"),
     BUY("item bought"),
     SOLD("item sold"),
-    ADD_ITEM("item added");
+    ADD_ITEM("item added"),
+    DELETE_ITEM("item deleted");
 
     private String value;
 

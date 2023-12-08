@@ -15,7 +15,6 @@ import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.utils.GlobalBean;
-import com.servlet.view.html.HtmlComponents;
 
 @WebServlet("/produce")
 public class Produce extends BaseAction {
@@ -37,7 +36,7 @@ public class Produce extends BaseAction {
         PrintWriter printWriter = resp.getWriter();
         if (type.equals("product") && mode.equals("remove")) {
             // get the id that has been passed
-            if (StringUtils.isNotBlank(req.getParameter("productID"))) {
+            if (StringUtils.isNotBlank(req.getParameter("id"))) {
                 int productID = Integer.parseInt(req.getParameter("productID"));
                 // remove by the id
                 // get the product by ID
@@ -66,8 +65,8 @@ public class Produce extends BaseAction {
                 "</body>" +
                 "</html>");
         }
-        renderPage(req, resp, 0, HtmlComponents.gridView(productBean.selectByUser(new Product(), GlobalBean.getUserEmail())));
-        // renderSpecific(req, resp, Product.class, productBean.list());
+        // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.selectByUser(new Product(), GlobalBean.getUserEmail())));
+        renderSpecific(req, resp, Product.class, productBean.selectByUser(new Product(),GlobalBean.getUserEmail()));
       
     }
 
@@ -78,23 +77,30 @@ public class Produce extends BaseAction {
         // get the existing database instance
         // check if we have a product that needs to be updated first
 
-        String mode = StringUtils.trimToEmpty(req.getParameter("product"));
+        String mode = StringUtils.trimToEmpty(req.getParameter("Product"));
+        System.out.println("The mode is ####"+mode);
         if (StringUtils.isNotBlank(mode)) {
             if (mode.equals("update")) {
                 // lets get the ID from the parameter map
-                int productID = Integer.parseInt(req.getParameter("productId"));
+                int productID = Integer.parseInt(req.getParameter("id"));
                 // serialize the form first
                 Product product = serializeForm(Product.class, req.getParameterMap());
                 // add the product owner and the product ID to the product object
-                product.setProductOwner(req.getParameter("productOwner"));
+                product.setProductOwner(GlobalBean.getUserEmail());
                 product.setId(productID);
                 System.out.println("The product owner is ##"+product.getProductOwner());
                 // then run the update by id methos
                 productBean.addOrUpdate(product);
+                resp.sendRedirect("./produce");
             }
         } else {
             // if no update then create a new product    
             Product product = serializeForm(Product.class, req.getParameterMap());
+
+            System.out.println("The form has been serialized #####");
+            // set the user
+            product.setProductOwner(GlobalBean.getUserEmail());
+
             
             try {
                 productBean.addOrUpdate(product);

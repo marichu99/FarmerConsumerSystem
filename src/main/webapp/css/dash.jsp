@@ -325,16 +325,16 @@
         height: 150px;
         border-radius: 20px;
     }
-    .prodName{
+    .productName{
         font-weight: bold;
         font-size: 20px;
     }
-    .prodLocation{
+    .productDescription{
         font-weight: 300;
         font-size: 15px;
         font-size: small;
     }
-    .prodPrice{
+    .price{
         font-weight: bold;
         font-size: 15px;
         color: dark-blue;

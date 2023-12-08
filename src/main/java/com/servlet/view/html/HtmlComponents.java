@@ -17,6 +17,7 @@ import com.servlet.app.model.entity.Product;
 import com.servlet.database.helper.DbTableID;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
+import com.servlet.view.html.annotation.FarmerGridView;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
@@ -26,47 +27,71 @@ public class HtmlComponents extends HttpServlet {
     @EJB
     private static GlobalBean globalBean;
 
-    public static String gridView(List<Product> models) {
-        String allProduce = "<div class ='prodDetails'>";
-        for (Product product : models) {
-            allProduce += "<div class=\"prod_item\">\n" +
-                    "    <div class=\"imgDiv\">\n" +
-                    "        <img src='./images/corn.jpg' class=\"image_prod\"/><br/>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"deetsDiv\">\n" +
-                    "        <span class=\"prodName\">" + product.getProductName() + "</span><br/>\n" +
-                    "        <span class=\"prodLocation\">" + product.getProductDescription() + "</span><br/>\n" +
-                    "        <span class=\"prodPrice\">" + product.getPrice() + "</span><br/>\n" +
-                    "        <div class=\"innerButtons\">\n" +
-                    "            <button class='buttonRemove' onclick=\"window.location.href='./produce?type=product&productID="
-                    + product.getId() + "&mode=remove'\">Remove</button>\n" +
-                    "            <button class=\"buttonEdit\" onclick=\"openForm(" + product.getId()
-                    + ")\">Edit</button>\n" +
-                    "            <button class='button' onclick=\"window.location.href='./cart?mode=add&productId="
-                    + product.getId() + "'\">Buy</button>\n" +
-                    "        </div>\n" +
-                    "    </div>\n" +
-                    "</div>";
-        }
-        allProduce += "</div>";
-        allProduce += "<script type=\"text/javascript\">\n" +
-                "    function openForm(productId) {\n" +
-                "        document.getElementById(\"myForm\").style.display = \"flex\";\n" +
-                "        document.getElementById(\"hiddenId\").value = productId;\n" +
-                "    }\n\n" +
-                "    function closeForm() {\n" +
-                "        document.getElementById(\"myForm\").style.display = \"none\";\n" +
-                "    }\n" +
-                "</script>";
-        // lets pass the objects using httpsessions
+    public static String gridView(Class<?> clazz, List<?> entityList) {
 
-        // loop though the array of declared fields and add the HTML
+        List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+
+        System.out.println("The class name is "+clazz.getSimpleName());
+        String allProduce = "<div class ='prodDetails'>"
+                             ;
+                    
+            
+            for (Object object : entityList) {
+                allProduce+="  <div class=\"prod_item\">\n"+
+                    "           <div class=\"imgDiv\">\n" +
+                    "            <img src='./images/corn.jpg' class=\"image_prod\"/><br/>\n" +
+                    "           </div>\n" +
+                    "           <div class=\"deetsDiv\">\n";
+                Object id = null;
+                for(Field field : fields){
+                    try {
+                        field.setAccessible(true);
+                        if(field.get(object)!=null){
+                            
+                            try {
+                                id = clazz.getMethod("getId").invoke(object);
+                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                                    | NoSuchMethodException | SecurityException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            if(field.isAnnotationPresent(FarmerGridView.class)){
+                                allProduce += 
+                                "        <span class=\""+field.getName()+"\">" + field.get(object) + "</span><br/>\n";
+                            }                            
+                        }
+                    } catch (IllegalArgumentException | IllegalAccessException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                if(clazz.isAnnotationPresent(HtmlTable.class)){
+                                HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
+                            
+                                allProduce +=                    
+                                    "        <div class=\"innerButtons\">\n" +
+                                    "            <button class='buttonRemove' onclick=\"window.location.href='"+htmlTable.deleteUrl()+""
+                                    + id + "&mode=remove'\">Remove</button>\n" +
+                                    "            <button class=\"buttonEdit\" onclick=\"openForm(" +id + ")\">Edit</button>\n" +
+                                    "            <button class='button' onclick=\"window.location.href='"+htmlTable.addToCart()+""
+                                    + id + "'\">Buy</button>\n" +
+                                    "        </div>\n" ;
+                                   
+                            }
+            }
+        allProduce += " </div>\n" +
+                        "</div>" +
+                        "</div>";
 
         return allProduce;
     }
 
     public static String popUpForm(Class<?> model) {
-        Field[] fields = model.getDeclaredFields();
+
+        List<Field> fields = new ArrayList<>(Arrays.asList(model.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(model.getDeclaredFields()));
         HtmlTable htmlTable = model.getAnnotation(HtmlTable.class);
 
         String popUpForm = "<div class=\"form-popup\" id=\"myForm\">\n" +
@@ -80,34 +105,36 @@ public class HtmlComponents extends HttpServlet {
             if (field.isAnnotationPresent(DbTableID.class)) {
                 popUpForm += "<input type=\"hidden\" id=\"hiddenId\" name=\"" + field.getName() + "\">\n";
             }
-            if (field.isAnnotationPresent(FarmerHtmlFormField.class) && !field.isAnnotationPresent(FarmerEnumAnnot.class)) {
+            if (field.isAnnotationPresent(FarmerHtmlFormField.class)
+                    && !field.isAnnotationPresent(FarmerEnumAnnot.class)) {
                 FarmerHtmlFormField farmerFormField = field.getAnnotation(FarmerHtmlFormField.class);
                 popUpForm += "        <label for=\"email\"><b>" + farmerFormField.formName() + "</b></label>\n" +
                         "        <input type=\"" + farmerFormField.formType() + "\" placeholder=\""
                         + farmerFormField.placeHolder() + "\" name=\"" + field.getName() + "\" required>\n";
             }
             String optionString = "";
-            if (field.isAnnotationPresent(FarmerEnumAnnot.class)) {                
+            if (field.isAnnotationPresent(FarmerEnumAnnot.class)) {
                 boolean isFieldEnum = field.getType().isEnum();
                 if (isFieldEnum) {
                     Class<?> enumClass = field.getType();
-                    optionString = "<select class=" + field.getName() + " id=" + field.getName() + " name=\"" + field.getName() + "\">\n";
+                    optionString = "<select class=" + field.getName() + " id=" + field.getName() + " name=\""
+                            + field.getName() + "\">\n";
                     for (Object category : enumClass.getEnumConstants()) {
                         optionString += "<option value=\"" + category + "\">" + (category)
                                 + "</option>\n";
                     }
                     optionString += "</select>";
-                    popUpForm+=optionString;
+                    popUpForm += optionString;
                 }
             }
         }
-        popUpForm += "<button type=\"submit\" class=\"btn\">Edit</button>\n" +
+        popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
                 "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
                 "    </form>\n" +
                 "</div>";
         return popUpForm;
     }
-    
+
     public static String form(Class<?> model) {
         Class<?> clazz = model;
         String owner = "";
@@ -185,18 +212,21 @@ public class HtmlComponents extends HttpServlet {
                 "               </tr>\n";
         Double sumProducts = 0.0;
         for (CartProduct cartProduct : models) {
-            int modelINdex= models.indexOf(cartProduct);
+            int modelINdex = models.indexOf(cartProduct);
             shoppinCartHTML += "<tr id=\"\">\n" +
                     "\n" +
                     "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
                     "\n" +
-                    "                   <td id=\"prodQuantity\"><p id=\"errText"+modelINdex+"\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  onkeyup=\"calculatePrice(event,"+modelINdex+")\"/>/ <span id=\"totalQuantity"+modelINdex+"\">"
+                    "                   <td id=\"prodQuantity\"><p id=\"errText" + modelINdex
+                    + "\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  onkeyup=\"calculatePrice(event,"
+                    + modelINdex + ")\"/>/ <span id=\"totalQuantity" + modelINdex + "\">"
                     + cartProduct.getProdQuantity() + "</span></td>\n" +
-                    "<input type='hidden' name='hiddenQuantity' id='hiddenQuantity"+modelINdex+"' name='hiddenQuantity"+modelINdex+"' value='"+cartProduct.getProdPrice()+"'\n/>"+
+                    "<input type='hidden' name='hiddenQuantity' id='hiddenQuantity" + modelINdex
+                    + "' name='hiddenQuantity" + modelINdex + "' value='" + cartProduct.getProdPrice() + "'\n/>" +
                     "\n" +
                     "                   <td>" + cartProduct.getProdPrice() + " Kshs</td>\n" +
                     "\n" +
-                    "                   <td id=comPrice"+modelINdex+"> Total Price "
+                    "                   <td id=comPrice" + modelINdex + "> Total Price "
                     + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</td>\n" +
                     "\n" +
                     "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
@@ -208,7 +238,7 @@ public class HtmlComponents extends HttpServlet {
                 "   </div>\n" +
                 "   <div class=\"checkout\">\n" +
                 "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: " + sumProducts + "</h3>\n" +
-                "       <input type=\"hidden\" value=\""+models.size()+"\" id=\"numIterations\"/>\n" +
+                "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
                 "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
                 "   </div>\n" +
@@ -278,8 +308,8 @@ public class HtmlComponents extends HttpServlet {
         }
 
         trBuilder.append("</table>");
-        
-        trBuilder.append("<p>"+GlobalBean.getUserEmail()+"</p>");
+
+        trBuilder.append("<p>" + GlobalBean.getUserEmail() + "</p>");
 
         return trBuilder.toString();
 

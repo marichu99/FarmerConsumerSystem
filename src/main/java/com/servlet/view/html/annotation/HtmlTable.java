@@ -14,6 +14,8 @@ public @interface HtmlTable{
 
     String deleteUrl() default "";
 
+    String addToCart() default "";
+
     String className() default "myTable";
 
     String action() default "POST";
