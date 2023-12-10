@@ -15,6 +15,7 @@ target
 .target
 standalone.xml
 module.xml
+maven-status
 
 # Package Files #
 *.jar

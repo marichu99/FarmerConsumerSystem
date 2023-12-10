@@ -9,6 +9,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/view/MenuLinkStatus.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FileTypeAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/ApprovalHtml.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/view/MenuLink.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/LoginForm.java
@@ -52,6 +53,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/BaseAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/UserProfile.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTableID.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UploadFileAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/event/EnumConverterListern.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Produce.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTable.java

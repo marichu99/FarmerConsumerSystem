@@ -10,6 +10,7 @@ import com.servlet.view.html.annotation.FarmerEnumAnnot;
 import com.servlet.view.html.annotation.FarmerGridView;
 import com.servlet.view.html.annotation.FarmerHtmlForm;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
+import com.servlet.view.html.annotation.FileTypeAnnot;
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 import com.servlet.view.html.annotation.NumericTypeAnnot;
@@ -18,38 +19,44 @@ import com.servlet.view.html.annotation.NumericTypeAnnot;
 @Entity
 @Table(name="Product")
 @HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&id=", addToCart = "./cart?mode=add&id=")
+@FileTypeAnnot
 public class Product extends BaseEntity{
 
     @HtmlTableColHeader(header = "Product Name")
     @Column(name = "productName", columnDefinition = "VARCHAR(255)")
     @FarmerGridView(className = "prodName")
-    @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize")
+    @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize", formName = "productName")
     private String productName;
 
     @HtmlTableColHeader(header = "Product Description")
     @Column(name = "productDescription", columnDefinition = "VARCHAR(255)")
     @FarmerGridView(className = "prodLocation")
-    @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description")
+    @FarmerHtmlFormField(labelName = "Product Description", formType = "text", placeHolder = "your description", formName = "productDescription")
     private String productDescription;
 
     @HtmlTableColHeader(header = "Price")
     @Column(name="price", columnDefinition = "INT(11)")
     @FarmerGridView(className = "prodPrice")
-    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200")
+    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200", formName = "price")
     @NumericTypeAnnot
     private Double price;    
 
     @HtmlTableColHeader(header = "Product Quantity")
     @Column(name = "productQuantity", columnDefinition = "INT(11)")
-    @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount")    
+    @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount", formName = "prodQuantity")    
     @NumericTypeAnnot
     private int prodQuantity;
 
     @HtmlTableColHeader(header = "Product Category")
     @Column(name = "productCategory", columnDefinition = "VARCHAR(255)")
-    @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "")
+    @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "productCategory")
     @FarmerEnumAnnot
     private ProductCategory productCategory;
+
+    @Column(name = "imageName", columnDefinition = "VARCHAR(255)")
+    @FarmerHtmlFormField(labelName = "Choose image", formType = "file",formName = "file")
+    @FileTypeAnnot
+    private String imageName;
 
     @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
     private String productOwner;
@@ -136,6 +143,21 @@ public class Product extends BaseEntity{
 
     public void setPurchaseStatus(PurchaseStatus purchaseStatus) {
         this.purchaseStatus = purchaseStatus;
+    }
+
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+
+    public String getImageName() {
+        return imageName;
+    }
+
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
 

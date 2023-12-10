@@ -12,6 +12,7 @@ com/servlet/view/enums/PurchaseStatus.class
 com/servlet/utils/EnumTypeConverter.class
 com/servlet/utils/EnumType.class
 com/servlet/view/enums/UserAction.class
+com/servlet/view/html/annotation/FileTypeAnnot.class
 com/servlet/app/bean/AuditLogBean.class
 com/servlet/app/bean/AuthBean.class
 com/servlet/view/enums/UserType.class
@@ -46,6 +47,7 @@ com/servlet/app/model/entity/User.class
 com/servlet/app/model/view/MenuLink.class
 com/servlet/mail/bean/MailBean.class
 com/servlet/app/bean/AuthBeanI.class
+com/servlet/action/dashboard/UploadFileAction.class
 com/servlet/app/bean/GenericBeanI.class
 com/servlet/action/dashboard/AdminAction.class
 com/servlet/action/dashboard/Login.class

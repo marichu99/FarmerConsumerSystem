@@ -19,6 +19,7 @@ import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
 import com.servlet.view.html.annotation.FarmerGridView;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
+import com.servlet.view.html.annotation.FileTypeAnnot;
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
@@ -32,58 +33,68 @@ public class HtmlComponents extends HttpServlet {
         List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
         fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
 
+        System.out.println("The class name is " + clazz.getSimpleName());
+        String allProduce = "<div class ='prodDetails'>";
 
-        System.out.println("The class name is "+clazz.getSimpleName());
-        String allProduce = "<div class ='prodDetails'>"
-                             ;
-                    
-            
-            for (Object object : entityList) {
-                allProduce+="  <div class=\"prod_item\">\n"+
-                    "           <div class=\"imgDiv\">\n" +
-                    "            <img src='./images/corn.jpg' class=\"image_prod\"/><br/>\n" +
-                    "           </div>\n" +
-                    "           <div class=\"deetsDiv\">\n";
-                Object id = null;
-                for(Field field : fields){
+        for (Object object : entityList) {
+            String imgName = "corn.jpg";
+            for (Field field : fields) {                
+                if (field.isAnnotationPresent(FileTypeAnnot.class)) {
                     try {
-                        field.setAccessible(true);
-                        if(field.get(object)!=null){
-                            
-                            try {
-                                id = clazz.getMethod("getId").invoke(object);
-                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                                    | NoSuchMethodException | SecurityException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            if(field.isAnnotationPresent(FarmerGridView.class)){
-                                allProduce += 
-                                "        <span class=\""+field.getName()+"\">" + field.get(object) + "</span><br/>\n";
-                            }                            
-                        }
+                        imgName = (String) field.get(object);
                     } catch (IllegalArgumentException | IllegalAccessException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
-                if(clazz.isAnnotationPresent(HtmlTable.class)){
-                                HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
-                            
-                                allProduce +=                    
-                                    "        <div class=\"innerButtons\">\n" +
-                                    "            <button class='buttonRemove' onclick=\"window.location.href='"+htmlTable.deleteUrl()+""
-                                    + id + "&mode=remove'\">Remove</button>\n" +
-                                    "            <button class=\"buttonEdit\" onclick=\"openForm(" +id + ")\">Edit</button>\n" +
-                                    "            <button class='button' onclick=\"window.location.href='"+htmlTable.addToCart()+""
-                                    + id + "'\">Buy</button>\n" +
-                                    "        </div>\n" ;
-                                   
-                            }
             }
-        allProduce += " </div>\n" +
-                        "</div>" +
-                        "</div>";
+            allProduce += "  <div class=\"prod_item\">\n" +
+                    "           <div class=\"imgDiv\">\n" +
+                    "            <img src='./images/" + imgName + "' class=\"image_prod\"/><br/>\n" +
+                    "           </div>\n" +
+                    "           <div class=\"deetsDiv\">\n";
+
+            Object id = null;
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    if (field.get(object) != null) {
+
+                        try {
+                            id = clazz.getMethod("getId").invoke(object);
+                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                                | NoSuchMethodException | SecurityException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        if (field.isAnnotationPresent(FarmerGridView.class)) {
+                            allProduce += "        <span class=\"" + field.getName() + "\">" + field.get(object)
+                                    + "</span><br/>\n";
+                        }
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if (clazz.isAnnotationPresent(HtmlTable.class)) {
+                HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
+
+                allProduce += "        <div class=\"innerButtons\">\n" +
+                        "            <button class='buttonRemove' onclick=\"window.location.href='"
+                        + htmlTable.deleteUrl() + ""
+                        + id + "&mode=remove'\">Remove</button>\n" +
+                        "            <button class=\"buttonEdit\" onclick=\"openForm(" + id + ")\">Edit</button>\n" +
+                        "            <button class='button' onclick=\"window.location.href='" + htmlTable.addToCart()
+                        + ""
+                        + id + "'\">Buy</button>\n" +
+                        "        </div>\n" +
+                        " </div>\n";
+
+            }
+            allProduce += " </div>\n";
+
+        }
+        allProduce += "</div>";
 
         return allProduce;
     }
@@ -146,8 +157,17 @@ public class HtmlComponents extends HttpServlet {
         // get the location of where the form will be posted
         HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
 
+        String enctype = "";
+        boolean isEnctypePresent = false;
+        if (clazz.isAnnotationPresent(FileTypeAnnot.class)) {
+            FileTypeAnnot imageTypeAnnot = clazz.getAnnotation(FileTypeAnnot.class);
+            enctype = imageTypeAnnot.enctype();
+            isEnctypePresent = true;
+        }
+
         String htmlPage = "<div class='main'>" +
-                " <form action=\"" + htmlTable.addUrl() + "\"  method=\"" + htmlTable.action() + "\">\n";
+                " <form action=\"" + htmlTable.addUrl() + "\"  method=\"" + htmlTable.action() + "\""
+                + (isEnctypePresent ? enctype : StringUtils.EMPTY) + "\">\n";
         htmlPage += "<div class=\"row\">\n" +
                 "        <div class=\"col\">\n" +
                 "            <h3 class=\"title\"> Details</h3>\n" +
@@ -177,6 +197,14 @@ public class HtmlComponents extends HttpServlet {
             FarmerHtmlFormField formField = field.getAnnotation(FarmerHtmlFormField.class);
             // we come up with an options field to check whether the annotated field is an
             // option so as not to give it an input field
+            boolean isFileTypeAnnotPresent = false;
+            FileTypeAnnot fileTypeAnnot = field.getAnnotation(FileTypeAnnot.class);
+            ;
+            if (field.isAnnotationPresent(FileTypeAnnot.class)) {
+                fileTypeAnnot = field.getAnnotation(FileTypeAnnot.class);
+                isFileTypeAnnotPresent = true;
+            }
+
             htmlPage += "<div class=\""
                     + (StringUtils.isBlank(formField.className()) && !isOptionField ? fieldName : formField.className())
                     + "\">\n" +
@@ -189,7 +217,8 @@ public class HtmlComponents extends HttpServlet {
                     + "\" placeholder=\""
                     + (StringUtils.isBlank(formField.placeHolder()) && !isOptionField ? fieldName
                             : formField.placeHolder())
-                    + "\" name=\"" + fieldName + "\"/>\n" +
+                    + "\" name=\"" + formField.formName()
+                    + "\" accept = " + (isFileTypeAnnotPresent ? fileTypeAnnot.accept() : StringUtils.EMPTY) + "/>\n" +
                     "     </div>\n";
         }
         htmlPage += "<input type=\"submit\" value=\"Submit\" class=\"submit\" name=\"submit\"/>\n";
@@ -218,7 +247,8 @@ public class HtmlComponents extends HttpServlet {
                     "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
                     "\n" +
                     "                   <td id=\"prodQuantity\"><p id=\"errText" + modelINdex
-                    + "\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity\"  onkeyup=\"calculatePrice(event,"
+                    + "\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity"
+                    + modelINdex + "\"  onkeyup=\"calculatePrice(event,"
                     + modelINdex + ")\"/>/ <span id=\"totalQuantity" + modelINdex + "\">"
                     + cartProduct.getProdQuantity() + "</span></td>\n" +
                     "<input type='hidden' name='hiddenQuantity' id='hiddenQuantity" + modelINdex
@@ -226,8 +256,12 @@ public class HtmlComponents extends HttpServlet {
                     "\n" +
                     "                   <td>" + cartProduct.getProdPrice() + " Kshs</td>\n" +
                     "\n" +
+                    "<input type=\"hidden\" value=\"" + cartProduct.getProdQuantity() * cartProduct.getProdPrice()
+                    + "\" id=\"totalPricePerProductH" + modelINdex + "\"/>\n" +
                     "                   <td id=comPrice" + modelINdex + "> Total Price "
-                    + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</td>\n" +
+                    + "<span id=\"totalPricePerProduct" + modelINdex + "\"/>"
+                    + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</span>" +
+                    "</td>\n" +
                     "\n" +
                     "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
                     + cartProduct.getId() + "'\"></i></td>\n";
@@ -237,7 +271,8 @@ public class HtmlComponents extends HttpServlet {
         shoppinCartHTML += "       </table>\n" +
                 "   </div>\n" +
                 "   <div class=\"checkout\">\n" +
-                "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: " + sumProducts + "</h3>\n" +
+                "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: <span id= checkOutHeader>"
+                + sumProducts + "</span></h3>\n" +
                 "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
                 "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
