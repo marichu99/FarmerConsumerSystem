@@ -2,6 +2,7 @@ package com.servlet.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.servlet.view.enums.ProductCategory;
@@ -64,6 +65,9 @@ public class Product extends BaseEntity{
     @Column(name = "purchaseStatus",columnDefinition = "VARCHAR(255)")
     // @FarmerEnumAnnot
     private PurchaseStatus purchaseStatus;
+
+    @ManyToOne
+    private User user;
 
     public int getProdQuantity() {
         return prodQuantity;

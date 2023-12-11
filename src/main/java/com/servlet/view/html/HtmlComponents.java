@@ -38,7 +38,7 @@ public class HtmlComponents extends HttpServlet {
 
         for (Object object : entityList) {
             String imgName = "corn.jpg";
-            for (Field field : fields) {                
+            for (Field field : fields) {
                 if (field.isAnnotationPresent(FileTypeAnnot.class)) {
                     try {
                         imgName = (String) field.get(object);
@@ -350,7 +350,12 @@ public class HtmlComponents extends HttpServlet {
 
     }
 
-    public static String getCustomerDash() {
+    public static String getCustomerDash(Class<?> dataClass) {
+
+        List<Field> fields = new ArrayList<>(Arrays.asList(dataClass.getDeclaredFields()));
+
+        fields.remove(fields.size()-1);
+
         String htmlContent = "<div class=\"navDeets\">\n" +
                 "    <div class=\"header-deets\">\n" +
                 "        <div class=\"acc-details\">\n" +
@@ -365,16 +370,15 @@ public class HtmlComponents extends HttpServlet {
                 "            <span class=\"acc-span-deets\">Totals:</span>\n" +
                 "            <span class=\"acc-span-deets\">KSHS -2000</span>\n" +
                 "        </div>\n" +
-                "    </div>\n" +
-                "    <div class=\"sectionDeets\">\n" +
+                "    </div>\n";
+        htmlContent += "    <div class=\"sectionDeets\">\n" +
                 "        <h3>Recent Activity</h3>\n" +
                 "        <select class=\"logFilters\" onchange=\"getFeature(this,'logsUser')\">\n" +
-                "            <option>Choose   </option>\n" +
-                "            <option>Cereals</option>\n" +
-                "            <option>Fruits</option>\n" +
-                "            <option>Vegetables</option>\n" +
-                "            <option>Animal Produce</option>\n" +
-                "        </select>\n" +
+                "            <option>Choose   </option>\n";
+        for (Field field : fields) {
+            htmlContent += "<option>" + field.getName() + "</option>\n";
+        }
+        htmlContent += "</select>\n" +
                 "        <h3 class=\"export\" onclick=\"window.location.href=''\">Export Report</h3>\n"
                 +
                 "    </div>\n";

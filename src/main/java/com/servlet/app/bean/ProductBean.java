@@ -54,14 +54,11 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
     public List<Product> selectByUser(Product entity, String email) {
 
         List<Product> allProducts = getGenericDao().allElements(new Product());
-        for(Product product: allProducts){
-            if(!product.getProductOwner().equals(email)){
-                // remove the product that does not match the email
-                allProducts.remove(product);
+        for(int i =0; i<allProducts.size();i++){
+            if(!allProducts.get(i).getProductOwner().equals(email)){
+                allProducts.remove(i);
             }
         }
-
-        // TODO Auto-generated method stub
         return allProducts;
     }    
 }

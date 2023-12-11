@@ -34,14 +34,12 @@ public class AuthFilter implements Filter {
         HttpSession httpSession = httpRequest.getSession();
 
         String servletPath = httpRequest.getServletPath();
-        System.out.println("servlet path: " + servletPath);
-        System.out.println("context path: " + httpRequest.getContextPath());
-        System.out.println("context URI: " + httpRequest.getRequestURI());
 
         if (httpSession.isNew()) {
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.equals("/sign") || servletPath.contains("/css/") || servletPath.contains("/js/") ) {
+            if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.equals("/sign") || servletPath.equals("/rest")
+                    || servletPath.contains("/css/") || servletPath.contains("/js/")) {
                 filterChain.doFilter(servletRequest, servletResponse);
 
             } else {
@@ -55,9 +53,11 @@ public class AuthFilter implements Filter {
                 httpResponse.addHeader("AuthTime", DateFormat.getDateTimeInstance().format(new Date()));
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                if(servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/sign") || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/") || servletPath.contains("/js/")){
+                if (servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/sign")
+                        || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/") || servletPath.equals("/rest")
+                        || servletPath.contains("/js/")) {
                     filterChain.doFilter(servletRequest, servletResponse);
-                }else{
+                } else {
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
                     servletResponse.getWriter().flush();
                 }

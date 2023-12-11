@@ -43,7 +43,7 @@ public class Produce extends BaseAction {
         if (type.equals("product") && mode.equals("remove")) {
             // get the id that has been passed
             if (StringUtils.isNotBlank(req.getParameter("id"))) {
-                int productID = Integer.parseInt(req.getParameter("productID"));
+                int productID = Integer.parseInt(req.getParameter("id"));
                 // remove by the id
                 // get the product by ID
                 Product product = productBean.getProductByID(productID);
@@ -66,7 +66,7 @@ public class Produce extends BaseAction {
                     "<body>" +
                     "<script type='text/javascript'>" +
                     "    alert('Item has been removed successfully');" +
-                    "    window.location.href = './produce';" +
+                    "    window.location.href = './cart';" +
                     "</script>" +
                     "</body>" +
                     "</html>");

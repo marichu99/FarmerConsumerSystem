@@ -1,11 +1,16 @@
 package com.servlet.app.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.servlet.view.enums.UserCategory;
@@ -46,6 +51,9 @@ public class User extends BaseEntity {
     @Column(name = "userCategory", columnDefinition = "VARCHAR(255)")
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;

@@ -239,9 +239,11 @@ async function uploadFile(){
     method: "POST",
     body:formData
   });
-  
-}
 
+}
+function getFeature(selectedObj,type){
+  window.location.href="./produce?type="+type+"&value="+selectedObj.value;
+}
 console.log()
 function calculatePrice(e, id) {
   // FUNCTIONS FOR THE ADD TO CART PAGE
@@ -263,7 +265,9 @@ function calculatePrice(e, id) {
   // get the total Number of $iterations
   var totalIterations = document.getElementById("numIterations");
   totalIterations = totalIterations.value;
-  totalIterations = parseInt(totalIterations)
+  totalIterations = parseInt(totalIterations);
+  // update the cart banner
+  document.querySelector(".approvals").textContent=totalIterations;
   for (var i = 0; i < totalIterations; i++) {
     var thisPrices = document.getElementById("totalPricePerProductH" + i);
     var thisPrice = thisPrices.value;

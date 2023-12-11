@@ -4,5 +4,5 @@ public enum ProductCategory{
     CEREALS,
     FRUITS,
     VEGETABLES,
-    ANIMAL_PRODUCE,
+    ANIMAL_PRODUCE
 }

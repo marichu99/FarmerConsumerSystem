@@ -27,7 +27,7 @@ public class SignUp extends BaseAction {
         String servletPath = req.getServletPath();
         if (userBean.registerUser(user)){
             System.out.println("The Servlet Path is##### "+servletPath);
-            if (servletPath.contains("/admin")) {
+            if (servletPath.equals("/admin")) {
                 print.write("<html>" +
                         "<body>" +
                         "<script type='text/javascript'>" +

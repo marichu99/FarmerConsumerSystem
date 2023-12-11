@@ -19,6 +19,7 @@ com/servlet/view/enums/UserType.class
 META-INF/sisu/javax.inject.Named
 com/servlet/action/dashboard/UserAction.class
 com/servlet/app/bean/GenericBean.class
+com/servlet/rest/api/ProductRestApi.class
 com/servlet/utils/UserTypeConverter.class
 com/servlet/app/bean/UserBean.class
 com/servlet/view/html/ApprovalHtml.class
@@ -42,13 +43,14 @@ com/servlet/utils/TextEncryptMD5.class
 com/servlet/dao/GenericDao.class
 com/servlet/action/dashboard/Profile.class
 com/servlet/app/bean/CartBean.class
+com/servlet/rest/api/RestResponseWrapper.class
 com/servlet/action/dashboard/Track.class
 com/servlet/app/model/entity/User.class
 com/servlet/app/model/view/MenuLink.class
 com/servlet/mail/bean/MailBean.class
 com/servlet/app/bean/AuthBeanI.class
-com/servlet/action/dashboard/UploadFileAction.class
 com/servlet/app/bean/GenericBeanI.class
+com/servlet/rest/api/BaseRestApi.class
 com/servlet/action/dashboard/AdminAction.class
 com/servlet/action/dashboard/Login.class
 com/servlet/app/model/entity/BaseEntity.class
@@ -82,4 +84,6 @@ com/servlet/action/dashboard/Reports.class
 com/servlet/action/dashboard/Approvals.class
 com/servlet/utils/EncryptText.class
 com/servlet/mail/bean/Protocol.class
+com/servlet/rest/api/UserRestApi.class
 com/servlet/database/helper/DbTableID.class
+com/servlet/rest/config/Rest.class

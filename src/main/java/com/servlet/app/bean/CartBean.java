@@ -18,7 +18,7 @@ import com.servlet.view.enums.UserAction;
 
 @Stateless
 @Remote
-public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
+public class CartBean extends GenericBean<CartProduct> implements CartBeanI {
 
     @PersistenceContext
     EntityManager em;
@@ -32,21 +32,25 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
     @Override
     public boolean addToCart(int productID) {
         // loop through all the products
-        for(Product product: productBean.list(new Product())){
-            if(product.getId() == productID){
-                
+        for (Product product : productBean.allElements(new Product())) {
+            if (product.getId() == productID) {
+
                 // then add it to the cart products list
-                CartProduct cartProduct = new CartProduct(productID, product.getProductName(), product.getPrice(), product.getProdQuantity(), product.getProductDescription());
+                CartProduct cartProduct = new CartProduct(product.getProductName(), product.getPrice(),
+                        product.getProdQuantity(), product.getProductDescription(), GlobalBean.getUserEmail());
+
+                cartProduct.setImageName(product.getImageName());        
                 getGenericDao().addOrUpdate(cartProduct);
-                
+
                 productBean.delete(product);
 
                 // update logs
-                AuditLog auditLog = new AuditLog(GlobalBean.getUserEmail(),LocalDateTime.now(),UserAction.ADD_TO_CART.getValue());
+                AuditLog auditLog = new AuditLog(GlobalBean.getUserEmail(), LocalDateTime.now(),
+                        UserAction.ADD_TO_CART.getValue());
                 logger.fire(auditLog);
-                
+
                 return true;
-            }else{
+            } else {
                 continue;
             }
         }
@@ -55,18 +59,22 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
 
     @Override
     public boolean removeByID(int productId) {
-        for(CartProduct cartProduct: getGenericDao().list(new CartProduct())){
-            if(cartProduct.getId() == productId){
+        for (CartProduct cartProduct : getGenericDao().allElements(new CartProduct())) {
+            if (cartProduct.getId() == productId) {
                 // then add it back to the products list
-                Product product = new Product(cartProduct.getId(),cartProduct.getProdName(),cartProduct.getProdDescription(),cartProduct.getProdPrice(),cartProduct.getProdQuantity());
+                Product product = new Product(cartProduct.getId(), cartProduct.getProdName(),
+                        cartProduct.getProdDescription(), cartProduct.getProdPrice(), cartProduct.getProdQuantity());
+
+                // product.setProductOwner(GlobalBean.getUserEmail());
+                product.setImageName(cartProduct.getImageName());
                 productBean.addOrUpdate(product);
 
-                System.out.println("The product name is "+product.getProductName());
-                System.out.println("The product ID is "+product.getId());
-                System.out.println("The product description is "+product.getProductDescription());
+                System.out.println("The product name is " + product.getProductName());
+                System.out.println("The product ID is " + product.getId());
+                System.out.println("The product description is " + product.getProductDescription());
                 // remove the matching element
                 getGenericDao().delete(cartProduct);
-                
+
                 return true;
             }
         }
@@ -74,5 +82,4 @@ public class CartBean extends GenericBean<CartProduct>implements CartBeanI{
         return false;
     }
 
-    
 }

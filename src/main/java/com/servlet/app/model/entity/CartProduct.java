@@ -3,7 +3,6 @@ package com.servlet.app.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.FileTypeAnnot;
@@ -34,8 +33,9 @@ public class CartProduct extends BaseEntity {
     @FileTypeAnnot
     private String imageName;
 
-    @Transient
-    private int productId;
+    @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
+    private String productOwner;
+    
 
     public CartProduct() {
     }
@@ -72,12 +72,31 @@ public class CartProduct extends BaseEntity {
         this.prodQuantity = prodQuantity;
     }
 
-    public CartProduct(int productId, String prodName, Double prodPrice, int prodQuantity, String prodDescription) {
-        this.productId = productId;
+   
+
+    public CartProduct(String prodName, Double prodPrice, int prodQuantity, String prodDescription, 
+            String productOwner) {
         this.prodName = prodName;
         this.prodPrice = prodPrice;
         this.prodQuantity = prodQuantity;
         this.prodDescription = prodDescription;
+        this.productOwner = productOwner;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getProductOwner() {
+        return productOwner;
+    }
+
+    public void setProductOwner(String productOwner) {
+        this.productOwner = productOwner;
     }
 
 }
