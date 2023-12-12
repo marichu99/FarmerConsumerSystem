@@ -2,6 +2,8 @@ package com.servlet.rest.api;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -16,9 +18,9 @@ public class UserRestApi extends BaseRestApi{
     UserBeanI userBean;
     
     @Path("/add")
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    
+    @Produces(MediaType.APPLICATION_JSON)   
     
     public Response add(User user) {
         // TODO Auto-generated method stub
@@ -27,8 +29,9 @@ public class UserRestApi extends BaseRestApi{
     }
 
     @Path("/list")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(User user){
-        return respond(userBean.allElements(user));
+    public Response list(){
+        return respond(userBean.allElements(new User()));
     }
 }

@@ -13,4 +13,6 @@ public interface GenericBeanI<T> extends Serializable{
     T getByID(int id, T entity);
 
     List<T> allElements(T entity);
+
+    // List<T> getElements(String nativeQuery, String type, String category);
 } 

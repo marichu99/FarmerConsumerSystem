@@ -21,6 +21,7 @@ import com.servlet.app.model.entity.AuditLog;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.UserAction;
 import com.servlet.view.html.annotation.AuthFormsAnnot;
+import com.servlet.view.html.annotation.NumericTypeAnnot;
 
 @SuppressWarnings({ "unchecked" })
 public class GenericDao<T> implements GenericDaoI<T> {
@@ -59,9 +60,17 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
             try {
                 if (field.get(entity) != null) {
+                    // get the numeric fields and check if they are zero
+                    if(field.isAnnotationPresent(NumericTypeAnnot.class)){
+                        if((int)field.get(entity) == 0){
+                            continue;
+                        }
+                    }
                     System.out.println(field.getName()+" is not null");
                     System.out.println("the value is "+field.get(entity));
                     String colName = StringUtils.isEmpty(column.name()) ? field.getName() : column.name();
+                    
+
                     // convert the value to enum if needed
                     if (!field.isAnnotationPresent(AuthFormsAnnot.class)) {
                         whereClause

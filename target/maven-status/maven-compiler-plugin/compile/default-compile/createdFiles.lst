@@ -9,6 +9,7 @@ com/servlet/view/html/annotation/FarmerHtmlFormField.class
 com/servlet/view/html/annotation/FarmerHtmlForm.class
 com/servlet/view/html/UserProfile.class
 com/servlet/view/enums/PurchaseStatus.class
+com/servlet/rest/api/RestAuthFilter.class
 com/servlet/utils/EnumTypeConverter.class
 com/servlet/utils/EnumType.class
 com/servlet/view/enums/UserAction.class

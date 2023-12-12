@@ -242,7 +242,7 @@ async function uploadFile(){
 
 }
 function getFeature(selectedObj,type){
-  window.location.href="./produce?type="+type+"&value="+selectedObj.value;
+  window.location.href="./home?type="+type+"&value="+selectedObj.value;
 }
 console.log()
 function calculatePrice(e, id) {

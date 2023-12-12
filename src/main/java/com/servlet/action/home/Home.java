@@ -1,21 +1,30 @@
 package com.servlet.action.home;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servlet.action.dashboard.BaseAction;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
+import com.servlet.view.enums.ProductCategory;
 
 @WebServlet(urlPatterns = "/home")
 public class Home extends BaseAction {
     @EJB
     private ProductBeanI productBean;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,11 +36,24 @@ public class Home extends BaseAction {
         resp.sendRedirect("./app/Home.html");
     }
 
-
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {       
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // new AppPage().renderHtml(req, resp, 0, allHtml.getAllHtml(),allCss.getCssCode());
-        renderSpecific(req, resp, Product.class, productBean.allElements(new Product()));
+        @SuppressWarnings({ "rawtype" })
+
+        // get the request parameters if any
+        String type = StringUtils.trimToEmpty(req.getParameter("type"));
+        String value = StringUtils.trimToEmpty(req.getParameter("value"));
+
+        if (type.equals("productType")) {
+            Product product = new Product();
+            product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
+            List<Product> allProducts = productBean.list(product);
+
+            
+            renderSpecific(req, resp, Product.class, allProducts);
+        } else {
+            renderSpecific(req, resp, Product.class, productBean.allElements(new Product()));
+        }
     }
 }

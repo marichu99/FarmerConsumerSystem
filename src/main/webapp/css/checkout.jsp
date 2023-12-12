@@ -287,8 +287,8 @@ i{
     width:80%;
 }
 .prodDetails{
-    width:25%;
     display:flex;
+    flex-wrap: wrap;
 }
 
 /* Set a style for the submit/login button */

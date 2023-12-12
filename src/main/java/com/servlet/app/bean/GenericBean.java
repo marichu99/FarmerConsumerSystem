@@ -10,7 +10,7 @@ import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.dao.GenericDao;
 
-public class GenericBean<T> implements GenericBeanI<T>{
+public class GenericBean<T> implements GenericBeanI<T> {
 
     @PersistenceContext
     private EntityManager em;
@@ -38,26 +38,26 @@ public class GenericBean<T> implements GenericBeanI<T>{
 
     public GenericDao<T> getGenericDao() {
         genericDao.setEm(em);
-        return (GenericDao<T>)genericDao;
+        return (GenericDao<T>) genericDao;
     }
 
     @Override
     public T getByID(int id, T entity) {
         List<T> elements = genericDao.list(entity);
-        for(T element: elements){
-            if(entity instanceof User){
+        for (T element : elements) {
+            if (entity instanceof User) {
                 User newUser = (User) element;
-                if(newUser.getId() == id){
+                if (newUser.getId() == id) {
                     // return the new user
                     return element;
                 }
-           }else if(entity instanceof Product){
-                Product newProduct = (Product)element;
-                if(newProduct.getId() == id){
+            } else if (entity instanceof Product) {
+                Product newProduct = (Product) element;
+                if (newProduct.getId() == id) {
                     // return the new product
                     return element;
                 }
-           }
+            }
         }
         // TODO Auto-generated method stub
         return null;
@@ -66,10 +66,8 @@ public class GenericBean<T> implements GenericBeanI<T>{
     @Override
     public List<T> allElements(T entity) {
         // TODO Auto-generated method stub
-        genericDao.setEm(em);        
+        genericDao.setEm(em);
         return genericDao.allElements(entity);
     }
 
-  
 }
-

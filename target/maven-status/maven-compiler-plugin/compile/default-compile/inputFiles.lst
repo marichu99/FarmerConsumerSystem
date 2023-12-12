@@ -24,6 +24,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/PaymentNoGenerator.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Reports.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeSelector.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/api/RestAuthFilter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/GlobalBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/utility/MailFormatter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerGridView.java

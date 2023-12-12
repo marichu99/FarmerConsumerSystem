@@ -373,7 +373,7 @@ public class HtmlComponents extends HttpServlet {
                 "    </div>\n";
         htmlContent += "    <div class=\"sectionDeets\">\n" +
                 "        <h3>Recent Activity</h3>\n" +
-                "        <select class=\"logFilters\" onchange=\"getFeature(this,'logsUser')\">\n" +
+                "        <select class=\"logFilters\" onchange=\"getFeature(this,'productType')\">\n" +
                 "            <option>Choose   </option>\n";
         for (Field field : fields) {
             htmlContent += "<option>" + field.getName() + "</option>\n";

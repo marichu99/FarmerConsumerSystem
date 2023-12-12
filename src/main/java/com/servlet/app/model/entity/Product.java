@@ -2,8 +2,13 @@ package com.servlet.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.PurchaseStatus;
@@ -18,6 +23,8 @@ import com.servlet.view.html.annotation.NumericTypeAnnot;
 
 @FarmerHtmlForm(label = "Product", action = "./produce")
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name="Product")
 @HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&id=", addToCart = "./cart?mode=add&id=")
 @FileTypeAnnot
@@ -36,15 +43,15 @@ public class Product extends BaseEntity{
     private String productDescription;
 
     @HtmlTableColHeader(header = "Price")
-    @Column(name="price", columnDefinition = "INT(11)")
+    @Column(name="price", columnDefinition = "DOUBLE")
     @FarmerGridView(className = "prodPrice")
-    @FarmerHtmlFormField(labelName = "Product Price", formType = "number", placeHolder = "E.g.. 200", formName = "price")
+    @FarmerHtmlFormField(labelName = "Product Price / Kg", formType = "number", placeHolder = "E.g.. 200", formName = "price")
     @NumericTypeAnnot
     private Double price;    
 
     @HtmlTableColHeader(header = "Product Quantity")
     @Column(name = "productQuantity", columnDefinition = "INT(11)")
-    @FarmerHtmlFormField(labelName = "Product Quantity", formType = "number", placeHolder = "Enter amount", formName = "prodQuantity")    
+    @FarmerHtmlFormField(labelName = "Product Quantity (Kg)", formType = "number", placeHolder = "Enter amount", formName = "prodQuantity")    
     @NumericTypeAnnot
     private int prodQuantity;
 
@@ -52,6 +59,7 @@ public class Product extends BaseEntity{
     @Column(name = "productCategory", columnDefinition = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "productCategory")
     @FarmerEnumAnnot
+    @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
     @Column(name = "imageName", columnDefinition = "VARCHAR(255)")
@@ -113,14 +121,7 @@ public class Product extends BaseEntity{
         this.productDescription = productDescription;
     }
 
-    public double getPrice() {
-        return price;
-    }
-   
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    
     public ProductCategory getProductCategory() {
         return productCategory;
     }
@@ -162,6 +163,21 @@ public class Product extends BaseEntity{
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+
+    public Double getPrice() {
+        return price;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
