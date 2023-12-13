@@ -6,6 +6,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/bean/MailBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/TextEncryptMD5.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/filter/AuthFilter.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/PaymentTypeAnnotation.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/view/MenuLinkStatus.java
@@ -47,6 +48,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/PaymentAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/PurchaseStatus.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/PaymentDetails.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/TransactionNoGenerator.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBeanI.java

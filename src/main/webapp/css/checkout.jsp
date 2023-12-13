@@ -263,6 +263,7 @@ i{
   display: none;
   position: relative;
   bottom: 0;
+  justify-content: center;
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;

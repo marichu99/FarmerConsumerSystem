@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.app.model.entity.CartProduct;
+import com.servlet.app.model.entity.PaymentDetails;
 import com.servlet.app.model.entity.Product;
 import com.servlet.database.helper.DbTableID;
 import com.servlet.utils.GlobalBean;
@@ -22,6 +23,7 @@ import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.FileTypeAnnot;
 import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
+import com.servlet.view.html.annotation.PaymentTypeAnnotation;
 
 public class HtmlComponents extends HttpServlet {
 
@@ -139,10 +141,14 @@ public class HtmlComponents extends HttpServlet {
                 }
             }
         }
-        popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
-                "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
-                "    </form>\n" +
-                "</div>";
+        if(model.isAnnotationPresent(PaymentTypeAnnotation.class)){
+            popUpForm+="<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Buy\"> ";
+        }else{
+            popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
+                    "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
+                    "    </form>\n" +
+                    "</div>";
+        }
         return popUpForm;
     }
 
@@ -275,9 +281,22 @@ public class HtmlComponents extends HttpServlet {
                 + sumProducts + "</span></h3>\n" +
                 "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
-                "       <input class=\"submit\" name=\"submit\" value=\"proceed to checkout\" />\n" +
+                "       <button id='myBtn' class=\"submit\" onclick=\"openModal()\">proceed to checkout</button>"+
+                // "       <button class=\"submit\" value=\"proceed to checkout\" onclick=onclick=\"openForm(\" + id + \")\"/>\n" +
                 "   </div>\n" +
                 "</div>\n";
+        shoppinCartHTML+= 
+
+                            "<!-- The Modal -->"+
+                            "<div id='myModal' class='modal'>"+
+
+                            "<div class='modal-content'>"+
+                                "<span class='close' onclick=\"closeModal()\">&times;</span>"+
+                                "<input type=\"hidden\" value=\"\" id=\"hiddenFinalPrice\"/>\n" +
+                                "<span class=\"priceText\">The Total Price is KSHS <span class=\"finalPrice\"></span></span>\n" +
+                                popUpForm(PaymentDetails.class)+
+                            "</div>"+
+                            "</div>";
         return shoppinCartHTML;
     }
 
@@ -379,7 +398,8 @@ public class HtmlComponents extends HttpServlet {
             htmlContent += "<option>" + field.getName() + "</option>\n";
         }
         htmlContent += "</select>\n" +
-                "        <h3 class=\"export\" onclick=\"exportReport('"+GlobalBean.getEndpoint()+"')\">Export Report</h3>\n"
+                "        <h3 class=\"export\" onclick=\"exportReport('" + GlobalBean.getEndpoint()
+                + "')\">Export Report</h3>\n"
                 +
                 "    </div>\n";
         return htmlContent;

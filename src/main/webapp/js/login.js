@@ -232,6 +232,34 @@ function checkOtp(e) {
   }
 }
 
+function closeModal(){
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  modal.style.display = "none";
+}
+
+function openModal() {
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  var form= document.querySelector(".form-popup");
+
+  var finalTotal = document.getElementById("hiddenFinalPrice").value;
+
+
+  var finalPrice = document.querySelector(".finalPrice");
+  finalPrice.textContent=finalTotal;
+
+  console.log("The modal has been found");
+
+
+  // When the user clicks on the button, open the modal
+  modal.style.display = "block";
+  form.style.display= "flex";
+
+}
+
 async function uploadFile() {
   let formData = new FormData();
   formData.append("file", imageName.files[0]);
@@ -400,6 +428,7 @@ function calculatePrice(e, id) {
   // instantiate the overall price
   var overall = document.querySelector(".priceText");
   // make the other price null
+  document.getElementById("hiddenFinalPrice").value=totalSum;
   document.getElementById("checkOutHeader").textContent = "";
   overall.textContent = totalSum + " Kshs";
 
@@ -454,6 +483,7 @@ function calculatePrice(e, id) {
     errText.style.color = "red";
   }
 }
+
 // if user has not changed any values send the form with the default values
 function submitDetails() {
 

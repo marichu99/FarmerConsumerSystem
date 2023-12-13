@@ -10,6 +10,7 @@ com/servlet/view/html/annotation/FarmerHtmlForm.class
 com/servlet/view/html/UserProfile.class
 com/servlet/view/enums/PurchaseStatus.class
 com/servlet/rest/api/RestAuthFilter.class
+com/servlet/view/html/annotation/PaymentTypeAnnotation.class
 com/servlet/utils/EnumTypeConverter.class
 com/servlet/utils/EnumType.class
 com/servlet/view/enums/UserAction.class
@@ -84,6 +85,7 @@ com/servlet/utils/TransactionNoGenerator.class
 com/servlet/view/enums/UserCategory.class
 com/servlet/app/model/entity/AuditLog.class
 com/servlet/action/dashboard/Reports.class
+com/servlet/app/model/entity/PaymentDetails.class
 com/servlet/action/dashboard/Approvals.class
 com/servlet/utils/EncryptText.class
 com/servlet/mail/bean/Protocol.class
