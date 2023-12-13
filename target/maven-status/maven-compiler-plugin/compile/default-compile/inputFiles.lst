@@ -29,6 +29,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/utility/MailFormatter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerGridView.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Login.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/api/DownloadResource.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Approvals.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/CartProduct.java
@@ -58,6 +59,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/event/EnumConverterListern.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Produce.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/database/helper/DbTable.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/JsonFetcher.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/api/ProductRestApi.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/Product.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/HtmlTable.java

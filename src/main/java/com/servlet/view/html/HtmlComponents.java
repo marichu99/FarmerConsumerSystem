@@ -354,7 +354,7 @@ public class HtmlComponents extends HttpServlet {
 
         List<Field> fields = new ArrayList<>(Arrays.asList(dataClass.getDeclaredFields()));
 
-        fields.remove(fields.size()-1);
+        fields.remove(fields.size() - 1);
 
         String htmlContent = "<div class=\"navDeets\">\n" +
                 "    <div class=\"header-deets\">\n" +
@@ -379,7 +379,7 @@ public class HtmlComponents extends HttpServlet {
             htmlContent += "<option>" + field.getName() + "</option>\n";
         }
         htmlContent += "</select>\n" +
-                "        <h3 class=\"export\" onclick=\"window.location.href=''\">Export Report</h3>\n"
+                "        <h3 class=\"export\" onclick=\"exportReport('"+GlobalBean.getEndpoint()+"')\">Export Report</h3>\n"
                 +
                 "    </div>\n";
         return htmlContent;

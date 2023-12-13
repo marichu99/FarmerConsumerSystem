@@ -1,5 +1,6 @@
 package com.servlet.rest.api;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -28,6 +29,7 @@ public class UserRestApi extends BaseRestApi{
         return respond();
     }
 
+    @RolesAllowed("LOGEED_IN")
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

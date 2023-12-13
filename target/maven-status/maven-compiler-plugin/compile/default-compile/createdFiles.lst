@@ -21,6 +21,8 @@ META-INF/sisu/javax.inject.Named
 com/servlet/action/dashboard/UserAction.class
 com/servlet/app/bean/GenericBean.class
 com/servlet/rest/api/ProductRestApi.class
+com/servlet/utils/JsonFetcher.class
+com/servlet/rest/api/DownloadResource.class
 com/servlet/utils/UserTypeConverter.class
 com/servlet/app/bean/UserBean.class
 com/servlet/view/html/ApprovalHtml.class

@@ -232,17 +232,89 @@ function checkOtp(e) {
   }
 }
 
-async function uploadFile(){
+async function uploadFile() {
   let formData = new FormData();
-  formData.append("file",imageName.files[0]);
-  await fetch("uploadFile",{
+  formData.append("file", imageName.files[0]);
+  await fetch("uploadFile", {
     method: "POST",
-    body:formData
+    body: formData
   });
 
 }
-function getFeature(selectedObj,type){
-  window.location.href="./home?type="+type+"&value="+selectedObj.value;
+async function exportReport(endpoint) {
+  const username = 'mabera@gmail.com';
+  const password = 'mabera';
+  console.log("The endpoint is", endpoint)
+  // Encode the credentials in Base64 format
+  const base64Credentials = btoa(`${username}:${password}`);
+
+  await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Authorization": `Basic ${base64Credentials}`,
+      "Content-type": "application/json"
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error(`Network response was not ok, status: ${response.status}`);
+    }
+    return response.json();
+  })
+    .then(data => {
+      // Create a Blob from the array buffer
+      const wb = convertJsonToExcel(data);
+      // Create a link and trigger download
+      const wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+      const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'output.xlsx';
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+// Utility function to convert string to ArrayBuffer
+function s2ab(s) {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+function convertJsonToExcel(jsonData) {
+
+
+  // Convert JSON data to a worksheet
+  const ws = XLSX.utils.json_to_sheet(jsonData);
+
+  // Extract headers from the worksheet
+  const headers = [];
+  for (const key in jsonData[0]) {
+    if (jsonData[0].hasOwnProperty(key)) {
+      headers.push(key);
+    }
+  }
+
+  // Move the headers to the first row
+  XLSX.utils.sheet_add_aoa(ws, [headers], { origin: 'A1' });
+
+  // Save the worksheet to a workbook
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  // return the workbook as an Excel file
+  return wb;
+}
+
+function getFeature(selectedObj, type) {
+  window.location.href = "./home?type=" + type + "&value=" + selectedObj.value;
 }
 console.log()
 function calculatePrice(e, id) {
@@ -267,7 +339,7 @@ function calculatePrice(e, id) {
   totalIterations = totalIterations.value;
   totalIterations = parseInt(totalIterations);
   // update the cart banner
-  document.querySelector(".approvals").textContent=totalIterations;
+  document.querySelector(".approvals").textContent = totalIterations;
   for (var i = 0; i < totalIterations; i++) {
     var thisPrices = document.getElementById("totalPricePerProductH" + i);
     var thisPrice = thisPrices.value;
@@ -328,7 +400,7 @@ function calculatePrice(e, id) {
   // instantiate the overall price
   var overall = document.querySelector(".priceText");
   // make the other price null
-  document.getElementById("checkOutHeader").textContent="";
+  document.getElementById("checkOutHeader").textContent = "";
   overall.textContent = totalSum + " Kshs";
 
 
@@ -369,7 +441,7 @@ function calculatePrice(e, id) {
 
     }
 
-    
+
     totalSumGlobal = totalSum;
 
 
