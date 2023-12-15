@@ -123,7 +123,10 @@ public class HtmlComponents extends HttpServlet {
                 FarmerHtmlFormField farmerFormField = field.getAnnotation(FarmerHtmlFormField.class);
                 popUpForm += "        <label for=\"email\"><b>" + farmerFormField.formName() + "</b></label>\n" +
                         "        <input type=\"" + farmerFormField.formType() + "\" placeholder=\""
-                        + farmerFormField.placeHolder() + "\" name=\"" + field.getName() + "\" required>\n";
+                        + farmerFormField.placeHolder() + "\" name=\"" + field.getName() + "\" id=\""
+                        + (StringUtils.isEmpty(farmerFormField.className()) ? field.getName()
+                                : farmerFormField.className())
+                        + "\" required>\n";
             }
             String optionString = "";
             if (field.isAnnotationPresent(FarmerEnumAnnot.class)) {
@@ -141,9 +144,9 @@ public class HtmlComponents extends HttpServlet {
                 }
             }
         }
-        if(model.isAnnotationPresent(PaymentTypeAnnotation.class)){
-            popUpForm+="<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Buy\"> ";
-        }else{
+        if (model.isAnnotationPresent(PaymentTypeAnnotation.class)) {
+            popUpForm += "<button class=\"btn\" onclick=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\">Buy</button> ";
+        } else {
             popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
                     "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
                     "    </form>\n" +
@@ -281,22 +284,24 @@ public class HtmlComponents extends HttpServlet {
                 + sumProducts + "</span></h3>\n" +
                 "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
-                "       <button id='myBtn' class=\"submit\" onclick=\"openModal()\">proceed to checkout</button>"+
-                // "       <button class=\"submit\" value=\"proceed to checkout\" onclick=onclick=\"openForm(\" + id + \")\"/>\n" +
+                "       <button id='myBtn' class=\"submit\" onclick=\"openModal()\">proceed to checkout</button>" +
+                // " <button class=\"submit\" value=\"proceed to checkout\"
+                // onclick=onclick=\"openForm(\" + id + \")\"/>\n" +
                 "   </div>\n" +
                 "</div>\n";
-        shoppinCartHTML+= 
+        shoppinCartHTML +=
 
-                            "<!-- The Modal -->"+
-                            "<div id='myModal' class='modal'>"+
+                "<!-- The Modal -->" +
+                        "<div id='myModal' class='modal'>" +
 
-                            "<div class='modal-content'>"+
-                                "<span class='close' onclick=\"closeModal()\">&times;</span>"+
-                                "<input type=\"hidden\" value=\"\" id=\"hiddenFinalPrice\"/>\n" +
-                                "<span class=\"priceText\">The Total Price is KSHS <span class=\"finalPrice\"></span></span>\n" +
-                                popUpForm(PaymentDetails.class)+
-                            "</div>"+
-                            "</div>";
+                        "<div class='modal-content'>" +
+                        "<span class='close' onclick=\"closeModal()\">&times;</span>" +
+                        "<input type=\"hidden\" value=\"\" id=\"hiddenFinalPrice\"/>\n" +
+                        "<span class=\"priceText\">The Total Price is KSHS <span class=\"finalPrice\"></span></span>\n"
+                        +
+                        popUpForm(PaymentDetails.class) +
+                        "</div>" +
+                        "</div>";
         return shoppinCartHTML;
     }
 

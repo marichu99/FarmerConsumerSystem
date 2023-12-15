@@ -73,7 +73,9 @@ public class Produce extends BaseAction {
         }
         // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.selectByUser(new
         // Product(), GlobalBean.getUserEmail())));
-        renderSpecific(req, resp, Product.class, productBean.selectByUser(new Product(), GlobalBean.getUserEmail()));
+        Product product = new Product();
+        product.setProductOwner(GlobalBean.getUserEmail());
+        renderSpecific(req, resp, Product.class, productBean.list(product));
 
     }
 

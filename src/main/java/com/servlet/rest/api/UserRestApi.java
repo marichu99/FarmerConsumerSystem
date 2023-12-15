@@ -30,10 +30,11 @@ public class UserRestApi extends BaseRestApi{
     }
 
     @RolesAllowed("LOGEED_IN")
-    @Path("/list")
+    @Path("/show")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(){
+    public Response show(){
         return respond(userBean.allElements(new User()));
+        // return respond();
     }
 }

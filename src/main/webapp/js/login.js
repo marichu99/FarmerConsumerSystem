@@ -232,31 +232,88 @@ function checkOtp(e) {
   }
 }
 
-function closeModal(){
+function closeModal() {
   // Get the modal
   var modal = document.getElementById("myModal");
 
   modal.style.display = "none";
 }
 
+// function makePayment() {
+//   var url = "https://tinypesa.com/api/v1/express/initialize";
+//   // "amount=50&msisdn=0700034834&account_no=200"
+//   fetch(url, {
+//     body: "amount=50&msisdn=0700034834",
+//     headers: {
+//       Apikey: "gxpesDG7o1L",
+//       "Content-Type": "application/x-www-form-urlencoded",
+//     },
+//     method: "POST",
+//   }).then(response=>{
+//     return response.json()
+//   }).then(data=>{
+//     console.log("The response data is",data)
+//   }).catch(err=>{
+//     console.log("The error is",err)
+//   });
+// }
+
+function makePayment(endPoint){
+
+  // get the price and phone number
+  var phoneNumber = document.getElementById("phoneNumber").value;
+  var amount = document.querySelector(".finalPrice").textContent;
+  console.log("the price is ",amount);
+  console.log("the phoneNumber is ",phoneNumber);
+
+  // append this data to the endpoint
+  endPoint = endPoint+"?amount="+amount+"&phoneNumber="+phoneNumber;
+
+  console.log("The latest endpoint is");
+  console.log(endPoint);
+  // for basic auth on our local api
+  // const username = 'mabera@gmail.com';
+  // const password = 'mabera';
+  // Encode the credentials in Base64 format
+  const base64Credentials = btoa(`${username}:${password}`);
+  fetch(endPoint,{
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Authorization": `Basic ${base64Credentials}`,
+        "Content-type": "application/json"
+      }
+  }).then(response=>{
+    if(!response.ok){
+      console.log("The response has an error of ",response.status)
+    }else{
+      return response.json()
+    }
+  }).then(data=>{
+    console.log("The json data obtained successfully is ", data)
+  }).catch(err=>{
+    console.error("The error obtained was",err)
+  })
+}
+
 function openModal() {
   // Get the modal
   var modal = document.getElementById("myModal");
 
-  var form= document.querySelector(".form-popup");
+  var form = document.querySelector(".form-popup");
 
   var finalTotal = document.getElementById("hiddenFinalPrice").value;
 
 
   var finalPrice = document.querySelector(".finalPrice");
-  finalPrice.textContent=finalTotal;
+  finalPrice.textContent = finalTotal;
 
   console.log("The modal has been found");
 
 
   // When the user clicks on the button, open the modal
   modal.style.display = "block";
-  form.style.display= "flex";
+  form.style.display = "flex";
 
 }
 
@@ -428,7 +485,7 @@ function calculatePrice(e, id) {
   // instantiate the overall price
   var overall = document.querySelector(".priceText");
   // make the other price null
-  document.getElementById("hiddenFinalPrice").value=totalSum;
+  document.getElementById("hiddenFinalPrice").value = totalSum;
   document.getElementById("checkOutHeader").textContent = "";
   overall.textContent = totalSum + " Kshs";
 

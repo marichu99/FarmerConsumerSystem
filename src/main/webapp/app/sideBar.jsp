@@ -63,18 +63,9 @@
                             <span class="link-name" onclick="window.location.href='./admin'" >Add User</span>
                         </a></li>
                         <li><a href="#">
-                            <img src="icons/user-circle.jpg"class="icon"/>
-                            <span class="link-name" onclick="window.location.href='./profile?get=all'">Users</span>
-                        </a></li>
-                        <li><a href="#">
                             <img src="icons/plane-fly.jpg"class="icon" />
-                            <span class="link-name" onclick="window.location.href='./produce.jsp'">Produce</span>
-                        </a></li>
-                        <li><a href="#">
-                            <img src="icons/plane-arrival.jpg" class="icon" />
-                            <span class="link-name" onclick="window.location.href='./approvals.jsp'">Approvals</span><span class="approvals"> <?php echo $rowsApprovals?></span>
-                        </a></li>
-                        
+                            <span class="link-name" onclick="window.location.href='./produce'">Produce</span>
+                        </a></li>                        
             </ul>
             <% }%>
 

@@ -19,9 +19,9 @@ import com.servlet.view.enums.UserAction;
 
 @Stateless
 @Remote
-public class AuthBean extends GenericBean<User> implements AuthBeanI{
+public class AuthBean extends GenericBean<User> implements AuthBeanI {
 
-    @PersistenceContext 
+    @PersistenceContext
     EntityManager em;
 
     @Inject
@@ -30,28 +30,29 @@ public class AuthBean extends GenericBean<User> implements AuthBeanI{
 
     @Inject
     private Event<AuditLog> logger;
+
     public User authenticatUser(User loginUser) {
 
-        try{
-            System.out.println("The user type is ......"+loginUser.getUserType());
-            if(loginUser.getUserType().toString().equals("USER"))
-                loginUser.setPassword(encryptText.hash(loginUser.getPassword()));
-        }catch(Exception e){
+        try {
+            System.out.println("The user type is ......" + loginUser.getUserType());
+            loginUser.setPassword(encryptText.hash(loginUser.getPassword()));
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
         try {
             List<User> users = list(loginUser);
-            for(User user : users){
-                System.out.println("The user is "+user.getEmail());
-                System.out.println("The login user is "+loginUser.getEmail());
-                if(loginUser.getEmail().equals(user.getEmail())){
+            for (User user : users) {
+                System.out.println("The user is " + user.getEmail());
+                System.out.println("The login user is " + loginUser.getEmail());
+                if (loginUser.getEmail().equals(user.getEmail())) {
                     // update the logs
-                    AuditLog auditLog = new AuditLog(loginUser.getEmail(),LocalDateTime.now(),UserAction.LOGIN.getValue());          
-                    logger.fire(auditLog);     
+                    AuditLog auditLog = new AuditLog(loginUser.getEmail(), LocalDateTime.now(),
+                            UserAction.LOGIN.getValue());
+                    logger.fire(auditLog);
                     return user;
-                }                    
+                }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

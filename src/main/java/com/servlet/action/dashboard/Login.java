@@ -61,7 +61,9 @@ public class Login extends BaseAction {
             boolean isTypeMatching = reqUserType.equals(userType.toString());
             if (isTypeMatching && reqUserType.equals("USER")) {
                 httpSession.setAttribute("userType", "user");
-                renderSpecific(req, resp, Product.class, productBean.selectByUser(new Product(),GlobalBean.getUserEmail()));
+                Product product = new Product();
+                product.setProductOwner(GlobalBean.getUserEmail());
+                renderSpecific(req, resp, Product.class, productBean.list(product));
             } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
                 httpSession.setAttribute("userType", "admin");
                 // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());

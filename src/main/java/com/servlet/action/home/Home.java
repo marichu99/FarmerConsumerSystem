@@ -52,6 +52,7 @@ public class Home extends BaseAction {
         if (type.equals("productType")) {
             Product product = new Product();
             product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
+            product.setProductOwner(GlobalBean.getUserEmail());
             List<Product> allProducts = productBean.list(product);
 
             String baseUrl = "http://localhost:8080/farmer-system-app/rest" + req.getServletPath() + "/list";
