@@ -6,11 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
 
 // @DbTable(name = "logs")
 @Entity
 @Table(name = "logs")
+@HtmlTable()
+
 public class AuditLog extends BaseEntity {
 
     @Column(name = "user", columnDefinition = "VARCHAR(255)")
@@ -21,7 +24,7 @@ public class AuditLog extends BaseEntity {
     @HtmlTableColHeader(header = "TimeStamp")
     private LocalDateTime date;
 
-    @Column(name = "user_action", columnDefinition = "VARCHAR(255)")
+    @Column(name = "userAction", columnDefinition = "VARCHAR(255)")
     @HtmlTableColHeader(header = "User Action")
     private String userAction;
 

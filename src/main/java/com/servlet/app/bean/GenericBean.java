@@ -2,13 +2,16 @@ package com.servlet.app.bean;
 
 import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.dao.GenericDao;
+import com.servlet.view.enums.UserAction;
 
 public class GenericBean<T> implements GenericBeanI<T> {
 
@@ -17,6 +20,11 @@ public class GenericBean<T> implements GenericBeanI<T> {
 
     @Inject
     private GenericDao<T> genericDao;
+
+    @Inject
+    private Event<AuditLog> logger;
+
+    AuditLog auditLog = new AuditLog();
 
     @Override
     public List<T> list(T entity) {
@@ -28,12 +36,18 @@ public class GenericBean<T> implements GenericBeanI<T> {
     public void addOrUpdate(T entity) {
         genericDao.setEm(em);
         genericDao.addOrUpdate(entity);
+
+        auditLog.setUserAction(UserAction.ADD_ITEM.getValue());
+        logger.fire(auditLog);
     }
 
     @Override
     public void delete(T entity) {
         genericDao.setEm(em);
         genericDao.delete(entity);
+
+        auditLog.setUserAction(UserAction.DELETE_ITEM.getValue());
+        logger.fire(auditLog);
     }
 
     public GenericDao<T> getGenericDao() {

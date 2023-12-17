@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.PaymentDetails;
 import com.servlet.app.model.entity.Product;
+import com.servlet.app.model.entity.User;
 import com.servlet.database.helper.DbTableID;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
@@ -107,11 +108,15 @@ public class HtmlComponents extends HttpServlet {
         fields.addAll(Arrays.asList(model.getDeclaredFields()));
         HtmlTable htmlTable = model.getAnnotation(HtmlTable.class);
 
-        String popUpForm = "<div class=\"form-popup\" id=\"myForm\">\n" +
-                "    <form action=\"" + htmlTable.addUrl() + "\" class=\"form-container\" method=\""
-                + htmlTable.action() + "\">\n" +
-                "<input type=\"hidden\" value=\"update\" name=\"" + model.getSimpleName() + "\">\n" +
-                "        <h2>Edit Details</h2>\n";
+        String popUpForm = "<div class=\"form-popup\" id=\"myForm\">\n";
+        if (model.isAnnotationPresent(PaymentTypeAnnotation.class)) {
+            popUpForm += "    <form  class=\"form-container\" onsubmit=\" return false;\">\n";
+        } else {
+            popUpForm += " <form action=\"" + htmlTable.addUrl() + "\" class=\"form-container\" method=\""
+                    + htmlTable.action() + "\">\n" +
+                    "<input type=\"hidden\" value=\"update\" name=\"" + model.getSimpleName() + "\">\n" +
+                    "        <h2>Edit Details</h2>\n";
+        }
         for (Field field : fields) {
 
             // check if the field is an id column
@@ -145,7 +150,7 @@ public class HtmlComponents extends HttpServlet {
             }
         }
         if (model.isAnnotationPresent(PaymentTypeAnnotation.class)) {
-            popUpForm += "<button class=\"btn\" onclick=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\">Buy</button> ";
+            popUpForm += "<input type=\"submit\" name=\"submit\" class=\"btn\" class=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\" value=\"Pay\"/> ";
         } else {
             popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
                     "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
@@ -288,21 +293,24 @@ public class HtmlComponents extends HttpServlet {
                 // " <button class=\"submit\" value=\"proceed to checkout\"
                 // onclick=onclick=\"openForm(\" + id + \")\"/>\n" +
                 "   </div>\n" +
-                "</div>\n";
-        shoppinCartHTML +=
-
-                "<!-- The Modal -->" +
+                "</div>\n";          
+                shoppinCartHTML+=myModal(PaymentDetails.class,true);      
+        return shoppinCartHTML;
+    }
+    public static String myModal(Class<?> dataClazz,boolean showPrice){
+        String modalString = "<!-- The Modal -->" +
                         "<div id='myModal' class='modal'>" +
 
                         "<div class='modal-content'>" +
                         "<span class='close' onclick=\"closeModal()\">&times;</span>" +
-                        "<input type=\"hidden\" value=\"\" id=\"hiddenFinalPrice\"/>\n" +
-                        "<span class=\"priceText\">The Total Price is KSHS <span class=\"finalPrice\"></span></span>\n"
-                        +
-                        popUpForm(PaymentDetails.class) +
+                        "<input type=\"hidden\" value=\"\" id=\"hiddenFinalPrice\"/>\n" ;
+                        if(showPrice){
+                            modalString+="<span class=\"priceText\">The Total Price is KSHS <span class=\"finalPrice\"></span></span>\n";
+                        }
+                        modalString+= popUpForm(dataClazz) +
                         "</div>" +
                         "</div>";
-        return shoppinCartHTML;
+            return modalString;
     }
 
     public static String table(List<?> dataList, Class<?> dataClass) {
@@ -380,6 +388,8 @@ public class HtmlComponents extends HttpServlet {
 
         fields.remove(fields.size() - 1);
 
+        // check whether this is an admin
+
         String htmlContent = "<div class=\"navDeets\">\n" +
                 "    <div class=\"header-deets\">\n" +
                 "        <div class=\"acc-details\">\n" +
@@ -395,9 +405,16 @@ public class HtmlComponents extends HttpServlet {
                 "            <span class=\"acc-span-deets\">KSHS -2000</span>\n" +
                 "        </div>\n" +
                 "    </div>\n";
-        htmlContent += "    <div class=\"sectionDeets\">\n" +
-                "        <h3>Recent Activity</h3>\n" +
-                "        <select class=\"logFilters\" onchange=\"getFeature(this,'productType')\">\n" +
+        htmlContent += "    <div class=\"sectionDeets\">\n";
+
+        // if user accessing this page is an admin then we add the add user button
+        if(GlobalBean.getUserType().name().equals("ADMIN")){
+            htmlContent+="        <h3 onclick=\"openModal()\">Add User</h3>\n" ;
+        }else{
+            htmlContent+= "        <h3>Recent Activity</h3>\n" ;
+        }
+               htmlContent+=
+                "        <select class=\"logFilters\" onchange=\"getFeature(this,'"+dataClass.getSimpleName()+"')\">\n" +
                 "            <option>Choose   </option>\n";
         for (Field field : fields) {
             htmlContent += "<option>" + field.getName() + "</option>\n";
@@ -407,6 +424,7 @@ public class HtmlComponents extends HttpServlet {
                 + "')\">Export Report</h3>\n"
                 +
                 "    </div>\n";
+        htmlContent+=myModal(User.class,false);
         return htmlContent;
     }
 

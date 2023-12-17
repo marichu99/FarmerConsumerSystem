@@ -169,6 +169,16 @@ function showPass(type, place) {
   }
 }
 
+// edit forms
+function openForm(productId) {
+  document.getElementById("myForm").style.display = "flex";
+  document.getElementById("hiddenId").value = productId;
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
 
 // a function to hide the password
 function hidePass(type, place) {
@@ -272,17 +282,17 @@ function makePayment(endPoint){
   console.log("The latest endpoint is");
   console.log(endPoint);
   // for basic auth on our local api
-  // const username = 'mabera@gmail.com';
-  // const password = 'mabera';
+  const username = 'mabera@gmail.com';
+  const password = 'mabera';
   // Encode the credentials in Base64 format
   const base64Credentials = btoa(`${username}:${password}`);
   fetch(endPoint,{
       method: "GET",
-      mode: "cors",
       headers: {
         "Authorization": `Basic ${base64Credentials}`,
         "Content-type": "application/json"
-      }
+      },
+      mode: "cors"
   }).then(response=>{
     if(!response.ok){
       console.log("The response has an error of ",response.status)

@@ -14,15 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servlet.action.dashboard.BaseAction;
+import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.ProductBeanI;
+import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.ProductCategory;
+import com.servlet.view.enums.UserAction;
 
 @WebServlet(urlPatterns = "/home")
 public class Home extends BaseAction {
     @EJB
     private ProductBeanI productBean;
+
+    @EJB
+    AuditLogBeanI auditLogBean;
 
     @PersistenceContext
     EntityManager em;
@@ -49,26 +55,41 @@ public class Home extends BaseAction {
         String type = StringUtils.trimToEmpty(req.getParameter("type"));
         String value = StringUtils.trimToEmpty(req.getParameter("value"));
 
-        if (type.equals("productType")) {
+        if (type.equals("ProductCategory")) {
             Product product = new Product();
             product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
             product.setProductOwner(GlobalBean.getUserEmail());
             List<Product> allProducts = productBean.list(product);
 
-            String baseUrl = "http://localhost:8080/farmer-system-app/rest" + req.getServletPath() + "/list";
-            String queryParams = req.getQueryString();
-            String fullUrl = "";
-            if (StringUtils.isNotBlank(queryParams)) {
-                fullUrl = baseUrl.concat("?").concat(queryParams).toString();
-            }
+            String fullUrl = getEndPoint(req, resp);
             // update the globalbean and set the endpoint
             GlobalBean.setEndpoint(fullUrl);
 
             // JsonFetcher.convertJsonToExcel(Product.class, allProducts);
 
-            renderSpecific(req, resp, Product.class, allProducts);
+            renderSpecific(req, resp, Product.class, allProducts, ProductCategory.class);
+        } else if (type.equals("UserAction")) {
+            AuditLog auditLog = new AuditLog();
+            auditLog.setUserAction(Enum.valueOf(UserAction.class, value).getValue());
+            List<AuditLog> allAuditLogs = auditLogBean.list(auditLog);
+
+            String fullUrl = getEndPoint(req, resp);
+            // update the globalbean and set the endpoint
+            GlobalBean.setEndpoint(fullUrl);
+            renderSpecific(req, resp, AuditLog.class, allAuditLogs, UserAction.class);
         } else {
-            renderSpecific(req, resp, Product.class, productBean.allElements(new Product()));
+            renderSpecific(req, resp, Product.class, productBean.allElements(new Product()), ProductCategory.class);
         }
+
+    }
+
+    private String getEndPoint(HttpServletRequest req, HttpServletResponse resp) {
+        String baseUrl = "http://localhost:8080/farmer-system-app/rest" + req.getServletPath() + "/list";
+        String queryParams = req.getQueryString();
+        String fullUrl = "";
+        if (StringUtils.isNotBlank(queryParams)) {
+            fullUrl = baseUrl.concat("?").concat(queryParams).toString();
+        }
+        return fullUrl;
     }
 }

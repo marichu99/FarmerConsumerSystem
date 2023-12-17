@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.html.HtmlComponents;
 
 public class BaseAction extends HttpServlet {
@@ -48,11 +47,11 @@ public class BaseAction extends HttpServlet {
     }
 
     public void renderSpecific(HttpServletRequest request, HttpServletResponse response, Class<?> entity,
-            List<?> entityList) throws ServletException, IOException {
+            List<?> entityList, Class<?> selectClass) throws ServletException, IOException {
         // request.setAttribute(getServletName(), response);
         // add some header content for the login page
         String servletPath = request.getServletPath();
-        String content = HtmlComponents.getCustomerDash(ProductCategory.class);
+        String content = HtmlComponents.getCustomerDash(selectClass);
         if (servletPath.equals("/login") || servletPath.equals("/home")) {
             content += HtmlComponents.popUpForm(entity);
         }

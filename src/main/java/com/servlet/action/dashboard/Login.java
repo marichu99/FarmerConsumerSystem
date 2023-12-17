@@ -13,12 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.AuthBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.UserBeanI;
+import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.utils.GlobalBean;
+import com.servlet.view.enums.ProductCategory;
+import com.servlet.view.enums.UserAction;
 import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/login")
@@ -31,6 +35,9 @@ public class Login extends BaseAction {
     UserBeanI userBean;
     @Inject
     GlobalBean globalBean;
+
+    @EJB
+    AuditLogBeanI auditLogBean;
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,22 +59,31 @@ public class Login extends BaseAction {
             // create a session
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+
             // get the userType of the authenticated user
             UserType userType = userDetails.getUserType();
             httpSession.setAttribute("email", userDetails.getEmail());
+
             // set the user email for the session based bean
             GlobalBean.setUserEmail(userDetails.getEmail());
 
+            // set the userType globally
+            GlobalBean.setUserType(userType);
+
             boolean isTypeMatching = reqUserType.equals(userType.toString());
             if (isTypeMatching && reqUserType.equals("USER")) {
+
                 httpSession.setAttribute("userType", "user");
+
                 Product product = new Product();
                 product.setProductOwner(GlobalBean.getUserEmail());
-                renderSpecific(req, resp, Product.class, productBean.list(product));
+
+                renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
             } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
+
                 httpSession.setAttribute("userType", "admin");
-                // renderPage(req, resp, 0, HtmlComponents.getCustomerDash());
-                renderSpecific(req, resp, User.class, userBean.allElements(new User()));
+
+                renderSpecific(req, resp, AuditLog.class, auditLogBean.allElements(new AuditLog()), UserAction.class);
             }
         }
         print.write("<html><body>Invalid login details <a href=\"./login\"> Login again </a></body></html>");

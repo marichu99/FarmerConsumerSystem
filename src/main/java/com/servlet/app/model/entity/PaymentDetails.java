@@ -8,7 +8,7 @@ import com.servlet.view.html.annotation.HtmlTable;
 import com.servlet.view.html.annotation.PaymentTypeAnnotation;
 
 @PaymentTypeAnnotation
-@FarmerHtmlForm
+@FarmerHtmlForm(action = "", httpMethod = "GET")
 @HtmlTable
 public class PaymentDetails implements Serializable {
 

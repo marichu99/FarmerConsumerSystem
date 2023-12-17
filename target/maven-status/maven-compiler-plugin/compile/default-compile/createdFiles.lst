@@ -1,3 +1,4 @@
+com/servlet/action/dashboard/MpesaAction.class
 com/servlet/app/bean/UserBeanI.class
 com/servlet/action/dashboard/PaymentAction.class
 com/servlet/filter/AuthFilter.class
@@ -15,6 +16,7 @@ com/servlet/view/html/ApprovalHtml.class
 com/servlet/view/html/annotation/NumericTypeAnnot.class
 com/servlet/app/bean/ProductBeanI.class
 com/servlet/view/html/annotation/FarmerGridView.class
+com/servlet/app/bean/MpesaBean.class
 com/servlet/mail/utility/MailFormatter.class
 com/servlet/mail/model/Mail.class
 com/servlet/rest/api/RestResponseWrapper.class
@@ -47,6 +49,7 @@ com/servlet/rest/config/Rest.class
 com/servlet/app/bean/PaymentBean.class
 com/servlet/action/dashboard/Buy.class
 com/servlet/utils/EnumTypeSelector.class
+com/servlet/app/bean/AuditBean.class
 com/servlet/action/dashboard/Produce.class
 com/servlet/view/html/annotation/FarmerHtmlFormField.class
 com/servlet/view/html/annotation/FarmerHtmlForm.class
@@ -80,8 +83,10 @@ com/servlet/action/dashboard/Track.class
 com/servlet/app/model/view/MenuLink.class
 com/servlet/mail/bean/MailBean.class
 com/servlet/rest/mpesa/Mpesa.class
+com/servlet/app/bean/AuditLogBeanI.class
 com/servlet/action/dashboard/AdminAction.class
 com/servlet/app/model/entity/BaseEntity.class
+com/servlet/app/bean/MpesaBeanI.class
 com/servlet/app/bean/LoginForm.class
 com/servlet/action/dashboard/Sell.class
 com/servlet/view/html/annotation/FarmerEnumAnnot.class

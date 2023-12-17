@@ -43,10 +43,7 @@
                 <img src="icons/plane-arrival.jpg" class="icon" />
                     <span class="link-name" onclick="window.location.href='./cart'">Cart Items</span><span class="approvals"> <%=0%></span>
                 </a></li>
-                <li><a href="#">
-                <img src="icons/plane-arrival.jpg" class="icon" />
-                    <span class="link-name" onclick="window.location.href='./track.jsp'">Track produce</span>
-                </a></li>                
+                            
             </ul>
             <% }else  if(session.getAttribute("userType") != null && session.getAttribute("userType").equals("admin")){%>
             <ul class="nav-links">
@@ -56,11 +53,11 @@
                         </a></li>
                         <li><a href="#">
                             <img src="icons/chart-line.jpg" class="icon"/>
-                            <span class="link-name" onclick="window.location.href='./reports.jsp'">Reports</span>
+                            <span class="link-name" onclick="window.location.href='./reports'">Reports</span>
                         </a></li>
                         <li><a href="#">
                             <img src="icons/adjust-circle.jpg" class="icon" />
-                            <span class="link-name" onclick="window.location.href='./admin'" >Add User</span>
+                            <span class="link-name" onclick="window.location.href='./admin'" >User</span>
                         </a></li>
                         <li><a href="#">
                             <img src="icons/plane-fly.jpg"class="icon" />

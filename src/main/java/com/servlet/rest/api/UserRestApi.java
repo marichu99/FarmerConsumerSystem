@@ -14,15 +14,15 @@ import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.User;
 
 @Path("/sign")
-public class UserRestApi extends BaseRestApi{
+public class UserRestApi extends BaseRestApi {
     @EJB
     UserBeanI userBean;
-    
+
     @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)   
-    
+    @Produces(MediaType.APPLICATION_JSON)
+
     public Response add(User user) {
         // TODO Auto-generated method stub
         userBean.addOrUpdate(user);
@@ -30,11 +30,12 @@ public class UserRestApi extends BaseRestApi{
     }
 
     @RolesAllowed("LOGEED_IN")
-    @Path("/show")
+    @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response show(){
+    public Response show() {
         return respond(userBean.allElements(new User()));
         // return respond();
     }
+
 }

@@ -9,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,13 +18,11 @@ import com.servlet.app.bean.CartBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.Product;
 import com.servlet.utils.GlobalBean;
+import com.servlet.view.enums.ProductCategory;
 
 @WebServlet("/produce")
-@MultipartConfig(
-    fileSizeThreshold = 1024*1024*1,
-    maxFileSize = 1024*1024*10,
-    maxRequestSize = 1024*1024*100
-)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024
+        * 100)
 public class Produce extends BaseAction {
     @EJB
     private ProductBeanI productBean;
@@ -35,7 +34,8 @@ public class Produce extends BaseAction {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+        // get the httpSession
+        HttpSession httpSession = req.getSession();
 
         String type = StringUtils.trimToEmpty(req.getParameter("type"));
         String mode = StringUtils.trimToEmpty(req.getParameter("mode"));
@@ -71,11 +71,16 @@ public class Produce extends BaseAction {
                     "</body>" +
                     "</html>");
         }
-        // renderPage(req, resp, 0, HtmlComponents.gridView(productBean.selectByUser(new
-        // Product(), GlobalBean.getUserEmail())));
+        
         Product product = new Product();
-        product.setProductOwner(GlobalBean.getUserEmail());
-        renderSpecific(req, resp, Product.class, productBean.list(product));
+
+        // for normal users
+        if (httpSession.getAttribute("userType").equals("user")) {
+            product.setProductOwner(GlobalBean.getUserEmail());
+            renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+        } else {
+            renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+        }
 
     }
 
@@ -103,8 +108,8 @@ public class Produce extends BaseAction {
             Part filePart = req.getPart("file");
 
             // upload
-            for(Part part : req.getParts()){
-                part.write("/home/mabera/Documents/FarmerConsumerSystem/src/main/webapp/images/"+imageName);
+            for (Part part : req.getParts()) {
+                part.write("/home/mabera/Documents/FarmerConsumerSystem/src/main/webapp/images/" + imageName);
             }
 
             // if no update then create a new product
@@ -114,7 +119,7 @@ public class Produce extends BaseAction {
             // set the image name
             product.setImageName(imageName);
 
-            System.out.println("The image name is ##"+imageName);
+            System.out.println("The image name is ##" + imageName);
             try {
                 productBean.addOrUpdate(product);
                 //

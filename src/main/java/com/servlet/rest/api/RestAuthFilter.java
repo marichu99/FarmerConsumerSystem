@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 
+import javax.annotation.Priority;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -16,13 +17,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 
 import com.servlet.app.bean.AuthBeanI;
 import com.servlet.app.model.entity.User;
 import com.servlet.view.enums.UserType;
 
-// @Provider
-// @Priority(1)
+@Provider
+@Priority(1)
 public class RestAuthFilter implements ContainerRequestFilter {
 
     @Context
