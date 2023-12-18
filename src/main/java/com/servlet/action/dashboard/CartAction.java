@@ -34,9 +34,11 @@ public class CartAction extends BaseAction{
             
             // then get the productID
             int productId = Integer.parseInt(req.getParameter("id"));
-            boolean isItemAdded = cartBean.addToCart(productId);
 
             Product product = productBean.getProductByID(productId);
+
+            boolean isItemAdded = cartBean.addToCart(productId);
+                        
             if(isItemAdded){
                 req.setAttribute("Source", "./js/form.js");
                 CartProduct cartProduct = new CartProduct();

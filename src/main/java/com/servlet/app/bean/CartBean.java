@@ -40,10 +40,9 @@ public class CartBean extends GenericBean<CartProduct> implements CartBeanI {
                         product.getProdQuantity(), product.getProductDescription(), product.getProductOwner());
 
                 cartProduct.setProductCategory(product.getProductCategory());
-                cartProduct.setImageName(product.getImageName());        
+                cartProduct.setImageName(product.getImageName());   
+                cartProduct.setProductID(productID);     
                 getGenericDao().addOrUpdate(cartProduct);
-
-                productBean.delete(product);
 
                 // update logs
                 AuditLog auditLog = new AuditLog(GlobalBean.getUserEmail(), LocalDateTime.now(),
@@ -66,6 +65,7 @@ public class CartBean extends GenericBean<CartProduct> implements CartBeanI {
                 Product product = new Product(cartProduct.getId(), cartProduct.getProdName(),
                         cartProduct.getProdDescription(), cartProduct.getProdPrice(), cartProduct.getProdQuantity());
 
+                product.setProductCategory(cartProduct.getProductCategory());
                 product.setProductOwner(cartProduct.getProductOwner());
                 product.setImageName(cartProduct.getImageName());
 

@@ -40,6 +40,11 @@ public class CartProduct extends BaseEntity {
     @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
     private String productOwner;
 
+    @Column(name = "productID", columnDefinition = "INT(11)")
+    private int productID;
+
+    
+
     @HtmlTableColHeader(header = "Product Category")
     @Column(name = "productCategory", columnDefinition = "VARCHAR(255)")
     @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "productCategory")
@@ -117,6 +122,14 @@ public class CartProduct extends BaseEntity {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
 }

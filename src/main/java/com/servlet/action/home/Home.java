@@ -18,6 +18,7 @@ import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
+import com.servlet.rest.mpesa.constants.Constants;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.UserAction;
@@ -78,6 +79,9 @@ public class Home extends BaseAction {
             GlobalBean.setEndpoint(fullUrl);
             renderSpecific(req, resp, AuditLog.class, allAuditLogs, UserAction.class);
         } else {
+            // endPoint for all the products
+            GlobalBean.setEndpoint(Constants.endpoint);
+
             Product product = new Product();
             product.setProductOwner(GlobalBean.getUserEmail());
             renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);

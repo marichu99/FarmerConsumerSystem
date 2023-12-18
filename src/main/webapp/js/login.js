@@ -270,6 +270,23 @@ function closeModal() {
 
 function makePayment(endPoint) {
 
+  // get the total Number of $iterations
+  var totalIterations = document.getElementById("numIterations");
+  totalIterations = totalIterations.value;
+  totalIterations = parseInt(totalIterations);
+
+  for(var i=0;i<totalIterations;i++){
+    // get the product ID and numQuantity for each product
+    var productID = document.getElementById("hiddenProductID"+i);
+    productID=parseInt(productID.value);
+
+    var numQuantity = document.getElementById("hiddenUpdatedQuantity"+i);
+    numQuantity=parseInt(numQuantity.value)
+
+    // update
+    updatedQuantity(productID,numQuantity);
+  }
+
   // get the price and phone number
   var phoneNumber = document.getElementById("phoneNumber").value;
   var amount = document.querySelector(".finalPrice").textContent;
@@ -508,12 +525,27 @@ function calculatePrice(e, id) {
   // update the cart banner
   document.querySelector(".approvals").textContent = totalIterations;
   for (var i = 0; i < totalIterations; i++) {
+
     var thisPrices = document.getElementById("totalPricePerProductH" + i);
     var thisPrice = thisPrices.value;
     thisPrice = parseInt(thisPrice);
+
     var totalQuant = document.getElementById("totalQuantity" + i);
     totalQuant = totalQuant.textContent;
     totalQuant = parseInt(totalQuant);
+
+    var prodQuant = document.getElementById("numQuantity" + i);
+    prodQuant=parseInt(prodQuant.value);
+
+    if(prodQuant>totalQuant){
+      // make the proceed to checkout button null
+      document.getElementById("myBtn").disabled=true;
+    }else{
+      document.getElementById("myBtn").disabled=false;
+      // calculate the updated Quantity
+      var updatedQuantity = totalQuant-prodQuant;
+      document.getElementById("hiddenUpdatedQuantity"+i).value=updatedQuantity;
+    }
 
     pricesGlobal.push(thisPrice);
     quantityGlobal.push(totalQuant);
@@ -568,7 +600,6 @@ function calculatePrice(e, id) {
   var overall = document.querySelector(".priceText");
   // make the other price null
   document.getElementById("hiddenFinalPrice").value = totalSum;
-  document.getElementById("checkOutHeader").textContent = "";
   overall.textContent = totalSum + " Kshs";
 
 
@@ -623,6 +654,32 @@ function calculatePrice(e, id) {
   }
 }
 
+// function to update the quantities of bought goods
+function updatedQuantity(productID, numQuantity){
+
+  const addOrUpdateEndpoint ="http://localhost:8080/farmer-system-app/rest/home/add?type="+productID+"&value="+numQuantity+"";
+
+  const username = 'mabera@gmail.com';
+  const password = 'mabera';
+
+  // Encode the credentials in Base64 format
+  const base64Credentials = btoa(`${username}:${password}`);
+
+  fetch(addOrUpdateEndpoint,{
+    method: "GET",
+    headers: {
+      "Authorization": `Basic ${base64Credentials}`,
+      "Content-type": "application/json"
+    }
+  }).then(response=>{
+    return response.json()
+  }).then(data=>{
+    console.log(data)
+  }).catch(err=>{
+    console.error(err);
+  })
+
+}
 // if user has not changed any values send the form with the default values
 function submitDetails() {
 

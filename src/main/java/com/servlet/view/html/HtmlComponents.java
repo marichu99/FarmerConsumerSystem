@@ -155,7 +155,7 @@ public class HtmlComponents extends HttpServlet {
             }
         }
         if (model.isAnnotationPresent(PaymentTypeAnnotation.class)) {
-            popUpForm += "<input type=\"submit\" name=\"submit\" class=\"btn\" class=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\" value=\"Pay\"/> ";
+            popUpForm += "<input type=\"submit\" name=\"submit\" class=\"btn\" onclick=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\" value=\"Pay\"/> ";
         } else {
             popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
                     "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
@@ -265,22 +265,42 @@ public class HtmlComponents extends HttpServlet {
                     "\n" +
                     "                   <td><img src='./images/"+cartProduct.getImageName()+"' class=\"image_prod\" /><br /></td>\n" +
                     "\n" +
+
+
                     "                   <td id=\"prodQuantity\"><p id=\"errText" + modelINdex
                     + "\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity"
                     + modelINdex + "\"  onkeyup=\"calculatePrice(event,"
                     + modelINdex + ")\"/>/ <span id=\"totalQuantity" + modelINdex + "\">"
                     + cartProduct.getProdQuantity() + "</span></td>\n" +
+
+
                     "<input type='hidden' name='hiddenQuantity' id='hiddenQuantity" + modelINdex
                     + "' name='hiddenQuantity" + modelINdex + "' value='" + cartProduct.getProdPrice() + "'\n/>" +
                     "\n" +
+
+                    "<input type='hidden' name='hiddenProductID' id='hiddenProductID" + modelINdex
+                    + "' name='hiddenProductID" + modelINdex + "' value='" + cartProduct.getProductID() + "'\n/>" +
+                    "\n" +
+
+                    "<input type='hidden' name='hiddenUpdatedQuantity' id='hiddenUpdatedQuantity" + modelINdex
+                    + "' name='hiddenUpdatedQuantity" + modelINdex + "'\n/>" +
+                    "\n" +
+
+
                     "                   <td>" + cartProduct.getProdPrice() + " Kshs</td>\n" +
+
+                    
                     "\n" +
                     "<input type=\"hidden\" value=\"" + cartProduct.getProdQuantity() * cartProduct.getProdPrice()
                     + "\" id=\"totalPricePerProductH" + modelINdex + "\"/>\n" +
+
+
                     "                   <td id=comPrice" + modelINdex + "> Total Price "
                     + "<span id=\"totalPricePerProduct" + modelINdex + "\"/>"
                     + cartProduct.getProdQuantity() * cartProduct.getProdPrice() + "</span>" +
                     "</td>\n" +
+
+
                     "\n" +
                     "                   <td><i class=\"uil uil-trash-alt\" onclick=\"window.location.href='./produce?mode=remove&type=cart&productID="
                     + cartProduct.getId() + "'\"></i></td>\n";
@@ -290,10 +310,9 @@ public class HtmlComponents extends HttpServlet {
         shoppinCartHTML += "       </table>\n" +
                 "   </div>\n" +
                 "   <div class=\"checkout\">\n" +
-                "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: <span id= checkOutHeader>"
-                + sumProducts + "</span></h3>\n" +
+                "       <h3 class=\"checkOutHeader\">The Total Comprehensive Price is: </h3>\n" +
                 "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
-                "       <span class=\"priceText\"></span>\n" +
+                "       <span class=\"priceText\">"+sumProducts+"</span>\n" +
                 "       <button id='myBtn' class=\"submit\" onclick=\"openModal('checkout')\">proceed to checkout</button>" +
                 
                 "   </div>\n" +

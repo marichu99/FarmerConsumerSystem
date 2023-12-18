@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -30,11 +28,16 @@ public class ProductRestApi extends BaseRestApi {
     @EJB
     AuditLogBeanI auditLogBean;
 
+    @RolesAllowed("lOGGED_IN")
     @Path("/add")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add(Product product) {
+    public Response add(@QueryParam("type") int productID, @QueryParam("value") int quantity) {
+
+        Product product = productBean.getProductByID(productID);
+        product.setId(productID);
+        product.setProdQuantity(quantity);
+
         productBean.addOrUpdate(product);
         return respond();
     }
@@ -42,7 +45,6 @@ public class ProductRestApi extends BaseRestApi {
     @RolesAllowed("lOGGED_IN")
     @Path("/list")
     @GET
-    // @Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     @Produces(MediaType.APPLICATION_JSON)
     public Response list(@QueryParam("type") String type, @QueryParam("value") String value) {
         System.out.println("The code reaches here");

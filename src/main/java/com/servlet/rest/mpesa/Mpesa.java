@@ -126,7 +126,6 @@ public class Mpesa {
                 .build();
 
         Response response = client.newCall(request).execute();
-        // System.out.println(response.body().string());
         return response.body().toString();
     }
 

@@ -73,6 +73,20 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
             }
         }
         return searchedProducts;
+    }
+    @Override
+    public List<Product> otherUser(String email, List<Product> products) {
+        
+        List<Product> allProducts = new ArrayList<>();
+
+        for(Product product: products){
+            if(!product.getProductOwner().equals(email)){
+                allProducts.add(product);
+            }
+        }
+        return allProducts;
     }    
+
+    
     
 }

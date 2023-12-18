@@ -72,6 +72,8 @@ public class ProductAction extends BaseAction {
 
                 List<Product> allProducts = productBean.list(thisProduct);
 
+                allProducts=productBean.otherUser(GlobalBean.getUserEmail(), allProducts);
+
                 // check for category for all the products
                 if (StringUtils.isNotBlank(category)) {
                     searchByCategory(req, resp, category, allProducts, mode, search, value, thisProduct);
