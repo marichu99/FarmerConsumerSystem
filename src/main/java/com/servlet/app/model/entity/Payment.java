@@ -1,6 +1,6 @@
 package com.servlet.app.model.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 public class Payment extends BaseEntity{
     @HtmlTableColHeader(header = "Date")
     @Column(name = "Date", columnDefinition = "")
-    private Date transactionDate;
+    private LocalDateTime transactionDate;
 
     @HtmlTableColHeader(header = "Transaction Number")
     @Column(name = "txnNumber", columnDefinition = "VARCHAR(255)")
@@ -26,15 +26,11 @@ public class Payment extends BaseEntity{
     @Column(name = "Price", columnDefinition = "DOUBLE")
     private Double Price;
 
+    @HtmlTableColHeader(header = "Buyer")
+    @Column(name = "buyer", columnDefinition = "VARCHAR(255)")
+    private String buyer;
+
     public Payment() {
-    }
-
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
     }
 
     public String getTxnNumber() {
@@ -51,6 +47,24 @@ public class Payment extends BaseEntity{
 
     public void setPrice(Double price) {
         Price = price;
+    }
+
+    public String getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
     } 
 
 }

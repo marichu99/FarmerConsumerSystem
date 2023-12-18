@@ -25,5 +25,7 @@ public class Constants {
     public static String email="mabera";
 
     public static String endpoint ="http://localhost:8080/farmer-system-app/rest/home/list";
+
+    public static String endpointLogs ="http://localhost:8080/farmer-system-app/rest/logs/list";
     
 }

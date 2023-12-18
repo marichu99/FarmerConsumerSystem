@@ -50,7 +50,6 @@ com/servlet/rest/config/Rest.class
 com/servlet/app/bean/PaymentBean.class
 com/servlet/action/dashboard/Buy.class
 com/servlet/utils/EnumTypeSelector.class
-com/servlet/action/home/QueryParamExample.class
 com/servlet/app/bean/AuditBean.class
 com/servlet/view/html/annotation/FarmerHtmlFormField.class
 com/servlet/view/html/annotation/FarmerHtmlForm.class
@@ -77,6 +76,7 @@ com/servlet/dao/GenericDaoI.class
 com/servlet/utils/GlobalBean.class
 com/servlet/action/dashboard/Logout.class
 com/servlet/utils/TextEncryptMD5.class
+com/servlet/rest/api/PaymentRestApi.class
 com/servlet/dao/GenericDao.class
 com/servlet/action/dashboard/Profile.class
 com/servlet/app/bean/CartBean.class
@@ -103,5 +103,6 @@ com/servlet/view/html/annotation/HtmlTable.class
 com/servlet/action/dashboard/Reports.class
 com/servlet/app/model/entity/PaymentDetails.class
 com/servlet/action/dashboard/Approvals.class
+com/servlet/rest/api/AuditLogRestApi.class
 com/servlet/rest/api/UserRestApi.class
 com/servlet/database/helper/DbTableID.class

@@ -17,11 +17,9 @@ import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.AuthBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.UserBeanI;
-import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.utils.GlobalBean;
-import com.servlet.view.enums.UserAction;
 import com.servlet.view.enums.UserType;
 
 @WebServlet(urlPatterns = "/login")
@@ -78,12 +76,13 @@ public class Login extends BaseAction {
                 product.setProductOwner(GlobalBean.getUserEmail());
 
                 resp.sendRedirect("./home");
-                // renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+
             } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
 
                 httpSession.setAttribute("userType", "admin");
 
-                renderSpecific(req, resp, AuditLog.class, auditLogBean.allElements(new AuditLog()), UserAction.class);
+                resp.sendRedirect("./home");
+
             }
         }
         print.write("<html><body>Invalid login details <a href=\"./login\"> Login again </a></body></html>");

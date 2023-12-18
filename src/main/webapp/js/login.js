@@ -275,16 +275,16 @@ function makePayment(endPoint) {
   totalIterations = totalIterations.value;
   totalIterations = parseInt(totalIterations);
 
-  for(var i=0;i<totalIterations;i++){
+  for (var i = 0; i < totalIterations; i++) {
     // get the product ID and numQuantity for each product
-    var productID = document.getElementById("hiddenProductID"+i);
-    productID=parseInt(productID.value);
+    var productID = document.getElementById("hiddenProductID" + i);
+    productID = parseInt(productID.value);
 
-    var numQuantity = document.getElementById("hiddenUpdatedQuantity"+i);
-    numQuantity=parseInt(numQuantity.value)
+    var numQuantity = document.getElementById("hiddenUpdatedQuantity" + i);
+    numQuantity = parseInt(numQuantity.value)
 
     // update
-    updatedQuantity(productID,numQuantity);
+    updatedQuantity(productID, numQuantity);
   }
 
   // get the price and phone number
@@ -292,6 +292,9 @@ function makePayment(endPoint) {
   var amount = document.querySelector(".finalPrice").textContent;
   console.log("the price is ", amount);
   console.log("the phoneNumber is ", phoneNumber);
+
+  // persist payment info
+  updatePaymentData(amount)
 
   // append this data to the endpoint
   endPoint = endPoint + "?amount=" + amount + "&phoneNumber=" + phoneNumber;
@@ -535,16 +538,16 @@ function calculatePrice(e, id) {
     totalQuant = parseInt(totalQuant);
 
     var prodQuant = document.getElementById("numQuantity" + i);
-    prodQuant=parseInt(prodQuant.value);
+    prodQuant = parseInt(prodQuant.value);
 
-    if(prodQuant>totalQuant){
+    if (prodQuant > totalQuant) {
       // make the proceed to checkout button null
-      document.getElementById("myBtn").disabled=true;
-    }else{
-      document.getElementById("myBtn").disabled=false;
+      document.getElementById("myBtn").disabled = true;
+    } else {
+      document.getElementById("myBtn").disabled = false;
       // calculate the updated Quantity
-      var updatedQuantity = totalQuant-prodQuant;
-      document.getElementById("hiddenUpdatedQuantity"+i).value=updatedQuantity;
+      var updatedQuantity = totalQuant - prodQuant;
+      document.getElementById("hiddenUpdatedQuantity" + i).value = updatedQuantity;
     }
 
     pricesGlobal.push(thisPrice);
@@ -654,10 +657,10 @@ function calculatePrice(e, id) {
   }
 }
 
-// function to update the quantities of bought goods
-function updatedQuantity(productID, numQuantity){
+// function to persist payment data to the DB
+function updatePaymentData(price) {
 
-  const addOrUpdateEndpoint ="http://localhost:8080/farmer-system-app/rest/home/add?type="+productID+"&value="+numQuantity+"";
+  const addOrUpdateEndpoint = "http://localhost:8080/farmer-system-app/rest/malipo/add?value=" + price + "";
 
   const username = 'mabera@gmail.com';
   const password = 'mabera';
@@ -665,58 +668,46 @@ function updatedQuantity(productID, numQuantity){
   // Encode the credentials in Base64 format
   const base64Credentials = btoa(`${username}:${password}`);
 
-  fetch(addOrUpdateEndpoint,{
+  fetch(addOrUpdateEndpoint, {
     method: "GET",
     headers: {
       "Authorization": `Basic ${base64Credentials}`,
       "Content-type": "application/json"
     }
-  }).then(response=>{
+  }).then(response => {
     return response.json()
-  }).then(data=>{
+  }).then(data => {
     console.log(data)
-  }).catch(err=>{
+  }).catch(err => {
     console.error(err);
   })
 
 }
-// if user has not changed any values send the form with the default values
-function submitDetails() {
 
-  if (changed === false) {
-    var defaulPrices = new Array();
-    var cartIDs = new Array();
-    var totalIterations = document.getElementById("numIterations");
-    var newQuantity = new Array();
-    var totalSum = 0;
-    totalIterations = totalIterations.value;
-    totalIterations = parseInt(totalIterations)
-    for (var i = 0; i < totalIterations; i++) {
-      var thisPrices = document.getElementById("comPrice" + i);
-      var totalQuant = document.getElementById("totalQuantity" + i);
-      totalQuant = totalQuant.textContent;
-      totalQuant = totalQuant.match(/\d/g);
-      totalQuant = totalQuant.join("");
-      totalQuant = parseInt(totalQuant);
-      thisPrice = thisPrices.textContent;
-      thisPrice = parseInt(thisPrice);
+// function to update the quantities of bought goods
+function updatedQuantity(productID, numQuantity) {
 
-      defaulPrices.push(thisPrice);
+  const addOrUpdateEndpoint = "http://localhost:8080/farmer-system-app/rest/home/add?type=" + productID + "&value=" + numQuantity + "";
 
-      var thisCartID = document.getElementById("cartedID" + i);
-      thisCartID = thisCartID.value;
-      thisCartID = parseInt(thisCartID);
-      cartIDs.push(thisCartID);
-      newQuantity.push(totalQuant);
+  const username = 'mabera@gmail.com';
+  const password = 'mabera';
 
+  // Encode the credentials in Base64 format
+  const base64Credentials = btoa(`${username}:${password}`);
 
-      var totalSum = totalSum + thisPrice;
-      console.log("The total sum is", totalSum);
-      console.log("The default prices", defaulPrices)
+  fetch(addOrUpdateEndpoint, {
+    method: "GET",
+    headers: {
+      "Authorization": `Basic ${base64Credentials}`,
+      "Content-type": "application/json"
     }
-    window.location.href = "pay.php?cartIDs=" + cartIDs + "&productQuants=" + newQuantity + "&totals=" + totalSum + "&newPrices=" + defaulPrices
-  } else {
+  }).then(response => {
+    return response.json()
+  }).then(data => {
+    console.log(data)
+  }).catch(err => {
+    console.error(err);
+  })
 
-    window.location.href = "pay.php?cartIDs=" + cartIDGlobal + "&productQuants=" + quantityGlobal + "&totals=" + totalSumGlobal + "&newPrices=" + pricesGlobal;
-  }
 }
+

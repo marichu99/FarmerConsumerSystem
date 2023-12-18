@@ -11,16 +11,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
-import com.servlet.utils.JsonFetcher;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.UserAction;
 
 @Path("/home")
 public class ProductRestApi extends BaseRestApi {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @EJB
     private ProductBeanI productBean;
@@ -32,7 +35,7 @@ public class ProductRestApi extends BaseRestApi {
     @Path("/add")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add(@QueryParam("type") int productID, @QueryParam("value") int quantity) {
+    public Response add(@QueryParam("category") int productID, @QueryParam("value") int quantity) {
 
         Product product = productBean.getProductByID(productID);
         product.setId(productID);
@@ -46,11 +49,10 @@ public class ProductRestApi extends BaseRestApi {
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@QueryParam("type") String type, @QueryParam("value") String value) {
-        System.out.println("The code reaches here");
+    public Response list(@QueryParam("category") String category, @QueryParam("value") String value) {     
 
-        if (type != null) {
-            if (type.equals("ProductCategory")) {
+        if (category != null) {
+            if (category.equals("ProductCategory")) {
                 System.out.println("The code reaches here too");
 
                 Product product = new Product();
@@ -59,19 +61,27 @@ public class ProductRestApi extends BaseRestApi {
                 }
 
                 List<Product> allProducts = productBean.list(product);
-                byte[] excelBytes = JsonFetcher.convertJsonToExcel(Product.class, allProducts);
-                // return respond(excelBytes,"download");
+
                 return respond(allProducts);
-            } else if (type.equals("UserAction")) {
+            } else if (category.equals("UserAction")) {
                 System.out.println("The code reaches here too");
+                
                 AuditLog auditLog = new AuditLog();
                 auditLog.setUserAction(Enum.valueOf(UserAction.class, value).getValue());
                 List<AuditLog> allAuditLogs = auditLogBean.list(auditLog);
-                byte[] excelBytes = JsonFetcher.convertJsonToExcel(AuditLog.class, allAuditLogs);
-                // return respond(excelBytes,"download");
-                return respond(allAuditLogs);
+
+                return respond(toJson(allAuditLogs));
             }
         }
         return respond(productBean.allElements(new Product()));
+    }
+
+    private String toJson(Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            return "{}"; 
+        }
     }
 }

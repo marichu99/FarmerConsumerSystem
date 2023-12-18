@@ -11,7 +11,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.servlet.view.enums.ProductCategory;
-import com.servlet.view.enums.PurchaseStatus;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
 import com.servlet.view.html.annotation.FarmerGridView;
 import com.servlet.view.html.annotation.FarmerHtmlForm;
@@ -25,15 +24,15 @@ import com.servlet.view.html.annotation.NumericTypeAnnot;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name="Product")
-@HtmlTable(addUrl = "./produce",deleteUrl = "./produce?type=product&mode=remove&id=", addToCart = "./cart?mode=add&id=")
+@Table(name = "Product")
+@HtmlTable(addUrl = "./produce", deleteUrl = "./produce?type=product&mode=remove&id=", addToCart = "./cart?mode=add&id=")
 @FileTypeAnnot
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     @HtmlTableColHeader(header = "Product Name")
     @Column(name = "productName", columnDefinition = "VARCHAR(255)")
     @FarmerGridView(className = "prodName")
-    @FarmerHtmlFormField(labelName = "Product Name",formType = "text", placeHolder = "E.g. Maize", formName = "productName")
+    @FarmerHtmlFormField(labelName = "Product Name", formType = "text", placeHolder = "E.g. Maize", formName = "productName")
     private String productName;
 
     @HtmlTableColHeader(header = "Product Description")
@@ -43,15 +42,15 @@ public class Product extends BaseEntity{
     private String productDescription;
 
     @HtmlTableColHeader(header = "Price")
-    @Column(name="price", columnDefinition = "DOUBLE")
+    @Column(name = "price", columnDefinition = "DOUBLE")
     @FarmerGridView(className = "prodPrice")
     @FarmerHtmlFormField(labelName = "Product Price / Kg", formType = "number", placeHolder = "E.g.. 200", formName = "price")
     @NumericTypeAnnot
-    private Double price;    
+    private Double price;
 
     @HtmlTableColHeader(header = "Product Quantity")
     @Column(name = "productQuantity", columnDefinition = "INT(11)")
-    @FarmerHtmlFormField(labelName = "Product Quantity (Kg)", formType = "number", placeHolder = "Enter amount", formName = "prodQuantity")    
+    @FarmerHtmlFormField(labelName = "Product Quantity (Kg)", formType = "number", placeHolder = "Enter amount", formName = "prodQuantity")
     @NumericTypeAnnot
     private int prodQuantity;
 
@@ -63,16 +62,12 @@ public class Product extends BaseEntity{
     private ProductCategory productCategory;
 
     @Column(name = "imageName", columnDefinition = "VARCHAR(255)")
-    @FarmerHtmlFormField(labelName = "Choose image", formType = "file",formName = "file")
+    @FarmerHtmlFormField(labelName = "Choose image", formType = "file", formName = "file")
     @FileTypeAnnot
     private String imageName;
 
-    @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
+    @Column(name = "productOwner", columnDefinition = "VARCHAR(255)")
     private String productOwner;
-
-    @Column(name = "purchaseStatus",columnDefinition = "VARCHAR(255)")
-    // @FarmerEnumAnnot
-    private PurchaseStatus purchaseStatus;
 
     @ManyToOne
     private User user;
@@ -80,7 +75,6 @@ public class Product extends BaseEntity{
     public int getProdQuantity() {
         return prodQuantity;
     }
-
 
     public void setProdQuantity(int prodQuantity) {
         this.prodQuantity = prodQuantity;
@@ -94,15 +88,17 @@ public class Product extends BaseEntity{
         this.productName = name;
         this.productDescription = description;
         this.price = price;
-        this.prodQuantity =prodQuantity;
+        this.prodQuantity = prodQuantity;
     }
-    public Product(int id, String name, String description, double price, int prodQuantity, ProductCategory productCategory) {
+
+    public Product(int id, String name, String description, double price, int prodQuantity,
+            ProductCategory productCategory) {
         super();
         this.productName = name;
         this.productDescription = description;
         this.price = price;
-        this.prodQuantity =prodQuantity;
-        this.productCategory=productCategory;
+        this.prodQuantity = prodQuantity;
+        this.productCategory = productCategory;
     }
 
     public String getProductName() {
@@ -121,7 +117,6 @@ public class Product extends BaseEntity{
         this.productDescription = productDescription;
     }
 
-    
     public ProductCategory getProductCategory() {
         return productCategory;
     }
@@ -130,56 +125,36 @@ public class Product extends BaseEntity{
         this.productCategory = productCategory;
     }
 
-
     public String getProductOwner() {
         return productOwner;
     }
-
 
     public void setProductOwner(String productOwner) {
         this.productOwner = productOwner;
     }
 
-
-    public PurchaseStatus getPurchaseStatus() {
-        return purchaseStatus;
-    }
-
-
-    public void setPurchaseStatus(PurchaseStatus purchaseStatus) {
-        this.purchaseStatus = purchaseStatus;
-    }
-
-
     public void setPrice(Double price) {
         this.price = price;
     }
-
 
     public String getImageName() {
         return imageName;
     }
 
-
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
-
 
     public Double getPrice() {
         return price;
     }
 
-
     public User getUser() {
         return user;
     }
-
 
     public void setUser(User user) {
         this.user = user;
     }
 
-
-    
 }

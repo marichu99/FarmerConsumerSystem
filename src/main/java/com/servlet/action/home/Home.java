@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,6 +53,10 @@ public class Home extends BaseAction {
 
         @SuppressWarnings({ "rawtype" })
 
+        HttpSession httpSession = req.getSession();
+
+        String userType = (String) httpSession.getAttribute("userType");
+
         // get the request parameters if any
         String category = StringUtils.trimToEmpty(req.getParameter("category"));
         String value = StringUtils.trimToEmpty(req.getParameter("value"));
@@ -79,12 +84,21 @@ public class Home extends BaseAction {
             GlobalBean.setEndpoint(fullUrl);
             renderSpecific(req, resp, AuditLog.class, allAuditLogs, UserAction.class);
         } else {
-            // endPoint for all the products
-            GlobalBean.setEndpoint(Constants.endpoint);
 
-            Product product = new Product();
-            product.setProductOwner(GlobalBean.getUserEmail());
-            renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+            if (userType.equals("user")) {
+                // endPoint for all the products
+                GlobalBean.setEndpoint(Constants.endpoint);
+
+                Product product = new Product();
+                product.setProductOwner(GlobalBean.getUserEmail());
+                renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+            } else if (userType.equals("admin")) {
+                // endPoint for all the logs
+                GlobalBean.setEndpoint(Constants.endpoint);
+                GlobalBean.setEndpoint(Constants.endpointLogs);
+                renderSpecific(req, resp, AuditLog.class, auditLogBean.allElements(new AuditLog()), UserAction.class);
+            }
+
         }
 
     }

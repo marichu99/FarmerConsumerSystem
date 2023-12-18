@@ -30,7 +30,11 @@ public class PaymentBean extends GenericBean<Payment> implements PaymentBeanI{
     public void addOrUpdate(Payment entity) {
         // TODO Auto-generated method stub
 
+        entity.setTransactionDate(LocalDateTime.now());
+
         entity.setTxnNumber(paymentNoGenerator.generate());
+
+        entity.setBuyer(GlobalBean.getUserEmail());
         getGenericDao().addOrUpdate(entity);
 
         // update the logs
