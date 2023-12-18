@@ -1,5 +1,6 @@
 package com.servlet.app.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -60,5 +61,18 @@ public class ProductBean extends GenericBean<Product> implements ProductBeanI{
             }
         }
         return allProducts;
+    }
+    @Override
+    public List<Product> searchByName(String productName, List<Product> products) {
+        
+        List<Product> searchedProducts = new ArrayList<>();
+        for(Product product : products){
+            if(product.getProductName().equals(productName)){
+                System.out.println("A product has been found");
+                searchedProducts.add(product);
+            }
+        }
+        return searchedProducts;
     }    
+    
 }

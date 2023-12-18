@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.model.entity.CartProduct;
 import com.servlet.app.model.entity.PaymentDetails;
 import com.servlet.app.model.entity.Product;
-import com.servlet.app.model.entity.User;
 import com.servlet.database.helper.DbTableID;
 import com.servlet.utils.GlobalBean;
 import com.servlet.view.html.annotation.FarmerEnumAnnot;
@@ -40,9 +39,10 @@ public class HtmlComponents extends HttpServlet {
         String allProduce = "<div class ='prodDetails'>";
 
         for (Object object : entityList) {
-            String imgName = "corn.jpg";
+            String imgName = "";
             for (Field field : fields) {
                 if (field.isAnnotationPresent(FileTypeAnnot.class)) {
+                    field.setAccessible(true);
                     try {
                         imgName = (String) field.get(object);
                     } catch (IllegalArgumentException | IllegalAccessException e) {
@@ -81,16 +81,20 @@ public class HtmlComponents extends HttpServlet {
             }
             if (clazz.isAnnotationPresent(HtmlTable.class)) {
                 HtmlTable htmlTable = clazz.getAnnotation(HtmlTable.class);
-
-                allProduce += "        <div class=\"innerButtons\">\n" +
-                        "            <button class='buttonRemove' onclick=\"window.location.href='"
+                allProduce+=  " <div class=\"innerButtons\">\n";
+                if(GlobalBean.isShowButtons()){
+                    allProduce+= "<button class='button' onclick=\"window.location.href='" + htmlTable.addToCart()
+                        + ""
+                        + id + "'\">Buy</button>\n";
+                }else{
+                    allProduce += " <button class='buttonRemove' onclick=\"window.location.href='"
                         + htmlTable.deleteUrl() + ""
                         + id + "&mode=remove'\">Remove</button>\n" +
-                        "            <button class=\"buttonEdit\" onclick=\"openForm(" + id + ")\">Edit</button>\n" +
-                        "            <button class='button' onclick=\"window.location.href='" + htmlTable.addToCart()
-                        + ""
-                        + id + "'\">Buy</button>\n" +
-                        "        </div>\n" +
+                        "            <button class=\"buttonEdit\" onclick=\"openModal('element')\">Edit</button>\n";
+                }
+                allProduce+="<input type=\"hidden\" id=\"hiddenIdTable"+id+"\" value=\"" + id + "\">";
+                allProduce+=       
+                        "     </div>\n" +
                         " </div>\n";
 
             }
@@ -98,6 +102,7 @@ public class HtmlComponents extends HttpServlet {
 
         }
         allProduce += "</div>";
+        allProduce+=myModal(clazz, false);
 
         return allProduce;
     }
@@ -258,7 +263,7 @@ public class HtmlComponents extends HttpServlet {
             int modelINdex = models.indexOf(cartProduct);
             shoppinCartHTML += "<tr id=\"\">\n" +
                     "\n" +
-                    "                   <td><img src='./images/corn.jpg' class=\"image_prod\" /><br /></td>\n" +
+                    "                   <td><img src='./images/"+cartProduct.getImageName()+"' class=\"image_prod\" /><br /></td>\n" +
                     "\n" +
                     "                   <td id=\"prodQuantity\"><p id=\"errText" + modelINdex
                     + "\"></p><input type=\"number\" placeholder=\"Choose Quantity\" name=\"numQuantity\" class=\"numQuantity\" id=\"numQuantity"
@@ -289,14 +294,14 @@ public class HtmlComponents extends HttpServlet {
                 + sumProducts + "</span></h3>\n" +
                 "       <input type=\"hidden\" value=\"" + models.size() + "\" id=\"numIterations\"/>\n" +
                 "       <span class=\"priceText\"></span>\n" +
-                "       <button id='myBtn' class=\"submit\" onclick=\"openModal()\">proceed to checkout</button>" +
-                // " <button class=\"submit\" value=\"proceed to checkout\"
-                // onclick=onclick=\"openForm(\" + id + \")\"/>\n" +
+                "       <button id='myBtn' class=\"submit\" onclick=\"openModal('checkout')\">proceed to checkout</button>" +
+                
                 "   </div>\n" +
                 "</div>\n";          
                 shoppinCartHTML+=myModal(PaymentDetails.class,true);      
         return shoppinCartHTML;
     }
+
     public static String myModal(Class<?> dataClazz,boolean showPrice){
         String modalString = "<!-- The Modal -->" +
                         "<div id='myModal' class='modal'>" +
@@ -363,7 +368,9 @@ public class HtmlComponents extends HttpServlet {
                     }
                 }
                 // append an edit and delete button for every product
-                trBuilder.append("<td><button class = 'buttonEdit' onclick='openForm(" + id + ")'>EDIT</button></td>");
+
+                trBuilder.append("<input type=\"hidden\" id=\"hiddenIdTable"+id+"\" value=\"" + id + "\">");
+                trBuilder.append("<td><button class = 'buttonEdit' onclick=\"openModal('element',"+id+")\">EDIT</button></td>");
                 trBuilder.append(
                         "<td><button class = 'buttonRemove' onclick= \"window.location.href= '" + htmlTable.deleteUrl()
                                 + ""
@@ -377,12 +384,13 @@ public class HtmlComponents extends HttpServlet {
         trBuilder.append("</table>");
 
         trBuilder.append("<p>" + GlobalBean.getUserEmail() + "</p>");
+        trBuilder.append(myModal(dataClass, false));
 
         return trBuilder.toString();
 
     }
 
-    public static String getCustomerDash(Class<?> dataClass) {
+    public static String getCustomerDash(Class<?> dataClass, String location) {
 
         List<Field> fields = new ArrayList<>(Arrays.asList(dataClass.getDeclaredFields()));
 
@@ -409,10 +417,11 @@ public class HtmlComponents extends HttpServlet {
 
         // if user accessing this page is an admin then we add the add user button
         if(GlobalBean.getUserType().name().equals("ADMIN")){
-            htmlContent+="        <h3 onclick=\"openModal()\">Add User</h3>\n" ;
+            htmlContent+="        <h3 onclick=\"openModal('element')\">Add User</h3>\n" ;
         }else{
             htmlContent+= "        <h3>Recent Activity</h3>\n" ;
         }
+               htmlContent+="<input type=\"text\" id=\"search\" class=\"search-box\" name=\"search\" onchange=\"search(this)\" placeholder=\"Enter Product Name\">";
                htmlContent+=
                 "        <select class=\"logFilters\" onchange=\"getFeature(this,'"+dataClass.getSimpleName()+"')\">\n" +
                 "            <option>Choose   </option>\n";
@@ -424,7 +433,7 @@ public class HtmlComponents extends HttpServlet {
                 + "')\">Export Report</h3>\n"
                 +
                 "    </div>\n";
-        htmlContent+=myModal(User.class,false);
+        // htmlContent+=myModal(User.class,false);
         return htmlContent;
     }
 

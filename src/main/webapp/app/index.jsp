@@ -22,14 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
         <script src="./js/login.js" type="text/javascript"></script>        
         <script type="text/javascript">
-            function openForm(productId) {
-                document.getElementById("myForm").style.display = "flex";
-                document.getElementById("hiddenId").value = productId;
-            }
-
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
-            }
+            
 
             // get the div elements
             function rejectApprove(type,person){

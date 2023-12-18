@@ -2,8 +2,12 @@ package com.servlet.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import com.servlet.view.enums.ProductCategory;
+import com.servlet.view.html.annotation.FarmerEnumAnnot;
 import com.servlet.view.html.annotation.FarmerHtmlFormField;
 import com.servlet.view.html.annotation.FileTypeAnnot;
 import com.servlet.view.html.annotation.HtmlTableColHeader;
@@ -35,6 +39,14 @@ public class CartProduct extends BaseEntity {
 
     @Column(name = "productOwner",columnDefinition = "VARCHAR(255)")
     private String productOwner;
+
+    @HtmlTableColHeader(header = "Product Category")
+    @Column(name = "productCategory", columnDefinition = "VARCHAR(255)")
+    @FarmerHtmlFormField(labelName = "Select the Product Category", formName = "productCategory")
+    @FarmerEnumAnnot
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
+    
     
 
     public CartProduct() {
@@ -97,6 +109,14 @@ public class CartProduct extends BaseEntity {
 
     public void setProductOwner(String productOwner) {
         this.productOwner = productOwner;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
 }

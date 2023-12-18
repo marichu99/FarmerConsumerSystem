@@ -10,6 +10,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserType.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/UserCategoryConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/AuthFormsAnnot.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/ProductAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Reports.java
@@ -17,17 +18,18 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/api/DownloadResource.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/MpesaBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Approvals.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/ProductActionHelper.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/ProductCategory.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/AuthBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/HtmlTableColHeader.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/PasswordEnum.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerEnumAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/Home.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/QueryParamExample.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UserAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/UserProfile.java
-/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Produce.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Profile.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/ProductTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/PaymentBeanI.java

@@ -29,6 +29,7 @@ com/servlet/utils/HashText.class
 com/servlet/app/bean/ProductBean.class
 com/servlet/app/model/view/MenuLinkStatus.class
 com/servlet/utils/UserCategoryConverter.class
+com/servlet/action/dashboard/ProductAction.class
 com/servlet/utils/PasswordEnum.class
 com/servlet/action/dashboard/UserProfileAction.class
 com/servlet/action/dashboard/BaseAction.class
@@ -49,8 +50,8 @@ com/servlet/rest/config/Rest.class
 com/servlet/app/bean/PaymentBean.class
 com/servlet/action/dashboard/Buy.class
 com/servlet/utils/EnumTypeSelector.class
+com/servlet/action/home/QueryParamExample.class
 com/servlet/app/bean/AuditBean.class
-com/servlet/action/dashboard/Produce.class
 com/servlet/view/html/annotation/FarmerHtmlFormField.class
 com/servlet/view/html/annotation/FarmerHtmlForm.class
 com/servlet/rest/api/MpesaAuthRest.class
@@ -89,6 +90,7 @@ com/servlet/app/model/entity/BaseEntity.class
 com/servlet/app/bean/MpesaBeanI.class
 com/servlet/app/bean/LoginForm.class
 com/servlet/action/dashboard/Sell.class
+com/servlet/utils/ProductActionHelper.class
 com/servlet/view/html/annotation/FarmerEnumAnnot.class
 com/servlet/action/home/Home.class
 com/servlet/rest/mpesa/constants/Constants.class

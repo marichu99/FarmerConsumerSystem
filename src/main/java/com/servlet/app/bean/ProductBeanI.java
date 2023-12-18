@@ -8,4 +8,6 @@ public interface ProductBeanI extends GenericBeanI<Product>{
     Product getProductByID(int productID);
     void updateByID(int productID, Product product);
     List<Product> selectByUser(Product entity, String email);
+
+    List<Product> searchByName(String productName, List<Product> products);
 }

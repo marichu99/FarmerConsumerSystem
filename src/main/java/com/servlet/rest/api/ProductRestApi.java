@@ -52,7 +52,10 @@ public class ProductRestApi extends BaseRestApi {
                 System.out.println("The code reaches here too");
 
                 Product product = new Product();
-                product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
+                if (!value.equals("all")) {                    
+                    product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
+                }
+
                 List<Product> allProducts = productBean.list(product);
                 byte[] excelBytes = JsonFetcher.convertJsonToExcel(Product.class, allProducts);
                 // return respond(excelBytes,"download");

@@ -100,8 +100,9 @@
         padding: 10px 14px;
     }
     .search-box{
-        border: none;
+        margin-top: 30px;
         height: 35px;
+        border: 1px solid;
         border-radius: 5px;
         padding: 8px 14px;
     }

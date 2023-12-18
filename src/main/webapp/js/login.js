@@ -268,16 +268,16 @@ function closeModal() {
 //   });
 // }
 
-function makePayment(endPoint){
+function makePayment(endPoint) {
 
   // get the price and phone number
   var phoneNumber = document.getElementById("phoneNumber").value;
   var amount = document.querySelector(".finalPrice").textContent;
-  console.log("the price is ",amount);
-  console.log("the phoneNumber is ",phoneNumber);
+  console.log("the price is ", amount);
+  console.log("the phoneNumber is ", phoneNumber);
 
   // append this data to the endpoint
-  endPoint = endPoint+"?amount="+amount+"&phoneNumber="+phoneNumber;
+  endPoint = endPoint + "?amount=" + amount + "&phoneNumber=" + phoneNumber;
 
   console.log("The latest endpoint is");
   console.log(endPoint);
@@ -286,37 +286,43 @@ function makePayment(endPoint){
   const password = 'mabera';
   // Encode the credentials in Base64 format
   const base64Credentials = btoa(`${username}:${password}`);
-  fetch(endPoint,{
-      method: "GET",
-      headers: {
-        "Authorization": `Basic ${base64Credentials}`,
-        "Content-type": "application/json"
-      },
-      mode: "cors"
-  }).then(response=>{
-    if(!response.ok){
-      console.log("The response has an error of ",response.status)
-    }else{
+  fetch(endPoint, {
+    method: "GET",
+    headers: {
+      "Authorization": `Basic ${base64Credentials}`,
+      "Content-type": "application/json"
+    },
+    mode: "cors"
+  }).then(response => {
+    if (!response.ok) {
+      console.log("The response has an error of ", response.status)
+    } else {
       return response.json()
     }
-  }).then(data=>{
+  }).then(data => {
     console.log("The json data obtained successfully is ", data)
-  }).catch(err=>{
-    console.error("The error obtained was",err)
+  }).catch(err => {
+    console.error("The error obtained was", err)
   })
 }
 
-function openModal() {
+function openModal(type, i) {
   // Get the modal
   var modal = document.getElementById("myModal");
 
   var form = document.querySelector(".form-popup");
 
-  var finalTotal = document.getElementById("hiddenFinalPrice").value;
+  if (type == "checkout") {
+    var finalTotal = document.getElementById("hiddenFinalPrice").value;
 
+    var finalPrice = document.querySelector(".finalPrice");
+    finalPrice.textContent = finalTotal;
+  } else {
+    var hiddenIdTable = document.getElementById("hiddenIdTable" + i).value;
 
-  var finalPrice = document.querySelector(".finalPrice");
-  finalPrice.textContent = finalTotal;
+    // set the id in the popup form
+    document.getElementById("hiddenId").value = hiddenIdTable;
+  }
 
   console.log("The modal has been found");
 
@@ -408,10 +414,76 @@ function convertJsonToExcel(jsonData) {
   return wb;
 }
 
-function getFeature(selectedObj, type) {
-  window.location.href = "./home?type=" + type + "&value=" + selectedObj.value;
+// search functionality
+function search(event, location) {
+
+  updateUrlParams(null, null, event.value, null)
 }
-console.log()
+
+// get product by category
+function getFeature(selectedObj, category) {
+
+  updateUrlParams(null, category, null, selectedObj.value);
+}
+
+// function to update the URL parameters
+function updateUrlParams(type, category, search, value) {
+  // Get the current URL
+  var currentUrl = window.location.href;
+
+  // Create a URL object to easily manipulate the URL components
+  var url = new URL(currentUrl);
+
+  // Check if the URL has "type" parameter
+  if (url.searchParams.has('type') && type != null) {
+    url.searchParams.set('type', type);
+  } else {
+    // If "type" parameter is not present, add it
+    if (type != null) {
+      url.searchParams.append('type', type);
+    }
+
+  }
+
+  // Check if the URL has "category" parameter
+  if (url.searchParams.has('category') && category != null) {
+    url.searchParams.set('category', category);
+  } else {
+    // If "type" parameter is not present, add it
+    if (category != null) {
+      url.searchParams.append('category', category);
+    }
+  }
+
+  // Check if the URL has "search" parameter
+  if (url.searchParams.has('search') && search != null) {
+    url.searchParams.set('search', search);
+  } else {
+    // If "search" parameter is not present, add it
+    if (search != null) {
+      url.searchParams.append('search', search);
+    }
+  }
+
+  // Check if the URL has "value" parameter
+  if (url.searchParams.has('value') && value != null) {
+    url.searchParams.set('value', value);
+  } else {
+    // If "value" parameter is not present, add it
+    if (value != null) {
+      url.searchParams.append('value', value);
+    }
+  }
+
+  // Update the current URL with the modified URL
+  window.history.replaceState(null, null, url.toString());
+
+  // Log or use the updated URL as needed
+  console.log("Updated URL:", url.toString());
+  window.location.href = url.toString();
+}
+
+
 function calculatePrice(e, id) {
   // FUNCTIONS FOR THE ADD TO CART PAGE
   // initiate a boolean value to check whether the user has changed some fields

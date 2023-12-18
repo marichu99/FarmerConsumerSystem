@@ -1,5 +1,6 @@
 package com.servlet.app.bean;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.enterprise.event.Event;
@@ -11,6 +12,7 @@ import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.dao.GenericDao;
+import com.servlet.utils.GlobalBean;
 import com.servlet.view.enums.UserAction;
 
 public class GenericBean<T> implements GenericBeanI<T> {
@@ -47,6 +49,8 @@ public class GenericBean<T> implements GenericBeanI<T> {
         genericDao.delete(entity);
 
         auditLog.setUserAction(UserAction.DELETE_ITEM.getValue());
+        auditLog.setDate(LocalDateTime.now());
+        auditLog.setUserEmail(GlobalBean.getUserEmail());
         logger.fire(auditLog);
     }
 

@@ -24,20 +24,16 @@
                     <span class="link-name" onclick="window.location.href='./home'">Dashboard</span>
                 </a></li>
                 <li><a href="#">
-                <img src="icons/adjust-circle.jpg" class="icon" />
-                    <span class="link-name" onclick="window.location.href='./profile.jsp'" >My Account</span>
+                <img src="icons/user-circle.jpg"class="icon"/>
+                    <span class="link-name" onclick="window.location.href='./produce?type=product&mode=mine'">My Products</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/user-circle.jpg"class="icon"/>
-                    <span class="link-name" onclick="window.location.href='./produce'">My Products</span>
+                    <span class="link-name" onclick="window.location.href='./produce?type=product&mode=all'">All Products</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/angle-double-down.jpg"class="icon"/>
                     <span class="link-name" onclick="window.location.href='./sell'">Sell</span>
-                </a></li>
-                <li><a href="#">
-                <img src="icons/plane-fly.jpg"class="icon" />
-                    <span class="link-name" onclick="window.location.href='./reports.jsp'">Reports</span>
                 </a></li>
                 <li><a href="#">
                 <img src="icons/plane-arrival.jpg" class="icon" />

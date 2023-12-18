@@ -21,7 +21,6 @@ import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
 import com.servlet.app.model.entity.User;
 import com.servlet.utils.GlobalBean;
-import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.UserAction;
 import com.servlet.view.enums.UserType;
 
@@ -78,7 +77,8 @@ public class Login extends BaseAction {
                 Product product = new Product();
                 product.setProductOwner(GlobalBean.getUserEmail());
 
-                renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
+                resp.sendRedirect("./home");
+                // renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
             } else if (isTypeMatching && reqUserType.equals("ADMIN")) {
 
                 httpSession.setAttribute("userType", "admin");

@@ -52,10 +52,10 @@ public class Home extends BaseAction {
         @SuppressWarnings({ "rawtype" })
 
         // get the request parameters if any
-        String type = StringUtils.trimToEmpty(req.getParameter("type"));
+        String category = StringUtils.trimToEmpty(req.getParameter("category"));
         String value = StringUtils.trimToEmpty(req.getParameter("value"));
 
-        if (type.equals("ProductCategory")) {
+        if (category.equals("ProductCategory")) {
             Product product = new Product();
             product.setProductCategory(Enum.valueOf(ProductCategory.class, value));
             product.setProductOwner(GlobalBean.getUserEmail());
@@ -68,7 +68,7 @@ public class Home extends BaseAction {
             // JsonFetcher.convertJsonToExcel(Product.class, allProducts);
 
             renderSpecific(req, resp, Product.class, allProducts, ProductCategory.class);
-        } else if (type.equals("UserAction")) {
+        } else if (category.equals("UserAction")) {
             AuditLog auditLog = new AuditLog();
             auditLog.setUserAction(Enum.valueOf(UserAction.class, value).getValue());
             List<AuditLog> allAuditLogs = auditLogBean.list(auditLog);
@@ -78,7 +78,9 @@ public class Home extends BaseAction {
             GlobalBean.setEndpoint(fullUrl);
             renderSpecific(req, resp, AuditLog.class, allAuditLogs, UserAction.class);
         } else {
-            renderSpecific(req, resp, Product.class, productBean.allElements(new Product()), ProductCategory.class);
+            Product product = new Product();
+            product.setProductOwner(GlobalBean.getUserEmail());
+            renderSpecific(req, resp, Product.class, productBean.list(product), ProductCategory.class);
         }
 
     }

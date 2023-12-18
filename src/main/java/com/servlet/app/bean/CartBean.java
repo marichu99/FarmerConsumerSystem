@@ -37,8 +37,9 @@ public class CartBean extends GenericBean<CartProduct> implements CartBeanI {
 
                 // then add it to the cart products list
                 CartProduct cartProduct = new CartProduct(product.getProductName(), product.getPrice(),
-                        product.getProdQuantity(), product.getProductDescription(), GlobalBean.getUserEmail());
+                        product.getProdQuantity(), product.getProductDescription(), product.getProductOwner());
 
+                cartProduct.setProductCategory(product.getProductCategory());
                 cartProduct.setImageName(product.getImageName());        
                 getGenericDao().addOrUpdate(cartProduct);
 
@@ -65,8 +66,9 @@ public class CartBean extends GenericBean<CartProduct> implements CartBeanI {
                 Product product = new Product(cartProduct.getId(), cartProduct.getProdName(),
                         cartProduct.getProdDescription(), cartProduct.getProdPrice(), cartProduct.getProdQuantity());
 
-                // product.setProductOwner(GlobalBean.getUserEmail());
+                product.setProductOwner(cartProduct.getProductOwner());
                 product.setImageName(cartProduct.getImageName());
+
                 productBean.addOrUpdate(product);
 
                 System.out.println("The product name is " + product.getProductName());

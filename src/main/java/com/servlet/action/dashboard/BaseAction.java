@@ -48,22 +48,25 @@ public class BaseAction extends HttpServlet {
 
     public void renderSpecific(HttpServletRequest request, HttpServletResponse response, Class<?> entity,
             List<?> entityList, Class<?> selectClass) throws ServletException, IOException {
-        // request.setAttribute(getServletName(), response);
         // add some header content for the login page
         String servletPath = request.getServletPath();
-        String content = HtmlComponents.getCustomerDash(selectClass);
-        if (servletPath.equals("/login") || servletPath.equals("/home")) {
-            content += HtmlComponents.popUpForm(entity);
-        }
+        String content = HtmlComponents.getCustomerDash(selectClass,servletPath);
+   
+        System.out.println("The servlet path is "+servletPath);
         if (servletPath.equals("/produce")) {
+
+            // for all products show  the buy button only
             content+=HtmlComponents.gridView(entity,entityList);
-        } else {
+    
+        }else {
             content += HtmlComponents.table(entityList, entity);
         }
 
         request.setAttribute("content", content);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./app/index.jsp");
-        dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("./app/index.jsp");
+            dispatcher.forward(request, response);
+            // Handle the situation where the response is already committed
+            System.out.println("the response has been committed");
+        
     }
 }

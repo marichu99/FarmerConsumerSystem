@@ -13,6 +13,9 @@ public class GlobalBean implements Serializable{
     private static String userEmail;
     private static UserType userType;
     private static String endpoint;
+    private static boolean showButtons;
+
+    
 
     public static String getUserEmail() {
         return userEmail;
@@ -31,6 +34,12 @@ public class GlobalBean implements Serializable{
     }
     public static void setEndpoint(String endpoint) {
         GlobalBean.endpoint = endpoint;
+    }
+    public static boolean isShowButtons() {
+        return showButtons;
+    }
+    public static void setShowButtons(boolean showButtons) {
+        GlobalBean.showButtons = showButtons;
     }
 
     
