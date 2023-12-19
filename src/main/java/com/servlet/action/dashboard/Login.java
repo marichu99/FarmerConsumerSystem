@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.AuthBeanI;
+import com.servlet.app.bean.PaymentBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.UserBeanI;
 import com.servlet.app.model.entity.Product;
@@ -26,12 +27,18 @@ import com.servlet.view.enums.UserType;
 public class Login extends BaseAction {
     @EJB
     AuthBeanI authBean;
+
     @EJB
     ProductBeanI productBean;
+
     @EJB
     UserBeanI userBean;
+
     @Inject
     GlobalBean globalBean;
+
+    @EJB
+    PaymentBeanI paymentBean;
 
     @EJB
     AuditLogBeanI auditLogBean;

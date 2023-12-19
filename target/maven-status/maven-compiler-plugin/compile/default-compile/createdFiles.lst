@@ -16,7 +16,6 @@ com/servlet/view/html/ApprovalHtml.class
 com/servlet/view/html/annotation/NumericTypeAnnot.class
 com/servlet/app/bean/ProductBeanI.class
 com/servlet/view/html/annotation/FarmerGridView.class
-com/servlet/app/bean/MpesaBean.class
 com/servlet/mail/utility/MailFormatter.class
 com/servlet/mail/model/Mail.class
 com/servlet/rest/api/RestResponseWrapper.class
@@ -62,15 +61,17 @@ com/servlet/app/bean/AuthBean.class
 com/servlet/view/enums/UserType.class
 META-INF/sisu/javax.inject.Named
 com/servlet/rest/mpesa/MpesaMain.class
+com/servlet/app/bean/PurchasedProductBeanI.class
 com/servlet/utils/JsonFetcher.class
-com/servlet/rest/api/DownloadResource.class
 com/servlet/action/dashboard/SignUp.class
 com/servlet/app/bean/PaymentBeanI.class
 com/servlet/app/bean/CartBeanI.class
 com/servlet/utils/PasswordTypeSelector.class
+com/servlet/app/bean/PurchasedProductBean.class
 com/servlet/view/enums/ProductCategory.class
 com/servlet/database/helper/DbTableColumn.class
 com/servlet/view/html/annotation/AuthFormsAnnot.class
+com/servlet/app/model/entity/PurchasedProduct.class
 com/servlet/mail/bean/MailBean$1.class
 com/servlet/dao/GenericDaoI.class
 com/servlet/utils/GlobalBean.class
@@ -87,7 +88,6 @@ com/servlet/rest/mpesa/Mpesa.class
 com/servlet/app/bean/AuditLogBeanI.class
 com/servlet/action/dashboard/AdminAction.class
 com/servlet/app/model/entity/BaseEntity.class
-com/servlet/app/bean/MpesaBeanI.class
 com/servlet/app/bean/LoginForm.class
 com/servlet/action/dashboard/Sell.class
 com/servlet/utils/ProductActionHelper.class
@@ -99,8 +99,8 @@ com/servlet/view/html/annotation/HtmlTableColHeader.class
 com/servlet/mail/bean/MailBeanI.class
 com/servlet/view/html/HtmlComponents.class
 com/servlet/rest/mpesa/utils/HelperUtility.class
+com/servlet/action/dashboard/ReportsAction.class
 com/servlet/view/html/annotation/HtmlTable.class
-com/servlet/action/dashboard/Reports.class
 com/servlet/app/model/entity/PaymentDetails.class
 com/servlet/action/dashboard/Approvals.class
 com/servlet/rest/api/AuditLogRestApi.class

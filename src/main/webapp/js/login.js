@@ -332,12 +332,13 @@ function openModal(type, i) {
 
   var form = document.querySelector(".form-popup");
 
+  console.log("The value of i is ",i)
   if (type == "checkout") {
     var finalTotal = document.getElementById("hiddenFinalPrice").value;
 
     var finalPrice = document.querySelector(".finalPrice");
     finalPrice.textContent = finalTotal;
-  } else {
+  } else if (i != null) {
     var hiddenIdTable = document.getElementById("hiddenIdTable" + i).value;
 
     // set the id in the popup form

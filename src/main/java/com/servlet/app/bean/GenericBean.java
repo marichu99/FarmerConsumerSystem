@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.servlet.app.model.entity.AuditLog;
+import com.servlet.app.model.entity.Payment;
 import com.servlet.app.model.entity.Product;
+import com.servlet.app.model.entity.PurchasedProduct;
 import com.servlet.app.model.entity.User;
 import com.servlet.dao.GenericDao;
 import com.servlet.utils.GlobalBean;
@@ -72,6 +74,25 @@ public class GenericBean<T> implements GenericBeanI<T> {
             } else if (entity instanceof Product) {
                 Product newProduct = (Product) element;
                 if (newProduct.getId() == id) {
+                    // return the new product
+                    return element;
+                }
+            }
+             else if (entity instanceof AuditLog) {
+                AuditLog auditLog = (AuditLog) element;
+                if (auditLog.getId() == id) {
+                    // return the new product
+                    return element;
+                }
+            }else if (entity instanceof Payment) {
+                Payment payment = (Payment) element;
+                if (payment.getId() == id) {
+                    // return the new product
+                    return element;
+                }
+            }else if (entity instanceof PurchasedProduct) {
+                PurchasedProduct purchasedProduct = (PurchasedProduct) element;
+                if (purchasedProduct.getId() == id) {
                     // return the new product
                     return element;
                 }

@@ -52,14 +52,31 @@ public class Home extends BaseAction {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         @SuppressWarnings({ "rawtype" })
-
         HttpSession httpSession = req.getSession();
-
         String userType = (String) httpSession.getAttribute("userType");
 
         // get the request parameters if any
         String category = StringUtils.trimToEmpty(req.getParameter("category"));
         String value = StringUtils.trimToEmpty(req.getParameter("value"));
+        String type = StringUtils.trimToEmpty(req.getParameter("type"));
+        String mode = StringUtils.trimToEmpty(req.getParameter("mode"));
+
+        // the below is code to remove the logs
+        if (type.equals("logs")) {
+            if (mode.equals("remove")) {
+
+                // get the id that has been passed
+                if (StringUtils.isNotBlank(req.getParameter("id"))) {
+                    int logID = Integer.parseInt(req.getParameter("id"));
+
+                    // get the product by ID
+                    AuditLog auditLog = auditLogBean.getByID(logID,new AuditLog());
+
+                    auditLogBean.delete(auditLog);
+
+                }
+            }
+        }
 
         if (category.equals("ProductCategory")) {
             Product product = new Product();

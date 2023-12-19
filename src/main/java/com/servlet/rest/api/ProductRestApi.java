@@ -15,8 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.servlet.app.bean.AuditLogBeanI;
 import com.servlet.app.bean.ProductBeanI;
+import com.servlet.app.bean.PurchasedProductBeanI;
 import com.servlet.app.model.entity.AuditLog;
 import com.servlet.app.model.entity.Product;
+import com.servlet.app.model.entity.PurchasedProduct;
 import com.servlet.view.enums.ProductCategory;
 import com.servlet.view.enums.UserAction;
 
@@ -31,6 +33,9 @@ public class ProductRestApi extends BaseRestApi {
     @EJB
     AuditLogBeanI auditLogBean;
 
+    @EJB
+    PurchasedProductBeanI purchasedProductBean;
+
     @RolesAllowed("lOGGED_IN")
     @Path("/add")
     @GET
@@ -40,6 +45,15 @@ public class ProductRestApi extends BaseRestApi {
         Product product = productBean.getProductByID(productID);
         product.setId(productID);
         product.setProdQuantity(quantity);
+
+        // update the Purchased Product table too
+        PurchasedProduct purchasedProduct = new PurchasedProduct();
+        purchasedProduct.setProductName(product.getProductName());
+        purchasedProduct.setProdQuantity(quantity);
+        purchasedProduct.setProductCategory(product.getProductCategory());
+        purchasedProduct.setPrice(quantity*product.getPrice());
+
+        purchasedProductBean.addOrUpdate(purchasedProduct);
 
         productBean.addOrUpdate(product);
         return respond();

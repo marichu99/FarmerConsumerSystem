@@ -63,6 +63,8 @@ public class ProductAction extends BaseAction {
 
                     productBean.delete(product);
 
+                    toRender(req, resp, Product.class, productBean.list(new Product()), ProductCategory.class);
+
                 }
             } else if (mode.equals("all")) {
                 // get all products

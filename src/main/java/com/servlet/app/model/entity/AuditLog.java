@@ -12,7 +12,7 @@ import com.servlet.view.html.annotation.HtmlTableColHeader;
 // @DbTable(name = "logs")
 @Entity
 @Table(name = "logs")
-@HtmlTable()
+@HtmlTable(deleteUrl = "./home?type=logs&mode=remove&id=")
 
 public class AuditLog extends BaseEntity {
 
