@@ -126,6 +126,7 @@ public class ProductAction extends BaseAction {
             Product product2 = new Product();
             product2.setProductOwner(GlobalBean.getUserEmail());
 
+            GlobalBean.setShowButtons(false);
             toRender(req, resp, Product.class, productBean.list(product2), ProductCategory.class);
         } else {
 

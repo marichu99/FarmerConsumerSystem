@@ -27,14 +27,7 @@ public class UserAction extends BaseAction{
         if(action.equals("delete"))
             // get the user element by Id                        
             userBean.delete((User)userBean.getByID(id, new User()));     
-            printWriter.write("<html>" +
-                        "<body>" +
-                        "<script type='text/javascript'>" +
-                        "    alert('User Added Successfully');" +
-                        "    window.location.href = ./home;" +
-                        "</script>" +
-                        "</body>" +
-                        "</html>");       
+            resp.sendRedirect("./admin");   
     }
 
     @Override

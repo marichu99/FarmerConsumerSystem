@@ -421,15 +421,15 @@ public class HtmlComponents extends HttpServlet {
                 "    <div class=\"header-deets\">\n" +
                 "        <div class=\"acc-details\">\n" +
                 "            <span class=\"acc-span-deets\">Sold:</span>\n" +
-                "            <span class=\"acc-span-deets\">KSHS 3000</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS 0</span>\n" +
                 "        </div>\n" +
                 "        <div class=\"acc-details\">\n" +
                 "            <span class=\"acc-span-deets\">Bought:</span>\n" +
-                "            <span class=\"acc-span-deets\">KSHS 5000</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS 0</span>\n" +
                 "        </div>\n" +
                 "        <div class=\"acc-details\">\n" +
                 "            <span class=\"acc-span-deets\">Totals:</span>\n" +
-                "            <span class=\"acc-span-deets\">KSHS -2000</span>\n" +
+                "            <span class=\"acc-span-deets\">KSHS 0</span>\n" +
                 "        </div>\n" +
                 "    </div>\n";
         htmlContent += "    <div class=\"sectionDeets\">\n";
@@ -440,7 +440,7 @@ public class HtmlComponents extends HttpServlet {
         }else{
             htmlContent+= "        <h3>Recent Activity</h3>\n" ;
         }
-               htmlContent+="<input type=\"text\" id=\"search\" class=\"search-box\" name=\"search\" onchange=\"search(this)\" placeholder=\"Enter Product Name\">";
+            //    htmlContent+="<input type=\"text\" id=\"search\" class=\"search-box\" name=\"search\" onchange=\"search(this)\" placeholder=\"Enter Product Name\">";
                htmlContent+=
                 "        <select class=\"logFilters\" onchange=\"getFeature(this,'"+dataClass.getSimpleName()+"')\">\n" +
                 "            <option>Choose   </option>\n";
@@ -456,6 +456,29 @@ public class HtmlComponents extends HttpServlet {
         return htmlContent;
     }
 
+    public static String getForgotPasString(){
+        String htmlCode = 
+                "<form action=\"./sign\" method=\"POST\" id=\"login\" class=\"login-input-group\">\n" +
+                "    <div class=\"loginDiv\">\n" +
+                "        <jsp:useBean id=\"LoginForm\" class=\"com.servlet.app.bean.LoginForm\" scope=\"page\" />\n" +
+                "        <label class=\"form-label\">Enter your Email:</label>\n" +
+                "        <div class=\"input-detail\">\n" +
+                "            <input id=\"email\" placeholder=\"<jsp:getProperty name='LoginForm' property='usernamePLaceholder' />\"\n" +
+                "                type=\"email\" name=\"email\" class=\"input-box\" onkeyup=\"checkFormValidation(event)\"><br>\n" +
+                "        </div>\n" +
+                "        <label class=\"form-label\">Enter your Password:</label>\n" +
+                "        <div class=\"input-detail\">\n" +
+                "            <input id=\"password\" placeholder=\"Enter your password\" name=\"password\" class=\"input-box\"\n" +
+                "                onchange=\"checkFormValidation(event)\" onkeyup=\"checkFormValidation(event)\" type=\"password\"><br><i\n" +
+                "                class=\"uil uil-eye\" id=\"openPass\" onclick=\"hidePass('password','pass')\"></i><i class=\"uil uil-eye-slash\"\n" +
+                "                onclick=\"showPass('password','pass')\" id=\"eyeClosedPass\"></i>\n" +
+                "        </div>\n" +
+                "        <input type=\"submit\" id=\"submit\" class=\"btn-submit\"><br>\n" +
+                "        <p onclick=\"window.location.href='forgotPass.jsp'\" class=\"forgotPass\">Forgot Password</p>\n" +
+                "    </div>\n" +
+                "</form>";
+        return htmlCode;
+    }
     @Override
     public ServletContext getServletContext() {
         // TODO Auto-generated method stub

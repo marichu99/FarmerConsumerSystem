@@ -17,12 +17,5 @@ public class BaseRestApi {
                 .entity(wrapper).build();
     }
 
-    Response respond(byte[] excelBytes, String download) {
-        if (download.equals("download")) {
-            return Response.ok(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                    .header("Content-Disposition", "attachment; filename=data.xlsx").build();
-        }else{
-            return Response.serverError().build();
-        }
-    }
+   
 }

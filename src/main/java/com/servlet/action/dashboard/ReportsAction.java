@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servlet.app.bean.PaymentBeanI;
 import com.servlet.app.bean.ProductBeanI;
 import com.servlet.app.bean.PurchasedProductBeanI;
+import com.servlet.app.model.entity.Payment;
 import com.servlet.app.model.entity.PurchasedProduct;
 import com.servlet.view.enums.ProductCategory;
 
@@ -38,10 +39,10 @@ public class ReportsAction extends BaseAction {
         String category = StringUtils.trimToEmpty(req.getParameter("category"));
 
         // get the search params
-        searchByCategory(req, resp, category, purchasedProductBean.list(new PurchasedProduct()), mode, search, value,
-                new PurchasedProduct());
+        searchByCategory(req, resp, category, paymentBean.list(new Payment()), mode, search, value,
+                new Payment());
         if (StringUtils.isEmpty(category) || StringUtils.isEmpty(category)) {
-            toRender(req, resp, PurchasedProduct.class, purchasedProductBean.list(new PurchasedProduct()),
+            toRender(req, resp, Payment.class, paymentBean.list(new Payment()),
                     ProductCategory.class);
         }
         // renderSpecific(req, resp, Payment.class, paymentBean.list(new Payment()),
@@ -54,20 +55,18 @@ public class ReportsAction extends BaseAction {
         super.doPost(req, resp);
     }
 
-    public List<PurchasedProduct> searchByName(String search, List<PurchasedProduct> allProducts) {
+    public List<Payment> searchByName(String search, List<Payment> allProducts) {
         if (StringUtils.isNotBlank(search)) {
             System.out.println("The searcg value is " + search);
-            allProducts = purchasedProductBean.searchByName(search, allProducts);
+            allProducts = paymentBean.searchByName(search, allProducts);
         }
         return allProducts;
     }
 
     public void searchByCategory(HttpServletRequest req, HttpServletResponse resp, String category,
-            List<PurchasedProduct> allProducts, String mode, String search, String value,
-            PurchasedProduct thisProduct) {
+            List<Payment> allProducts, String mode, String search, String value,
+            Payment thisProduct) {
         if (category.equals("ProductCategory")) {
-
-            thisProduct.setProductCategory(Enum.valueOf(ProductCategory.class, value));
 
             // check whether an addional search param has been implemented
             allProducts = searchByName(search, allProducts);
@@ -83,7 +82,7 @@ public class ReportsAction extends BaseAction {
     }
 
     public void toRender(HttpServletRequest req, HttpServletResponse resp, Class<?> entityClazz,
-            List<PurchasedProduct> renderedProducts, Class<?> selectClazz) {
+            List<Payment> renderedProducts, Class<?> selectClazz) {
         try {
             renderSpecific(req, resp, PurchasedProduct.class, renderedProducts, ProductCategory.class);
         } catch (ServletException | IOException e) {

@@ -46,6 +46,8 @@ public class PurchasedProduct extends BaseEntity {
     @NumericTypeAnnot
     private int prodQuantity;
 
+    @Column(name = "productOwner", columnDefinition = "VARCHAR(255)")
+    private String productOwner;    
     
 
     public PurchasedProduct() {
@@ -81,6 +83,14 @@ public class PurchasedProduct extends BaseEntity {
 
     public void setProdQuantity(int prodQuantity) {
         this.prodQuantity = prodQuantity;
+    }
+
+    public String getProductOwner() {
+        return productOwner;
+    }
+
+    public void setProductOwner(String productOwner) {
+        this.productOwner = productOwner;
     }
 
     

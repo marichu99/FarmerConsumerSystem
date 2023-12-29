@@ -39,7 +39,7 @@ public class AuthFilter implements Filter {
             httpSession.invalidate();
 
             if (servletPath.equals("/login") || servletPath.equals("/index.jsp") || servletPath.equals("/sign") || servletPath.equals("/rest")
-                    || servletPath.contains("/css/") || servletPath.contains("/js/")) {
+                    || servletPath.contains("/css/") || servletPath.contains("/js/") || servletPath.contains("/forgot")) {
                 filterChain.doFilter(servletRequest, servletResponse);
 
             } else {
@@ -55,7 +55,7 @@ public class AuthFilter implements Filter {
             } else {
                 if (servletPath.equals("/index.jsp") || servletPath.equals("/login") || servletPath.equals("/sign")
                         || servletPath.equals("/") || servletPath.contains("/css/") || servletPath.contains("/images/") || servletPath.equals("/rest")
-                        || servletPath.contains("/js/")) {
+                        || servletPath.contains("/js/") || servletPath.contains("/forgot")) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 } else {
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/");

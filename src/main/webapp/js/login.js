@@ -275,6 +275,12 @@ function makePayment(endPoint) {
   totalIterations = totalIterations.value;
   totalIterations = parseInt(totalIterations);
 
+  // get the price and phone number
+  var phoneNumber = document.getElementById("phoneNumber").value;
+  var amount = document.querySelector(".finalPrice").textContent;
+  console.log("the price is ", amount);
+  console.log("the phoneNumber is ", phoneNumber);
+
   for (var i = 0; i < totalIterations; i++) {
     // get the product ID and numQuantity for each product
     var productID = document.getElementById("hiddenProductID" + i);
@@ -286,12 +292,6 @@ function makePayment(endPoint) {
     // update
     updatedQuantity(productID, numQuantity);
   }
-
-  // get the price and phone number
-  var phoneNumber = document.getElementById("phoneNumber").value;
-  var amount = document.querySelector(".finalPrice").textContent;
-  console.log("the price is ", amount);
-  console.log("the phoneNumber is ", phoneNumber);
 
   // persist payment info
   updatePaymentData(amount)
@@ -332,7 +332,7 @@ function openModal(type, i) {
 
   var form = document.querySelector(".form-popup");
 
-  console.log("The value of i is ",i)
+  console.log("The value of i is ", i)
   if (type == "checkout") {
     var finalTotal = document.getElementById("hiddenFinalPrice").value;
 
@@ -688,7 +688,7 @@ function updatePaymentData(price) {
 // function to update the quantities of bought goods
 function updatedQuantity(productID, numQuantity) {
 
-  const addOrUpdateEndpoint = "http://localhost:8080/farmer-system-app/rest/home/add?type=" + productID + "&value=" + numQuantity + "";
+  const addOrUpdateEndpoint = "http://localhost:8080/farmer-system-app/rest/home/add?category=" + productID + "&value=" + numQuantity + "";
 
   const username = 'mabera@gmail.com';
   const password = 'mabera';

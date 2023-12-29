@@ -46,12 +46,16 @@ public class ProductRestApi extends BaseRestApi {
         product.setId(productID);
         product.setProdQuantity(quantity);
 
+        int boughtQuantity = product.getProdQuantity()-quantity;
+
         // update the Purchased Product table too
         PurchasedProduct purchasedProduct = new PurchasedProduct();
+        
         purchasedProduct.setProductName(product.getProductName());
         purchasedProduct.setProdQuantity(quantity);
         purchasedProduct.setProductCategory(product.getProductCategory());
-        purchasedProduct.setPrice(quantity*product.getPrice());
+        purchasedProduct.setProductOwner(product.getProductOwner());
+        purchasedProduct.setPrice(boughtQuantity*product.getPrice());
 
         purchasedProductBean.addOrUpdate(purchasedProduct);
 

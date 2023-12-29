@@ -74,6 +74,10 @@ public class Login extends BaseAction {
             // set the userType globally
             GlobalBean.setUserType(userType);
 
+            // get the Totals on Purchases
+            // paymentBean.getTotalBought(userType);
+            // paymentBean.getTotalSold(userType);
+
             boolean isTypeMatching = reqUserType.equals(userType.toString());
             if (isTypeMatching && reqUserType.equals("USER")) {
 

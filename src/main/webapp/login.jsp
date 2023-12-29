@@ -46,7 +46,7 @@
             </div>
           </div>
           <input type="submit" id="submit" class="btn-submit"><br>
-          <p onclick="window.location.href='forgotPass.php'" class="forgotPass">Forgot Password</p>
+          <p onclick="window.location.href='./forgot'" class="forgotPass">Forgot Password</p>
 
         </div>
       </form>

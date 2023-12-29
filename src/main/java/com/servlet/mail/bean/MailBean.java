@@ -1,8 +1,11 @@
 package com.servlet.mail.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -13,7 +16,9 @@ import javax.mail.internet.MimeMessage;
 
 import com.servlet.mail.model.Mail;
 
-public class MailBean implements MailBeanI {
+@Stateless
+@Remote
+public class MailBean implements MailBeanI,Serializable {
     // TODO Auto-generated method stub
     private final int port = 465;
     private final String host = "smtp.gmail.com";

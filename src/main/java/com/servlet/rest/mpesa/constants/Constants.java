@@ -8,13 +8,13 @@ public class Constants {
     public static MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     public static String shortCode = "603024";
     public static String responseType = "Completed";
-    public static String confirmationUrl = "https://20e2-41-90-66-254.ngrok-free.app/farmer-system-app/rest/payments/confirmation";
-    public static String validationUrl = "https://20e2-41-90-66-254.ngrok-free.app/farmer-system-app/rest/payments/validation";
+    public static String confirmationUrl = "https://827a-41-90-71-118.ngrok-free.app/farmer-system-app/rest/payments/confirmation";
+    public static String validationUrl = "https://827a-41-90-71-118.ngrok-free.app/farmer-system-app/rest/payments/validation";
     public static String stkShortCode = "174379";
     public static String stkPassKey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
     public static String transactionType = "CustomerPayBillOnline";
     public static String partyB = "174379";
-    public static String callBackUrl = "https://20e2-41-90-66-254.ngrok-free.app/rest/payments/path";
+    public static String callBackUrl = "https://827a-41-90-71-118.ngrok-free.app/rest/payments/path";
     public static String accountRefence = "Ukulima Bora Institute";
     public static String transactionDesc = "Payment of X";
     public static String stkPassWord ="MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTcwODI0MTU1MDU1";
@@ -26,6 +26,7 @@ public class Constants {
 
     public static String endpoint ="http://localhost:8080/farmer-system-app/rest/home/list";
 
-    public static String endpointLogs ="http://localhost:8080/farmer-system-app/rest/logs/list";
+    public static String endpointLogs ="http://localhost:8080/farmer-system-app/rest/logs/list?category=UserAction&value=ALL";
+
     
 }

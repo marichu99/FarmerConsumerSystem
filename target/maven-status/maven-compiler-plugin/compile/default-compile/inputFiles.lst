@@ -15,6 +15,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeConverter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/PurchasedProductBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/EnumTypeSelector.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/MpesaBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Approvals.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/ProductActionHelper.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/ProductCategory.java
@@ -24,9 +25,11 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerEnumAnnot.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/home/Home.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/UserBean.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/constants/MailConstants.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/CartBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UserAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/UserProfile.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/ForgotPass.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/model/entity/PurchasedProduct.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/Profile.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/utils/ProductTypeConverter.java
@@ -73,6 +76,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/FarmerHtmlForm.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/MpesaAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/enums/UserAction.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/MpesaBeanI.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/mpesa/utils/HelperUtility.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/AdminAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/PaymentAction.java

@@ -39,9 +39,15 @@ public class AuditLogRestApi extends BaseRestApi{
 
                 return respond(allProducts);
             } else if (type.equals("UserAction")) {
+
                 System.out.println("The code reaches here too");
                 AuditLog auditLog = new AuditLog();
-                auditLog.setUserAction(Enum.valueOf(UserAction.class, value).getValue());
+
+                if(value.equals("ALL")){
+                    List<AuditLog> allAuditLogs = auditLogBean.list(auditLog);
+                }else{
+                    auditLog.setUserAction(Enum.valueOf(UserAction.class, value).getValue());
+                }                
                 List<AuditLog> allAuditLogs = auditLogBean.list(auditLog);
 
                 return respond(allAuditLogs);
