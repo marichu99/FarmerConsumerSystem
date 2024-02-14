@@ -27,7 +27,7 @@ public class MpesaAction extends BaseAction {
         String amount = req.getParameter("amount");
         String phoneNumber =  req.getParameter("phoneNumber");
 
-        String endPoint = "http://localhost:8080/farmer-system-app/rest/payment/push?amount=23&phoneNumber=254799692741";
+        String endPoint = "http://localhost:8080/farmer-system-app/rest/payment/push?amount="+amount+"&phoneNumber="+phoneNumber+"";
         OkHttpClient client = new OkHttpClient();
 
         

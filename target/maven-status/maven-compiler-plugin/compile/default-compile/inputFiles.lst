@@ -2,6 +2,7 @@
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/action/dashboard/UserProfileAction.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/mail/bean/MailBean.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/rest/api/MpesaAuthRest.java
+/home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/selenium/test/java/selenium/AutomationTest.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/filter/AuthFilter.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/view/html/annotation/PaymentTypeAnnotation.java
 /home/mabera/Documents/FarmerConsumerSystem/src/main/java/com/servlet/app/bean/GenericBeanI.java

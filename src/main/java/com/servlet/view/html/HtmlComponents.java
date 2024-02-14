@@ -155,7 +155,7 @@ public class HtmlComponents extends HttpServlet {
             }
         }
         if (model.isAnnotationPresent(PaymentTypeAnnotation.class)) {
-            popUpForm += "<input type=\"submit\" name=\"submit\" class=\"btn\" onclick=\"makePayment('http://localhost:8080/farmer-system-app/rest/payment/push')\" value=\"Pay\"/> ";
+            popUpForm += "<input type=\"submit\" name=\"submit\" value=\"Pay\"/> ";
         } else {
             popUpForm += "<input name=\"submit\" type=\"submit\" class=\"btn\" value=\"Edit\"> " +
                     "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\">Close</button>\n" +
