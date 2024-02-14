@@ -10,8 +10,6 @@ RUN curl -o mysql-connector-java-8.0.17.jar https://repo1.maven.org/maven2/mysql
 
 RUN mvn clean install -DskipTests -X
 
-RUN mvn compile package
-
 
 FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk11 AS deploy
 
