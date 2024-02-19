@@ -11,8 +11,7 @@
 .mtj.tmp/
 
 target
-/target
-.target
+
 # standalone.xml
 # module.xml
 # maven-status

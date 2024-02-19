@@ -36,15 +36,32 @@
 
 ---
 - name: Deploy Farmer System App
-  hosts: all
+  hosts: ec2_instance
   become: true
   tasks:
+    - name: Update apt cache and install required packages
+      apt:
+        update_cache: yes
+        name:
+          - docker.io
+          - python3-pip
+    
+    - name: Install Docker Compose
+      pip:
+        name: docker-compose
+        state: present
+      
+    - name: Create directory mabera/Farmer
+      ansible.builtin.file:
+        path: /home/mabera/Farmer
+        state: directory
+
     - name: Recursively change the ownership
       file:
         path: /home/mabera/Farmer
         state: directory
         recurse: yes
-        owner: mabera
+        owner: ubuntu
       
     - name: Copy Docker Compose File
       copy:

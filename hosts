@@ -1,7 +1,11 @@
-[web]
-34.67.81.50 
-[web:vars]
-ansible_ssh_private_key_file=~/.ssh/id_rsa
-ansible_user=mabera
-ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
-UserKnownHostsFile=/dev/null
+; [web]
+; 34.67.81.50 
+; [web:vars]
+; ansible_ssh_private_key_file=~/.ssh/id_rsa
+; ansible_user=mabera
+; ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+; UserKnownHostsFile=/dev/null
+[ec2_instance] 
+18.206.247.10 ansible_ssh_private_key_file=/home/mabera/Downloads/FarmerSystem.pem ansible_user=ubuntu ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+
+
